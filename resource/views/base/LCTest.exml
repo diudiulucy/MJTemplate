@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LCSkin.LCTest" width="1334" height="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:LC="LC.*">
+	<e:Group x="0" y="0" width="1334" height="750">
+		<e:Group id="Cards_Down" width="100%" height="32%" x="0" touchThrough="true" bottom="0">
+			<e:Group id="AllCards" x="0" width="100%" bottom="0">
+			<e:Group id="BrightBars" x="30" bottom="0">
+				<LC:Card width="70" height="99" x="130" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall"/>
+				<LC:Card width="70" height="99" x="7.105427357601002e-15" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall" scaleX="1" scaleY="1"/>
+				<LC:Card width="70" height="99" x="65" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall"/>
+				<LC:Card width="70" height="99" x="65" y="-16.67" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall"/>
+			</e:Group>
+			<e:Group id="DarkBars" x="245" bottom="0">
+				<LC:Card width="70" height="99" x="5.684341886080802e-14" y="28.010000000000048" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="hide" rotation="0"/>
+				<LC:Card width="70" height="99" x="63.3300000000001" y="28.010000000000048" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="hide" rotation="0"/>
+				<LC:Card width="70" height="99" x="126.35000000000014" y="28.010000000000048" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="hide" rotation="0"/>
+				<LC:Card width="70" height="99" x="63.3" y="14.63" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall"/>
+			</e:Group>
+			<e:Group id="HandCards" x="530.0000000000001" height="122" width="700" bottom="0">
+				<LC:Card width="85" height="122" x="0" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="stand_down"/>
+				<LC:Card width="85" height="122" x="82" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="stand_down"/>
+				<LC:Card width="85" height="122" x="164" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="stand_down"/>
+				<LC:Card width="85" height="122" x="246" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="stand_down"/>
+				<LC:Card width="85" height="122" x="324" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="stand_down"/>
+				<LC:Card width="85" height="122" x="400" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="stand_down"/>
+				<LC:Card width="85" height="122" x="482" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="stand_down"/>
+			</e:Group>
+			</e:Group>
+			<e:Group id="OutCards" x="334.97" y="0">
+			<LC:Card width="70" height="99" x="0" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall" scaleX="0.75" scaleY="0.75"/>
+			<LC:Card width="70" height="99" x="50" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall" scaleX="0.75" scaleY="0.75"/>
+			<LC:Card width="70" height="99" x="100" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall" scaleX="0.75" scaleY="0.75"/>
+			<LC:Card width="70" height="99" x="150" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall" scaleX="0.75" scaleY="0.75"/>
+			</e:Group>
+		</e:Group>
+		<e:Group id="Cards_Up" width="100%" height="30%" x="0" touchThrough="true" top="0">
+			<e:Group id="AllCards0" x="0" y="0" width="100%">
+			<e:Group id="BrightBars0" x="957" bottom="0">
+				<LC:Card width="70" height="99" x="130" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall"/>
+				<LC:Card width="70" height="99" x="7.105427357601002e-15" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall" scaleX="1" scaleY="1"/>
+				<LC:Card width="70" height="99" x="65" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall"/>
+				<LC:Card width="70" height="99" x="65" y="-16.67" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall"/>
+			</e:Group>
+			<e:Group id="DarkBars0" x="697" bottom="0">
+				<LC:Card width="70" height="99" x="5.684341886080802e-14" y="28.010000000000048" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="hide" rotation="0"/>
+				<LC:Card width="70" height="99" x="63.3300000000001" y="28.010000000000048" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="hide" rotation="0"/>
+				<LC:Card width="70" height="99" x="126.35000000000014" y="28.010000000000048" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="hide" rotation="0"/>
+				<LC:Card width="70" height="99" x="63.3" y="14.63" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall"/>
+			</e:Group>
+			<e:Group id="HandCards0" x="91" height="122" width="700" bottom="0">
+				<LC:Card width="85" height="122" x="0" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="stand_up"/>
+				<LC:Card width="85" height="122" x="77.44" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="stand_up"/>
+				<LC:Card width="85" height="122" x="154.88" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="stand_up"/>
+				<LC:Card width="85" height="122" x="232.32" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="stand_up"/>
+				<LC:Card width="85" height="122" x="310.32" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="stand_up"/>
+				<LC:Card width="85" height="122" x="387.84" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="stand_up"/>
+				<LC:Card width="85" height="122" x="465.28" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="stand_up"/>
+			</e:Group>
+			</e:Group>
+			<e:Group id="OutCards0" x="334.97" y="145">
+			<LC:Card width="70" height="99" x="0" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall" scaleX="0.75" scaleY="0.75"/>
+			<LC:Card width="70" height="99" x="50" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall" scaleX="0.75" scaleY="0.75"/>
+			<LC:Card width="70" height="99" x="100" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall" scaleX="0.75" scaleY="0.75"/>
+			<LC:Card width="70" height="99" x="150" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall" scaleX="0.75" scaleY="0.75"/>
+			</e:Group>
+		</e:Group>
+		<e:Group id="Cards_Left" width="100%" height="32%" x="0" touchThrough="true" rotation="0" y="250">
+			<e:Group id="AllCards1" x="0" width="100%" bottom="0">
+			<e:Group id="BrightBars1" x="30" bottom="0">
+				<LC:Card width="70" height="99" x="130" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall"/>
+				<LC:Card width="70" height="99" x="7.105427357601002e-15" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall" scaleX="1" scaleY="1"/>
+				<LC:Card width="70" height="99" x="65" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall"/>
+				<LC:Card width="70" height="99" x="65" y="-16.67" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall"/>
+			</e:Group>
+			<e:Group id="DarkBars1" x="245" bottom="0">
+				<LC:Card width="70" height="99" x="5.684341886080802e-14" y="28.010000000000048" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="hide" rotation="0"/>
+				<LC:Card width="70" height="99" x="63.3300000000001" y="28.010000000000048" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="hide" rotation="0"/>
+				<LC:Card width="70" height="99" x="126.35000000000014" y="28.010000000000048" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="hide" rotation="0"/>
+				<LC:Card width="70" height="99" x="63.3" y="14.63" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall"/>
+			</e:Group>
+			<e:Group id="HandCards1" x="530.0000000000001" height="122" width="700" bottom="0">
+				<LC:Card width="46" height="93" x="0" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="stand_left" scaleX="1.5" scaleY="1.5"/>
+				<LC:Card width="46" height="93" x="82" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="stand_right" scaleX="1.5" scaleY="1.5"/>
+				<LC:Card width="85" height="122" x="164" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="stand_down"/>
+				<LC:Card width="85" height="122" x="246" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="stand_down"/>
+				<LC:Card width="85" height="122" x="324" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="stand_down"/>
+				<LC:Card width="85" height="122" x="400" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="stand_down"/>
+				<LC:Card width="85" height="122" x="482" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="stand_down"/>
+			</e:Group>
+			</e:Group>
+			<e:Group id="OutCards1" x="334.97" y="0">
+			<LC:Card width="70" height="99" x="0" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall" scaleX="0.75" scaleY="0.75"/>
+			<LC:Card width="70" height="99" x="50" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall" scaleX="0.75" scaleY="0.75"/>
+			<LC:Card width="70" height="99" x="100" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall" scaleX="0.75" scaleY="0.75"/>
+			<LC:Card width="70" height="99" x="150" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall" scaleX="0.75" scaleY="0.75"/>
+			</e:Group>
+		</e:Group>
+	</e:Group>
+
+
+</e:Skin>
