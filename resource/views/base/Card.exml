@@ -12,12 +12,12 @@
 	         source.stand_right="kwx_card_left_bg1_png" scaleX.stand_right="-1" x.stand_right="46" width.fall_down="100%"
 	         height.fall_down="100%" width="100%" height="100%" source.fall_left="kwx_card_left_bg0_png"
 	         source.fall_right="kwx_card_left_bg0_png"  source.hide_v="tpm_cardbg_6_png" source.hide_h="kwx_card_left_bg2_png"/>
-	<e:Image id="fallRight" x="8" y="33" width="68.75%" height="58.49%" scaleX="0.8" scaleY="0.8" source="tpm_card_big_19_png" includeIn="fall_right" rotation="270"/>
-	<e:Image id="fallLeft" x="58" y="3" width="68.75%" height="58.49%" scaleX="0.8" scaleY="0.8"
-	         source="tpm_card_big_19_png" includeIn="fall_left" rotation="90" />
-	<e:Image id="fallUp" x="58" y="77" width="110%" height="114%" scaleX="0.8" scaleY="0.8" includeIn="fall_up"
+	<e:Image id="fallRight" x="0" y="36" width="89.32%" height="69.44%" scaleX="1" scaleY="1" source="tpm_card_big_19_png" includeIn="fall_right" rotation="270"/>
+	<e:Image id="fallLeft" x="65" y="0" width="89.32%" height="69.44%" scaleX="1" scaleY="1"
+	         includeIn="fall_left" rotation="90"  source="tpm_card_big_33_png"/>
+	<e:Image id="fallUp" x="50" y="67" width="73.44%" height="83.32%" scaleX="1" scaleY="1" includeIn="fall_up"
 	         rotation="180" source="tpm_card_big_18_png" />
-	<e:Image id="fallDown" x="0" y="-15" width="110%" height="114%" scaleX="0.8" scaleY="0.8" source="tpm_card_big_19_png"
-	         includeIn="fall_down" />
-	<e:Image id="standDown" x="5" y="0" width="90.6%" height="92.6%" source="tpm_card_big_17_png" includeIn="stand_down" />
+	<e:Image id="fallDown" x="7" y="-7" width="73.44%" height="83.32%" scaleX="1" scaleY="1"
+	         includeIn="fall_down"  source="tpm_card_big_18_png"/>
+	<e:Image id="standDown" x="3" y="0" width="90.6%" height="92.6%" includeIn="stand_down"  source="tpm_card_big_18_png"/>
 </e:Skin>

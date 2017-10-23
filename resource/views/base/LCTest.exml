@@ -71,9 +71,9 @@
 			<LC:Card width="64" height="53" x="0" y="20" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall_left"/>
 		</e:Group>
 		<e:Group id="DarkBars1" x="30" width="64" height="127" y="437">
-			<LC:Card width="64" height="53" x="0" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="hide_H" rotation="0"/>
+			<LC:Card width="64" height="53" x="0" y="0" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="hide_h" rotation="0"/>
 			<LC:Card width="64" height="53" x="0" y="37" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" rotation="0" currentState="hide_H"/>
-			<LC:Card width="64" height="53" x="0" y="74" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" rotation="0" currentState="hide_H"/>
+			<LC:Card width="64" height="53" x="0" y="74" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" rotation="0" currentState="hide_h"/>
 			<LC:Card width="64" height="53" x="0" y="22" skinName="Skin.Card" anchorOffsetX="0" anchorOffsetY="0" currentState="fall_left"/>
 		</e:Group>
 		<e:Group id="HandCards1" x="21" height="100%" width="122" y="0">
