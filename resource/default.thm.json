@@ -30,6 +30,7 @@
     "resource/eui_skins/VScrollBarSkin.exml",
     "resource/eui_skins/VSliderSkin.exml",
     "resource/views/base/Card.exml",
+    "resource/views/base/CardOld.exml",
     "resource/views/base/LCTest.exml"
   ]
 }

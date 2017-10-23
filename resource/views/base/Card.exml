@@ -4,14 +4,15 @@
         states="stand_down,stand_up,stand_left,stand_right,fall_down,fall_up,fall_left,fall_right,hide_v,hide_h"
         width.stand_down="85" height.stand_down="122" width.stand_up="85" height.stand_up="122" width.stand_left="46"
         height.stand_left="93" width.stand_right="46" height.stand_right="93" width.fall_left="64" height.fall_left="53"
-        width.fall_right="64" height.fall_right="53">
+        width.fall_right="64" height.fall_right="53" width.hide_v="86" height.hide_v="120" width.hide_h="64" height.hide_h="53">
 	<e:Image source="tpm_cardbg_7_png" x="0" y="0" scaleX="1" scaleY="1" source.stand_down="tpm_cardbg_5_png"
 	         width.stand_down="100%" height.stand_down="100%" width.stand_up="100%" height.stand_up="100%"
 	         width.stand_left="100%" height.stand_left="100%" source.stand_up="tpm_cardbg_1_png"
 	         source.stand_left="kwx_card_left_bg1_png" width.stand_right="100%" height.stand_right="100%"
 	         source.stand_right="kwx_card_left_bg1_png" scaleX.stand_right="-1" x.stand_right="46" width.fall_down="100%"
 	         height.fall_down="100%" width="100%" height="100%" source.fall_left="kwx_card_left_bg0_png"
-	         source.fall_right="kwx_card_left_bg0_png" />
+	         source.fall_right="kwx_card_left_bg0_png"  source.hide_v="tpm_cardbg_6_png" source.hide_h="kwx_card_left_bg2_png"/>
+	<e:Image id="img_cardValue" x="8" y="33" width="68.75%" height="58.49%" scaleX="0.8" scaleY="0.8" source="tpm_card_big_19_png" includeIn="fall_right" rotation="270"/>
 	<e:Image id="fallLeft" x="58" y="3" width="68.75%" height="58.49%" scaleX="0.8" scaleY="0.8"
 	         source="tpm_card_big_19_png" includeIn="fall_left" rotation="90" />
 	<e:Image id="fallUp" x="58" y="77" width="110%" height="114%" scaleX="0.8" scaleY="0.8" includeIn="fall_up"
