@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="Skin.Card" width="58" height="81" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" states="stand_down,fall,hide,stand_up,stand_left,stand_right" width.stand_down="85" height.stand_down="122" width.hide="86" height.hide="120" width.fall="70" height.fall="99"  width.stand_up="85" height.stand_up="122" width.stand_left="46" height.stand_left="93" width.stand_right="46" height.stand_right="93">
-	<e:Group id="Card" width="58" height="81" x="0" y="0" scaleX="1" scaleY="1" width.stand_down="100%" height.stand_down="100%" width.fall="100%" height.fall="100%" width.hide="100%" height.hide="100%" width.stand_up="100%" height.stand_up="100%" width.stand_left="100%" height.stand_left="100%" width.stand_right="100%" height.stand_right="100%">
-		<e:Image id="img_bg" source="tpm_cardbg_7_png" x="0" y="0" scaleX="1" scaleY="1" source.stand_down="tpm_cardbg_5_png" source.hide="tpm_cardbg_6_png" width.hide="100%" height.hide="100%" width.fall="100%" height.fall="100%" scaleX.fall="1.1" source.fall="tpm_cardbg_4_png" width.stand_down="100%" height.stand_down="100%" width.stand_up="100%" height.stand_up="100%" width.stand_left="100%" height.stand_left="100%" source.stand_up="tpm_cardbg_1_png" source.stand_left="kwx_card_left_bg1_png" width.stand_right="100%" height.stand_right="100%" source.stand_right="kwx_card_left_bg1_png" scaleX.stand_right="-1" x.stand_right="47"/>
-		<e:Image id="img_cardValue" x="11" y="8" width.stand_down="90.6%" height.stand_down="92.6%" source.stand_down="tpm_card_big_17_png" x.stand_down="5" y.stand_down="0" width.fall="110%" height.fall="114%" scaleX.fall="0.8" scaleY.fall="0.8" x.fall="0" y.fall="-15" source.fall="tpm_card_big_19_png" source="tpm_card_small_33_png" visible.hide="false" width.stand_up="90.6%" height.stand_up="92.6%" source.stand_up="tpm_card_big_17_png" x.stand_up="5" y.stand_up="0" visible.stand_up="false" width.stand_left="90.6%" height.stand_left="92.6%" source.stand_left="tpm_card_big_17_png" x.stand_left="5" y.stand_left="0" visible.stand_left="false" width.stand_right="90.6%" height.stand_right="92.6%" source.stand_right="tpm_card_big_17_png" x.stand_right="5" y.stand_right="0" visible.stand_right="false"/>
-	</e:Group>
-
-
-
+<e:Skin class="Skin.Card" width="58" height="81" currentState="stand_up" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing"
+        states="stand_down,stand_up,stand_left,stand_right,fall_down,fall_up,fall_left,fall_right,hide_v,hide_h"
+        width.stand_down="85" height.stand_down="122" width.stand_up="85" height.stand_up="122" width.stand_left="46"
+        height.stand_left="93" width.stand_right="46" height.stand_right="93" width.fall_left="64" height.fall_left="53"
+        width.fall_right="64" height.fall_right="53">
+	<e:Image source="tpm_cardbg_7_png" x="0" y="0" scaleX="1" scaleY="1" source.stand_down="tpm_cardbg_5_png"
+	         width.stand_down="100%" height.stand_down="100%" width.stand_up="100%" height.stand_up="100%"
+	         width.stand_left="100%" height.stand_left="100%" source.stand_up="tpm_cardbg_1_png"
+	         source.stand_left="kwx_card_left_bg1_png" width.stand_right="100%" height.stand_right="100%"
+	         source.stand_right="kwx_card_left_bg1_png" scaleX.stand_right="-1" x.stand_right="46" width.fall_down="100%"
+	         height.fall_down="100%" width="100%" height="100%" source.fall_left="kwx_card_left_bg0_png"
+	         source.fall_right="kwx_card_left_bg0_png" />
+	<e:Image id="fallLeft" x="58" y="3" width="68.75%" height="58.49%" scaleX="0.8" scaleY="0.8"
+	         source="tpm_card_big_19_png" includeIn="fall_left" rotation="90" />
+	<e:Image id="fallUp" x="58" y="77" width="110%" height="114%" scaleX="0.8" scaleY="0.8" includeIn="fall_up"
+	         rotation="180" source="tpm_card_big_18_png" />
+	<e:Image id="fallDown" x="0" y="-15" width="110%" height="114%" scaleX="0.8" scaleY="0.8" source="tpm_card_big_19_png"
+	         includeIn="fall_down" />
+	<e:Image id="standDown" x="5" y="0" width="90.6%" height="92.6%" source="tpm_card_big_17_png" includeIn="stand_down" />
 </e:Skin>
