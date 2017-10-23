@@ -30,6 +30,8 @@
     "resource/eui_skins/VScrollBarSkin.exml",
     "resource/eui_skins/VSliderSkin.exml",
     "resource/views/base/Card.exml",
+    "resource/views/base/CardModLayout.exml",
+    "resource/views/base/ComboCards.exml",
     "resource/views/base/LCTest.exml"
   ]
 }

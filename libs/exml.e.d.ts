@@ -54,6 +54,14 @@ declare module Skin{
 	class Card extends eui.Skin{
 	}
 }
+declare module Skin{
+	class CardModLayout extends eui.Skin{
+	}
+}
+declare module Skin{
+	class ComboCards extends eui.Skin{
+	}
+}
 declare module LCSkin{
 	class LCTest extends eui.Skin{
 	}

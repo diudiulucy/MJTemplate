@@ -134,26 +134,87 @@ var Main = (function (_super) {
      * Create scene interface
      */
     Main.prototype.startCreateScene = function () {
+        // this.percentWidth = 100;
+        // this.percentHeight = 100;
         var sky = this.createBitmapByName("room_bg_jpg");
         this.addChild(sky);
         var stageW = this.stage.stageWidth;
         var stageH = this.stage.stageHeight;
         sky.width = stageW;
         sky.height = stageH;
-        //    let cardTest:LC.CardTest = new LC.CardTest();
-        //    this.addChild(cardTest);
-        var outline = ["stand_up", "stand_down", "stand_left", "stand_right", "fall", "hide"];
-        // let cardVo = [{texture:""},{texture:}];
-        var cardList = [];
-        for (var i = 0; i < outline.length; i++) {
-            var card = new LC.Card();
-            card.currentState = outline[i];
-            // card.setOutLineSkin("fall", "");
-            card.y = 100;
-            card.x = 100 + 100 * i;
-            this.addChild(card);
-            cardList.push(card);
+        var mod1 = this.createMode(LC.Directions.Down);
+        mod1.bottom = 0;
+        var mod2 = this.createMode(LC.Directions.Up);
+        mod2.top = 0;
+        var mod3 = this.createMode(LC.Directions.Left);
+        mod3.left = 50;
+        var mod3 = this.createMode(LC.Directions.Right);
+        mod3.right = 50;
+    };
+    Main.prototype.createMode = function (direction) {
+        var handState = [
+            LC.CardState.stand_up,
+            LC.CardState.stand_down,
+            LC.CardState.stand_left,
+            LC.CardState.stand_right
+        ];
+        var fallState = [
+            LC.CardState.fall_up,
+            LC.CardState.fall_down,
+            LC.CardState.fall_left,
+            LC.CardState.fall_right
+        ];
+        //四个模块其中之一
+        var cardMod = new LC.CardModLayout;
+        var handCardList = [
+            17,
+            18,
+            19,
+            20,
+        ];
+        cardMod.currentState = LC.Directions[direction];
+        // cardMod.verticalCenter = 0;
+        // cardMod.initView(direction, handCardList);
+        // cardMod.horizontalCenter = 0;
+        this.addChild(cardMod);
+        //手牌
+        for (var i = 0; i < handCardList.length; i++) {
+            var card = new LC.Card;
+            card.setCardTexture(handState[direction], handCardList[i]);
+            // card.setCardTexture(LC.CardState.stand_up, handCardList[i]);
+            cardMod.HandCards.addChild(card);
         }
+        var combList = [
+            22,
+            22,
+            22,
+            22,
+        ];
+        //组合牌
+        for (var i = 0; i < 3; i++) {
+            var combCards = new LC.ComboCards;
+            combCards.bottom = 0;
+            combCards.setCombCardsTexture(direction, combList, LC.CardCombType.AnGang);
+            cardMod.AllCards.addChild(combCards);
+        }
+        // this._childAddToHandCards();
+        cardMod.AllCards.setChildIndex(cardMod.HandCards, 10);
+        //摸的牌
+        var drawCard = new LC.Card();
+        drawCard.setCardTexture(handState[direction], 38);
+        // drawCard.setCardTexture(LC.CardState.stand_up, 38);
+        drawCard.bottom = 0;
+        cardMod.AllCards.addChild(drawCard);
+        //打出的牌
+        for (var i = 0; i < handCardList.length; i++) {
+            var card = new LC.Card;
+            card.scaleX = 0.75;
+            card.scaleY = 0.75;
+            card.setCardTexture(fallState[direction], handCardList[i]);
+            // card.setCardTexture(LC.CardState.fall_down, handCardList[i]);
+            cardMod.OutCards.addChild(card);
+        }
+        return cardMod;
     };
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
@@ -168,4 +229,21 @@ var Main = (function (_super) {
     return Main;
 }(eui.UILayer));
 __reflect(Main.prototype, "Main");
+var L = (function () {
+    function L() {
+    }
+    return L;
+}());
+L.WBASE_OUTLINE = 580;
+L.HBASE_OUTLINE = 650;
+__reflect(L.prototype, "L");
+/// 两种对齐模式之间可以切换
+var AlignMode = (function () {
+    function AlignMode() {
+    }
+    return AlignMode;
+}());
+AlignMode.GAP = 0;
+AlignMode.WH = 1;
+__reflect(AlignMode.prototype, "AlignMode");
 //# sourceMappingURL=Main.js.map

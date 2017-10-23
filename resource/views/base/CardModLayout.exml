@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="Skin.CardModLayout" width="1172" height="240" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:LC="LC.*" states="Down,Up,Left,Right" width.Left="184" height.Left="750" width.Down="1334" width.Up="1334" width.Right="184" height.Right="750">
+	<e:Group id="AllCards" x.Up="0" x.Down="0" width="0" height="122" anchorOffsetY.Up="0"
+	         width.Left="64" height.Left="100%" y.Left="0" y="118" height.Up="118" y.Up="0" x.Left="0" width.Right="64" height.Right="100%" y.Right="0" width.Down="100%" width.Up="100%" right.Right="0">
+		<e:Group id="HandCards" x="406" y="0" includeInLayout="true" width.Left="46" width.Right="46">
+			<e:layout>
+				<e:HorizontalLayout horizontalAlign="center"  gap.Down="-5" gap.Up="-6" gap.Right="-50"/>
+			</e:layout>
+			<e:layout.Right>
+				<e:VerticalLayout gap="-50"/>
+			</e:layout.Right>
+			<e:layout.Left>
+				<e:VerticalLayout gap="-50" verticalAlign="middle"/>
+			</e:layout.Left>
+		</e:Group>
+		<e:layout>
+			<e:HorizontalLayout gap="10" verticalAlign="bottom" horizontalAlign="center" />
+		</e:layout>
+		<e:layout.Right>
+			<e:VerticalLayout verticalAlign="middle" horizontalAlign="right"/>
+		</e:layout.Right>
+		<e:layout.Left>
+			<e:VerticalLayout gap="3" horizontalAlign="left" verticalAlign="middle"/>
+		</e:layout.Left>
+	</e:Group>
+	<e:Group id="OutCards" x.Up="334.97" x.Down="334.97" y.Down="0" top.Down="0" height.Down="99" width.Left="120" y.Left="228" width.Right="120" y.Right="228" x.Right="0" height.Up="99" y.Up="141" x.Left="64">
+		<e:layout>
+			<e:HorizontalLayout gap="-4"  verticalAlign.Up="bottom"/>
+		</e:layout>
+		<e:layout.Right>
+			<e:VerticalLayout gap="-8"/>
+		</e:layout.Right>
+		<e:layout.Left>
+			<e:VerticalLayout gap="-8" horizontalAlign="right"/>
+		</e:layout.Left>
+	</e:Group>
+</e:Skin>

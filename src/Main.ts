@@ -124,11 +124,20 @@ class Main extends eui.UILayer {
         }
     }
     private textfield: egret.TextField;
+
+
+    private _txInfo: egret.TextField;
+    private _grpLayout: eui.Group;
+
+    private _idxCount: number;
     /**
      * 创建场景界面
      * Create scene interface
      */
     protected startCreateScene(): void {
+        // this.percentWidth = 100;
+        // this.percentHeight = 100;
+
         let sky = this.createBitmapByName("room_bg_jpg");
         this.addChild(sky);
         let stageW = this.stage.stageWidth;
@@ -136,39 +145,113 @@ class Main extends eui.UILayer {
         sky.width = stageW;
         sky.height = stageH;
 
-        //    let cardTest:LC.CardTest = new LC.CardTest();
-        //    this.addChild(cardTest);
+        var mod1 = this.createMode(LC.Directions.Down);
+        mod1.bottom = 0;
+        var mod2 = this.createMode(LC.Directions.Up);
+        mod2.top = 0;
 
-        let outline = [
-            "stand_up",
-            "stand_down",
-            "stand_left",
-            "stand_right",
-            "fall_down",
-            "fall_up",
-            "fall_left",
-            "fall_right",
-            "hide_v",
-            "hide_h"];
+        var mod3 = this.createMode(LC.Directions.Left);
+        mod3.left = 50;
 
-        // let cardVo = [{texture:""},{texture:}];
+        var mod3 = this.createMode(LC.Directions.Right);
+        mod3.right = 50;
+    }
 
-        let cardList = [];
-        for (let i = 0; i < 10; i++) {
-            let card: LC.Card = new LC.Card();
-            card.y = 100;
-            card.x = 100 + 100 * i;
-            card.setCardTexture(i,"33");
-          
-            this.addChild(card);
-            cardList.push(card);
+    public createMode(direction: LC.Directions) {
+        var handState = [
+            LC.CardState.stand_up,
+            LC.CardState.stand_down,
+            LC.CardState.stand_left,
+            LC.CardState.stand_right
+        ];
+
+        var fallState = [
+            LC.CardState.fall_up,
+            LC.CardState.fall_down,
+            LC.CardState.fall_left,
+            LC.CardState.fall_right
+        ]
+
+        //四个模块其中之一
+        let cardMod: LC.CardModLayout = new LC.CardModLayout;
+        let handCardList = [
+            17,
+            18,
+            19,
+            20,
+            // 39,
+            // 40,
+            // 49,
+            // 50,
+            // 51,
+            // 53,
+            // 49,
+            // 50,
+            // 51,
+
+        ];
+        cardMod.currentState = LC.Directions[direction];
+
+        // cardMod.verticalCenter = 0;
+        // cardMod.initView(direction, handCardList);
+        // cardMod.horizontalCenter = 0;
+        this.addChild(cardMod);
+
+
+        //手牌
+        for (let i = 0; i < handCardList.length; i++) {
+            let card = new LC.Card;
+            card.setCardTexture(handState[direction], handCardList[i]);
+            // card.setCardTexture(LC.CardState.stand_up, handCardList[i]);
+            cardMod.HandCards.addChild(card);
+           
         }
 
-        let card: LC.Card = new LC.Card();
-        card.setCardTexture(LC.CardState.fall_down,"20");
-        this.addChild(card);
+        let combList = [
+            22,
+            22,
+            22,
+            22,
+            // 23,
+            // 24,
+        ];
 
+        //组合牌
+        for (let i = 0; i < 3; i++) {
+            let combCards = new LC.ComboCards;
+            combCards.bottom = 0;
+            combCards.setCombCardsTexture(direction, combList,LC.CardCombType.AnGang);
+            cardMod.AllCards.addChild(combCards);
+        }
+
+        // this._childAddToHandCards();
+
+        cardMod.AllCards.setChildIndex(cardMod.HandCards, 10);
+
+        //摸的牌
+        let drawCard = new LC.Card();
+        drawCard.setCardTexture(handState[direction], 38);
+        // drawCard.setCardTexture(LC.CardState.stand_up, 38);
+        drawCard.bottom = 0;
+        cardMod.AllCards.addChild(drawCard);
+
+        //打出的牌
+        for (let i = 0; i < handCardList.length; i++) {
+            let card = new LC.Card;
+            card.scaleX = 0.75;
+            card.scaleY = 0.75
+
+            card.setCardTexture(fallState[direction], handCardList[i]);
+            // card.setCardTexture(LC.CardState.fall_down, handCardList[i]);
+            cardMod.OutCards.addChild(card);
+        }
+
+
+        
+        return cardMod;
     }
+
+
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
      * Create a Bitmap object according to name keyword.As for the property of name please refer to the configuration file of resources/resource.json.
@@ -180,4 +263,15 @@ class Main extends eui.UILayer {
         return result;
     }
 
+}
+
+class L {
+    public static WBASE_OUTLINE: number = 580;
+    public static HBASE_OUTLINE: number = 650;
+}
+
+/// 两种对齐模式之间可以切换
+class AlignMode {
+    public static GAP: number = 0;
+    public static WH: number = 1;
 }
