@@ -139,21 +139,34 @@ class Main extends eui.UILayer {
         //    let cardTest:LC.CardTest = new LC.CardTest();
         //    this.addChild(cardTest);
 
-
-        let outline = ["stand_up", "stand_down", "stand_left", "stand_right", "fall", "hide"];
+        let outline = [
+            "stand_up",
+            "stand_down",
+            "stand_left",
+            "stand_right",
+            "fall_down",
+            "fall_up",
+            "fall_left",
+            "fall_right",
+            "hide_v",
+            "hide_h"];
 
         // let cardVo = [{texture:""},{texture:}];
 
         let cardList = [];
-        for (let i = 0; i < outline.length; i++) {
+        for (let i = 0; i < 10; i++) {
             let card: LC.Card = new LC.Card();
-            card.currentState = outline[i];
-            // card.setOutLineSkin("fall", "");
             card.y = 100;
-            card.x = 100 + 100*i;
+            card.x = 100 + 100 * i;
+            card.setCardTexture(i,"33");
+          
             this.addChild(card);
             cardList.push(card);
         }
+
+        let card: LC.Card = new LC.Card();
+        card.setCardTexture(LC.CardState.fall_down,"20");
+        this.addChild(card);
 
     }
     /**
