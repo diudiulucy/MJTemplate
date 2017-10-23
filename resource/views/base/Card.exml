@@ -12,7 +12,7 @@
 	         source.stand_right="kwx_card_left_bg1_png" scaleX.stand_right="-1" x.stand_right="46" width.fall_down="100%"
 	         height.fall_down="100%" width="100%" height="100%" source.fall_left="kwx_card_left_bg0_png"
 	         source.fall_right="kwx_card_left_bg0_png"  source.hide_v="tpm_cardbg_6_png" source.hide_h="kwx_card_left_bg2_png"/>
-	<e:Image id="img_cardValue" x="8" y="33" width="68.75%" height="58.49%" scaleX="0.8" scaleY="0.8" source="tpm_card_big_19_png" includeIn="fall_right" rotation="270"/>
+	<e:Image id="fallRight" x="8" y="33" width="68.75%" height="58.49%" scaleX="0.8" scaleY="0.8" source="tpm_card_big_19_png" includeIn="fall_right" rotation="270"/>
 	<e:Image id="fallLeft" x="58" y="3" width="68.75%" height="58.49%" scaleX="0.8" scaleY="0.8"
 	         source="tpm_card_big_19_png" includeIn="fall_left" rotation="90" />
 	<e:Image id="fallUp" x="58" y="77" width="110%" height="114%" scaleX="0.8" scaleY="0.8" includeIn="fall_up"
