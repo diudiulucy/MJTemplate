@@ -3,7 +3,17 @@
  * @date 2017/10/23
  */
 module LC {
-    
+   
+    export class CombData{
+        CombValue:[number,number,number,number];
+    }
+
+    export interface CardMod {
+        handCardList?: Array<number>;
+        outCardList?:  Array<number>;
+        combList?:     Array<CombData>;
+    }
+
     /**
     * 麻将布局类
     * 麻将吃碰打出的牌手牌的变换位置等的操作全在此类进行
@@ -23,50 +33,53 @@ module LC {
             super.childrenCreated();
         }
 
-        // public setAllCardsConfig(direction: LC.Directions) {
+        public initView(direction: LC.Directions, handCardList: Array<number>,data:CardMod) {
+            this.currentState = LC.Directions[direction];
+            //手牌
+            for (let i = 0; i < data.handCardList.length; i++) {
+                let card = new LC.Card;
+                card.setCardTexture(direction, LC.CardState.Stand, handCardList[i]);
+                this.HandCards.addChild(card);
 
-        // }
+            }
 
+            let combList = [
+                22,
+                22,
+                22,
+                22,
+                // 23,
+                // 24,
+            ];
 
-        // public initView(direction: LC.Directions, handCardList: Array<number>) {
+            //组合牌
+            for (let i = 0; i < 3; i++) {
+                let combCards = new LC.ComboCards;
+                combCards.bottom = 0;
+                combCards.setCombCardsTexture(direction, combList, LC.CardCombType.AnGang);
+                this.AllCards.addChild(combCards);
+            }
 
+            // this._childAddToHandCards();
 
-        //     this.currentState = LC.Directions[direction];
+            this.AllCards.setChildIndex(this.HandCards, 10);
 
-        //     //手牌
-        //     for (let i = 0; i < handCardList.length; i++) {
-        //         let card = new LC.Card;
-        //         // card.setCardTexture(this._handCardState[direction], handCardList[i]);
-        //         card.setCardTexture(LC.CardState.stand_up, handCardList[i]);
-        //         this.HandCards.addChild(card);
-        //         //  this._childAddToHandCards();
-        //     }
+            //摸的牌
+            let drawCard = new LC.Card();
+            drawCard.setCardTexture(direction, LC.CardState.Stand, 38);
+            // drawCard.setCardTexture(LC.CardSkinState.stand_up, 38);
+            drawCard.bottom = 0;
+            this.AllCards.addChild(drawCard);
 
-        //     //组合牌
-        //     for (let i = 0; i < 2; i++) {
-        //         let combCards = new LC.ComboCards;
-        //         combCards.bottom = 0;
-        //         this.AllCards.addChild(combCards);
-        //     }
+            //打出的牌
+            for (let i = 0; i < data.outCardList.length; i++) {
+                let card = new LC.Card;
+                card.scaleX = 0.75;
+                card.scaleY = 0.75
 
-        //     // this._childAddToHandCards();
-
-        //     this.AllCards.setChildIndex(this.HandCards, 10);
-
-        //     //摸的牌
-        //     let drawCard = new LC.Card
-        //     drawCard.setCardTexture(LC.CardState.stand_down, 38);
-        //     drawCard.bottom = 0;
-        //     this.AllCards.addChild(drawCard);
-
-        //     //打出的牌
-        //     for (let i = 0; i < handCardList.length; i++) {
-        //         let card = new LC.Card;
-        //         card.scaleX = 0.75;
-        //         card.scaleY = 0.75
-        //         card.setCardTexture(LC.CardState.fall_down, handCardList[i]);
-        //         this.OutCards.addChild(card);
-        //     }
-        // }
+                card.setCardTexture(direction, LC.CardState.Fall, data.outCardList[i]);
+                this.OutCards.addChild(card);
+            }
+        }
     }
 }

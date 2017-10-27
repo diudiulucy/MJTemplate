@@ -12,6 +12,13 @@ var __extends = (this && this.__extends) || function (d, b) {
  */
 var LC;
 (function (LC) {
+    var CombData = (function () {
+        function CombData() {
+        }
+        return CombData;
+    }());
+    LC.CombData = CombData;
+    __reflect(CombData.prototype, "LC.CombData");
     /**
     * 麻将布局类
     * 麻将吃碰打出的牌手牌的变换位置等的操作全在此类进行
@@ -19,12 +26,6 @@ var LC;
     */
     var CardModLayout = (function (_super) {
         __extends(CardModLayout, _super);
-        // private _handCardState = [
-        //     LC.CardState.stand_up,
-        //     LC.CardState.stand_down,
-        //     LC.CardState.stand_left,
-        //     LC.CardState.stand_right
-        // ]
         function CardModLayout() {
             var _this = _super.call(this) || this;
             _this.skinName = "Skin.CardModLayout";
@@ -32,6 +33,44 @@ var LC;
         }
         CardModLayout.prototype.childrenCreated = function () {
             _super.prototype.childrenCreated.call(this);
+        };
+        CardModLayout.prototype.initView = function (direction, handCardList, data) {
+            this.currentState = LC.Directions[direction];
+            //手牌
+            for (var i = 0; i < data.handCardList.length; i++) {
+                var card = new LC.Card;
+                card.setCardTexture(direction, LC.CardState.Stand, handCardList[i]);
+                this.HandCards.addChild(card);
+            }
+            var combList = [
+                22,
+                22,
+                22,
+                22,
+            ];
+            //组合牌
+            for (var i = 0; i < 3; i++) {
+                var combCards = new LC.ComboCards;
+                combCards.bottom = 0;
+                combCards.setCombCardsTexture(direction, combList, LC.CardCombType.AnGang);
+                this.AllCards.addChild(combCards);
+            }
+            // this._childAddToHandCards();
+            this.AllCards.setChildIndex(this.HandCards, 10);
+            //摸的牌
+            var drawCard = new LC.Card();
+            drawCard.setCardTexture(direction, LC.CardState.Stand, 38);
+            // drawCard.setCardTexture(LC.CardSkinState.stand_up, 38);
+            drawCard.bottom = 0;
+            this.AllCards.addChild(drawCard);
+            //打出的牌
+            for (var i = 0; i < data.outCardList.length; i++) {
+                var card = new LC.Card;
+                card.scaleX = 0.75;
+                card.scaleY = 0.75;
+                card.setCardTexture(direction, LC.CardState.Fall, data.outCardList[i]);
+                this.OutCards.addChild(card);
+            }
         };
         return CardModLayout;
     }(eui.Component));

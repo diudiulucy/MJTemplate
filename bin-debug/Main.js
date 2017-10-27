@@ -160,47 +160,19 @@ var Main = (function (_super) {
             19,
             20,
         ];
-        cardMod.currentState = LC.Directions[direction];
-        // cardMod.verticalCenter = 0;
-        // cardMod.initView(direction, handCardList);
-        // cardMod.horizontalCenter = 0;
-        this.addChild(cardMod);
-        //手牌
-        for (var i = 0; i < handCardList.length; i++) {
-            var card = new LC.Card;
-            card.setCardTexture(direction, LC.CardState.Stand, handCardList[i]);
-            cardMod.HandCards.addChild(card);
-        }
-        var combList = [
-            22,
-            22,
-            22,
-            22,
+        var outCardList = [
+            50,
+            51,
+            53,
+            49,
+            50,
+            51
         ];
-        //组合牌
-        for (var i = 0; i < 3; i++) {
-            var combCards = new LC.ComboCards;
-            combCards.bottom = 0;
-            combCards.setCombCardsTexture(direction, combList, LC.CardCombType.AnGang);
-            cardMod.AllCards.addChild(combCards);
-        }
-        // this._childAddToHandCards();
-        cardMod.AllCards.setChildIndex(cardMod.HandCards, 10);
-        //摸的牌
-        var drawCard = new LC.Card();
-        drawCard.setCardTexture(direction, LC.CardState.Stand, 38);
-        // drawCard.setCardTexture(LC.CardSkinState.stand_up, 38);
-        drawCard.bottom = 0;
-        cardMod.AllCards.addChild(drawCard);
-        //打出的牌
-        for (var i = 0; i < handCardList.length; i++) {
-            var card = new LC.Card;
-            card.scaleX = 0.75;
-            card.scaleY = 0.75;
-            card.setCardTexture(direction, LC.CardState.Fall, handCardList[i]);
-            // card.setCardTexture(LC.CardSkinState.fall_down, handCardList[i]);
-            cardMod.OutCards.addChild(card);
-        }
+        cardMod.initView(direction, handCardList, {
+            handCardList: handCardList,
+            outCardList: outCardList,
+        });
+        this.addChild(cardMod);
         return cardMod;
     };
     /**

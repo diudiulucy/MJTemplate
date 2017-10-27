@@ -13,7 +13,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 var LC;
 (function (LC) {
     /**
-     * 组合牌的布局皮肤状态
+     * 组合牌的内部布局皮肤状态
      */
     var CardComboSkinState;
     (function (CardComboSkinState) {
@@ -45,6 +45,9 @@ var LC;
         };
         /**
          * 设置组合牌的纹理
+         * @param direction   方向
+         * @param cardList    牌值数组
+         * @param type        组合类型
          */
         ComboCards.prototype.setCombCardsTexture = function (direction, cardList, type) {
             this._setComboSkinState(direction);
@@ -62,8 +65,10 @@ var LC;
             }
         };
         /**
-        *  设置吃碰牌型组合
-        */
+         *  设置吃碰牌型组合
+         * @param direction   方向
+         * @param cardList    牌值数组
+         */
         ComboCards.prototype._setChiOrPeng = function (direction, cardList) {
             if (cardList.length != 3) {
                 console.log("ChiOrPeng card number error !");
@@ -73,8 +78,10 @@ var LC;
             this._setList(direction, LC.CardState.Fall, cardList);
         };
         /**
-        *  设置明杠组合
-        */
+         *  设置明杠组合
+         * @param direction   方向
+         * @param cardList    牌值数组
+         */
         ComboCards.prototype._setMGang = function (direction, cardList) {
             if (cardList.length != 4) {
                 console.log("MGang card number error !");
@@ -82,8 +89,10 @@ var LC;
             this._setList(direction, LC.CardState.Fall, cardList);
         };
         /**
-       *  设置暗杠组合
-       */
+         *  设置暗杠组合
+         * @param direction   方向
+         * @param cardList    牌值数组
+         */
         ComboCards.prototype._setAnGang = function (direction, cardList) {
             if (cardList.length != 4) {
                 console.log("AnGang card number error !");
@@ -93,6 +102,12 @@ var LC;
                 this.cardH_3.setCardTexture(direction, LC.CardState.Fall, cardList[3]);
             }
         };
+        /**
+         *  设置牌的纹理
+         * @param direction   方向
+         * @param cardState     牌的状态 Stand,Fall,Hide
+         * @param cardList    牌值数组
+         */
         ComboCards.prototype._setList = function (direction, state, cardList) {
             for (var i = 0; i < cardList.length; i++) {
                 this["cardH_" + i].setCardTexture(direction, state, cardList[i]);
@@ -100,8 +115,9 @@ var LC;
             }
         };
         /**
-       *  设置组合牌的皮肤状态
-       */
+         *  设置组合牌的皮肤状态
+         * @param  direction  方向
+         */
         ComboCards.prototype._setComboSkinState = function (direction) {
             if (direction == LC.Directions.Up || direction == LC.Directions.Down) {
                 this.currentState = CardComboSkinState[CardComboSkinState.Horizontal];

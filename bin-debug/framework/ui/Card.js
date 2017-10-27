@@ -13,7 +13,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 var LC;
 (function (LC) {
     /**
-     * 麻将方向
+     * 方向（布局的方向，牌的方向）
      *
      */
     var Directions;
@@ -68,7 +68,6 @@ var LC;
          */
         Card.prototype.setCardTexture = function (direction, cardState, value) {
             this._setCardSkinState(direction, cardState);
-            // this.currentState = LC.CardSkinState[state];//取出key this.currentState 当前的状态，根据当前的状态显示不同的皮肤，在EXML里进行布局和位置的修改，方便后期维护
             //牌值纹理
             var source = RES.getRes(this._getValueImageURL(value));
             //未找到白鹭动态切换某个状态下的纹理的方法，暂且用多个Image对象的方法来切换其不同状态下的纹理
@@ -80,14 +79,15 @@ var LC;
         };
         /**
          * @param value  牌值
-         * @returns      牌值对应的纹理路径
+         * @returns   string   牌值对应的纹理路径
          */
         Card.prototype._getValueImageURL = function (value) {
             return "tpm_card_big_" + value + "_png";
         };
         /**
          * 设置牌的内部皮肤状态
-         *
+         * @param  direction  方向
+         * @param  cardState  牌状态
          */
         Card.prototype._setCardSkinState = function (direction, cardState) {
             var cardSkinState;

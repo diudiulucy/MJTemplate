@@ -176,61 +176,20 @@ class Main extends eui.UILayer {
             // 51,
 
         ];
-        cardMod.currentState = LC.Directions[direction];
+        let outCardList = [
+            50,
+            51,
+            53,
+            49,
+            50,
+            51
+        ]
 
-        // cardMod.verticalCenter = 0;
-        // cardMod.initView(direction, handCardList);
-        // cardMod.horizontalCenter = 0;
+        cardMod.initView(direction, handCardList, {
+            handCardList: handCardList,
+            outCardList: outCardList,
+        });
         this.addChild(cardMod);
-
-
-        //手牌
-        for (let i = 0; i < handCardList.length; i++) {
-            let card = new LC.Card;
-            card.setCardTexture(direction,LC.CardState.Stand, handCardList[i]);
-            cardMod.HandCards.addChild(card);
-           
-        }
-
-        let combList = [
-            22,
-            22,
-            22,
-            22,
-            // 23,
-            // 24,
-        ];
-
-        //组合牌
-        for (let i = 0; i < 3; i++) {
-            let combCards = new LC.ComboCards;
-            combCards.bottom = 0;
-            combCards.setCombCardsTexture(direction, combList,LC.CardCombType.AnGang);
-            cardMod.AllCards.addChild(combCards);
-        }
-
-        // this._childAddToHandCards();
-
-        cardMod.AllCards.setChildIndex(cardMod.HandCards, 10);
-
-        //摸的牌
-        let drawCard = new LC.Card();
-        drawCard.setCardTexture(direction,LC.CardState.Stand, 38);
-        // drawCard.setCardTexture(LC.CardSkinState.stand_up, 38);
-        drawCard.bottom = 0;
-        cardMod.AllCards.addChild(drawCard);
-
-        //打出的牌
-        for (let i = 0; i < handCardList.length; i++) {
-            let card = new LC.Card;
-            card.scaleX = 0.75;
-            card.scaleY = 0.75
-
-            card.setCardTexture(direction,LC.CardState.Fall, handCardList[i]);
-            // card.setCardTexture(LC.CardSkinState.fall_down, handCardList[i]);
-            cardMod.OutCards.addChild(card);
-        }
-
         return cardMod;
     }
 
