@@ -13,20 +13,40 @@ var __extends = (this && this.__extends) || function (d, b) {
 var LC;
 (function (LC) {
     /**
+     * 麻将方向
+     *
+     */
+    var Directions;
+    (function (Directions) {
+        Directions[Directions["Up"] = 0] = "Up";
+        Directions[Directions["Down"] = 1] = "Down";
+        Directions[Directions["Left"] = 2] = "Left";
+        Directions[Directions["Right"] = 3] = "Right";
+    })(Directions = LC.Directions || (LC.Directions = {}));
+    /**
+     * 牌的内部皮肤状态
+     */
+    var CardSkinState;
+    (function (CardSkinState) {
+        CardSkinState[CardSkinState["stand_up"] = 0] = "stand_up";
+        CardSkinState[CardSkinState["stand_down"] = 1] = "stand_down";
+        CardSkinState[CardSkinState["stand_left"] = 2] = "stand_left";
+        CardSkinState[CardSkinState["stand_right"] = 3] = "stand_right";
+        CardSkinState[CardSkinState["fall_up"] = 4] = "fall_up";
+        CardSkinState[CardSkinState["fall_down"] = 5] = "fall_down";
+        CardSkinState[CardSkinState["fall_left"] = 6] = "fall_left";
+        CardSkinState[CardSkinState["fall_right"] = 7] = "fall_right";
+        CardSkinState[CardSkinState["hide_v"] = 8] = "hide_v";
+        CardSkinState[CardSkinState["hide_h"] = 9] = "hide_h";
+    })(CardSkinState || (CardSkinState = {}));
+    /**
      * 牌的状态
      */
     var CardState;
     (function (CardState) {
-        CardState[CardState["stand_up"] = 0] = "stand_up";
-        CardState[CardState["stand_down"] = 1] = "stand_down";
-        CardState[CardState["stand_left"] = 2] = "stand_left";
-        CardState[CardState["stand_right"] = 3] = "stand_right";
-        CardState[CardState["fall_up"] = 4] = "fall_up";
-        CardState[CardState["fall_down"] = 5] = "fall_down";
-        CardState[CardState["fall_left"] = 6] = "fall_left";
-        CardState[CardState["fall_right"] = 7] = "fall_right";
-        CardState[CardState["hide_v"] = 8] = "hide_v";
-        CardState[CardState["hide_h"] = 9] = "hide_h";
+        CardState[CardState["Stand"] = 0] = "Stand";
+        CardState[CardState["Fall"] = 1] = "Fall";
+        CardState[CardState["Hide"] = 2] = "Hide";
     })(CardState = LC.CardState || (LC.CardState = {}));
     /**
     * 麻将类
@@ -42,11 +62,13 @@ var LC;
             _super.prototype.childrenCreated.call(this);
         };
         /**
-         * @param state  牌的状态
-         * @param value  牌的值
+         * @param direction     方向 Up,Down,Left,Right
+         * @param cardState     牌的状态 Stand,Fall,Hide
+         * @param value         牌的值
          */
-        Card.prototype.setCardTexture = function (state, value) {
-            this.currentState = LC.CardState[state]; //取出key this.currentState 当前的状态，根据当前的状态显示不同的皮肤，在EXML里进行布局和位置的修改，方便后期维护
+        Card.prototype.setCardTexture = function (direction, cardState, value) {
+            this._setCardSkinState(direction, cardState);
+            // this.currentState = LC.CardSkinState[state];//取出key this.currentState 当前的状态，根据当前的状态显示不同的皮肤，在EXML里进行布局和位置的修改，方便后期维护
             //牌值纹理
             var source = RES.getRes(this._getValueImageURL(value));
             //未找到白鹭动态切换某个状态下的纹理的方法，暂且用多个Image对象的方法来切换其不同状态下的纹理
@@ -58,10 +80,35 @@ var LC;
         };
         /**
          * @param value  牌值
-         * @returns 牌值对应的纹理路径
+         * @returns      牌值对应的纹理路径
          */
         Card.prototype._getValueImageURL = function (value) {
             return "tpm_card_big_" + value + "_png";
+        };
+        /**
+         * 设置牌的内部皮肤状态
+         *
+         */
+        Card.prototype._setCardSkinState = function (direction, cardState) {
+            var cardSkinState;
+            switch (cardState) {
+                case LC.CardState.Stand:
+                    cardSkinState = (CardSkinState.stand_up + direction);
+                    this.currentState = CardSkinState[cardSkinState];
+                    break;
+                case LC.CardState.Fall:
+                    cardSkinState = (CardSkinState.fall_up + direction);
+                    this.currentState = CardSkinState[cardSkinState];
+                    break;
+                case LC.CardState.Hide:
+                    if (direction == LC.Directions.Up || direction == LC.Directions.Down) {
+                        this.currentState = CardSkinState[CardSkinState.hide_v];
+                    }
+                    else if (direction == LC.Directions.Left || direction == LC.Directions.Right) {
+                        this.currentState = CardSkinState[CardSkinState.hide_h];
+                    }
+                    break;
+            }
         };
         return Card;
     }(eui.Component));

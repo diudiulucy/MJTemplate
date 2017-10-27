@@ -13,17 +13,6 @@ var __extends = (this && this.__extends) || function (d, b) {
 var LC;
 (function (LC) {
     /**
-     * 麻将布局的四个方向,布局的方向决定子麻将的方向
-     *
-     */
-    var Directions;
-    (function (Directions) {
-        Directions[Directions["Up"] = 0] = "Up";
-        Directions[Directions["Down"] = 1] = "Down";
-        Directions[Directions["Left"] = 2] = "Left";
-        Directions[Directions["Right"] = 3] = "Right";
-    })(Directions = LC.Directions || (LC.Directions = {}));
-    /**
     * 麻将布局类
     * 麻将吃碰打出的牌手牌的变换位置等的操作全在此类进行
     *

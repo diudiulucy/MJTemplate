@@ -3,18 +3,7 @@
  * @date 2017/10/23
  */
 module LC {
-
-    /**
-     * 麻将布局的四个方向,布局的方向决定子麻将的方向
-     * 
-     */
-    export enum Directions {
-        Up,
-        Down,
-        Left,
-        Right
-    }
-
+    
     /**
     * 麻将布局类
     * 麻将吃碰打出的牌手牌的变换位置等的操作全在此类进行
@@ -24,13 +13,6 @@ module LC {
         public AllCards: eui.Group;
         public HandCards: eui.Group;
         public OutCards: eui.Group;
-
-        // private _handCardState = [
-        //     LC.CardState.stand_up,
-        //     LC.CardState.stand_down,
-        //     LC.CardState.stand_left,
-        //     LC.CardState.stand_right
-        // ]
 
         public constructor() {
             super();

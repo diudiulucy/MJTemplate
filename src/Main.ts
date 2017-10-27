@@ -158,20 +158,6 @@ class Main extends eui.UILayer {
     }
 
     public createMode(direction: LC.Directions) {
-        var handState = [
-            LC.CardState.stand_up,
-            LC.CardState.stand_down,
-            LC.CardState.stand_left,
-            LC.CardState.stand_right
-        ];
-
-        var fallState = [
-            LC.CardState.fall_up,
-            LC.CardState.fall_down,
-            LC.CardState.fall_left,
-            LC.CardState.fall_right
-        ]
-
         //四个模块其中之一
         let cardMod: LC.CardModLayout = new LC.CardModLayout;
         let handCardList = [
@@ -201,8 +187,7 @@ class Main extends eui.UILayer {
         //手牌
         for (let i = 0; i < handCardList.length; i++) {
             let card = new LC.Card;
-            card.setCardTexture(handState[direction], handCardList[i]);
-            // card.setCardTexture(LC.CardState.stand_up, handCardList[i]);
+            card.setCardTexture(direction,LC.CardState.Stand, handCardList[i]);
             cardMod.HandCards.addChild(card);
            
         }
@@ -230,8 +215,8 @@ class Main extends eui.UILayer {
 
         //摸的牌
         let drawCard = new LC.Card();
-        drawCard.setCardTexture(handState[direction], 38);
-        // drawCard.setCardTexture(LC.CardState.stand_up, 38);
+        drawCard.setCardTexture(direction,LC.CardState.Stand, 38);
+        // drawCard.setCardTexture(LC.CardSkinState.stand_up, 38);
         drawCard.bottom = 0;
         cardMod.AllCards.addChild(drawCard);
 
@@ -241,13 +226,11 @@ class Main extends eui.UILayer {
             card.scaleX = 0.75;
             card.scaleY = 0.75
 
-            card.setCardTexture(fallState[direction], handCardList[i]);
-            // card.setCardTexture(LC.CardState.fall_down, handCardList[i]);
+            card.setCardTexture(direction,LC.CardState.Fall, handCardList[i]);
+            // card.setCardTexture(LC.CardSkinState.fall_down, handCardList[i]);
             cardMod.OutCards.addChild(card);
         }
 
-
-        
         return cardMod;
     }
 

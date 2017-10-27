@@ -13,13 +13,16 @@ var __extends = (this && this.__extends) || function (d, b) {
 var LC;
 (function (LC) {
     /**
-     * 组合牌的布局状态
+     * 组合牌的布局皮肤状态
      */
-    var CardComboState;
-    (function (CardComboState) {
-        CardComboState[CardComboState["Horizontal"] = 0] = "Horizontal";
-        CardComboState[CardComboState["Vertical"] = 1] = "Vertical";
-    })(CardComboState || (CardComboState = {}));
+    var CardComboSkinState;
+    (function (CardComboSkinState) {
+        CardComboSkinState[CardComboSkinState["Horizontal"] = 0] = "Horizontal";
+        CardComboSkinState[CardComboSkinState["Vertical"] = 1] = "Vertical";
+    })(CardComboSkinState || (CardComboSkinState = {}));
+    /**
+     * 组合牌类型
+     */
     var CardCombType;
     (function (CardCombType) {
         CardCombType[CardCombType["Chi"] = 0] = "Chi";
@@ -32,18 +35,6 @@ var LC;
     */
     var ComboCards = (function (_super) {
         __extends(ComboCards, _super);
-        // private fallState = [
-        //     LC.CardState.fall_up,
-        //     LC.CardState.fall_down,
-        //     LC.CardState.fall_left,
-        //     LC.CardState.fall_right
-        // ];
-        // private hideState = [
-        //     6,
-        //     6,
-        //     7,
-        //     7
-        // ];
         function ComboCards() {
             var _this = _super.call(this) || this;
             _this.skinName = "Skin.ComboCards";
@@ -56,7 +47,7 @@ var LC;
          * 设置组合牌的纹理
          */
         ComboCards.prototype.setCombCardsTexture = function (direction, cardList, type) {
-            this._setComboState(direction);
+            this._setComboSkinState(direction);
             switch (type) {
                 case CardCombType.Chi:
                 case CardCombType.Peng:
@@ -79,7 +70,7 @@ var LC;
             }
             this.cardH_3.visible = false;
             this.cardV_3.visible = false;
-            this._setList(direction, cardList, (LC.CardState.fall_up + direction));
+            this._setList(direction, LC.CardState.Fall, cardList);
         };
         /**
         *  设置明杠组合
@@ -88,7 +79,7 @@ var LC;
             if (cardList.length != 4) {
                 console.log("MGang card number error !");
             }
-            this._setList(direction, cardList, (LC.CardState.fall_up + direction));
+            this._setList(direction, LC.CardState.Fall, cardList);
         };
         /**
        *  设置暗杠组合
@@ -97,30 +88,26 @@ var LC;
             if (cardList.length != 4) {
                 console.log("AnGang card number error !");
             }
-            var state;
-            if (direction == LC.Directions.Up || direction == LC.Directions.Down) {
-                state = LC.CardState.hide_v;
-            }
-            else if (direction == LC.Directions.Left || direction == LC.Directions.Right) {
-                state = LC.CardState.hide_h;
-            }
-            this._setList(direction, cardList, state);
+            this._setList(direction, LC.CardState.Hide, cardList);
             if (direction == LC.Directions.Down) {
-                this.cardH_3.setCardTexture((LC.CardState.fall_up + direction), cardList[3]);
+                this.cardH_3.setCardTexture(direction, LC.CardState.Fall, cardList[3]);
             }
         };
-        ComboCards.prototype._setList = function (direction, cardList, state) {
+        ComboCards.prototype._setList = function (direction, state, cardList) {
             for (var i = 0; i < cardList.length; i++) {
-                this["cardH_" + i].setCardTexture(state, cardList[i]);
-                this["cardV_" + i].setCardTexture(state, cardList[i]);
+                this["cardH_" + i].setCardTexture(direction, state, cardList[i]);
+                this["cardV_" + i].setCardTexture(direction, state, cardList[i]);
             }
         };
-        ComboCards.prototype._setComboState = function (direction) {
+        /**
+       *  设置组合牌的皮肤状态
+       */
+        ComboCards.prototype._setComboSkinState = function (direction) {
             if (direction == LC.Directions.Up || direction == LC.Directions.Down) {
-                this.currentState = CardComboState[CardComboState.Horizontal];
+                this.currentState = CardComboSkinState[CardComboSkinState.Horizontal];
             }
             else if (direction == LC.Directions.Left || direction == LC.Directions.Right) {
-                this.currentState = CardComboState[CardComboState.Vertical];
+                this.currentState = CardComboSkinState[CardComboSkinState.Vertical];
             }
         };
         return ComboCards;
