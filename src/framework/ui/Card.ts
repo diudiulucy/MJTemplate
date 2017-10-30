@@ -43,11 +43,16 @@ module LC {
     * 麻将类
     */
     export class Card extends eui.Component {
+        //UI相关变量
         private fallRight: eui.Image;
         private fallLeft: eui.Image;
         private fallUp: eui.Image;
         private fallDown: eui.Image;
         private standDown: eui.Image;
+
+        //card的可供访问的类属性
+        public value:number;
+        public direction:number;
 
         public constructor() {
             super();
@@ -64,6 +69,10 @@ module LC {
          * @param value         牌的值
          */
         public setCardTexture(direction: LC.Directions, cardState: LC.CardState, value: number) {
+            this.direction = direction;
+            this.value = value;
+
+
             this._setCardSkinState(direction, cardState)
             //牌值纹理
             let source = RES.getRes(this._getValueImageURL(value));

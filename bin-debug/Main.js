@@ -140,35 +140,54 @@ var Main = (function (_super) {
         sky.height = stageH;
         var button1 = new eui.Button();
         button1.label = "吃";
-        button1.horizontalCenter = 0;
+        button1.horizontalCenter = -150;
         button1.verticalCenter = 0;
         button1.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
         this.addChild(button1);
+        var button2 = new eui.Button();
+        button2.label = "碰";
+        button2.horizontalCenter = -50;
+        button2.verticalCenter = 0;
+        button2.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
+        this.addChild(button2);
+        var button3 = new eui.Button();
+        button3.label = "明杠";
+        button3.horizontalCenter = 50;
+        button3.verticalCenter = 0;
+        button3.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
+        this.addChild(button3);
+        var button4 = new eui.Button();
+        button4.label = "暗杠";
+        button4.horizontalCenter = 150;
+        button4.verticalCenter = 0;
+        button4.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
+        this.addChild(button4);
         this.mod1 = this.createMode(LC.Directions.Down);
         this.mod1.bottom = 0;
         this.mod2 = this.createMode(LC.Directions.Up);
         this.mod2.top = 0;
         this.mod3 = this.createMode(LC.Directions.Left);
         this.mod3.left = 0;
-        this.mod3 = this.createMode(LC.Directions.Right);
-        this.mod3.right = 0;
+        this.mod4 = this.createMode(LC.Directions.Right);
+        this.mod4.right = 0;
     };
     Main.prototype.callback = function () {
         console.log("a");
-        this.mod2.HandCards.removeChildAt(1);
-        this.mod2.HandCards.removeChildAt(2);
-        this.mod2.HandCards.removeChildAt(3);
-        this.mod2.HandCards.removeChildAt(4);
+        this.mod3.HandCards.removeChildAt(1);
+        this.mod3.HandCards.removeChildAt(2);
+        this.mod3.HandCards.removeChildAt(3);
+        this.mod3.HandCards.removeChildAt(4);
         var combList = [
             22,
             22,
             22,
             22,
         ];
-        var combCards = new LC.ComboCards;
-        combCards.bottom = 0;
-        combCards.setCombCardsTexture(LC.Directions.Up, combList, LC.CardCombType.MGang);
-        this.mod2.AllCards.addChildAt(combCards, 0);
+        this.mod3.addComboCards(LC.Directions.Left, combList, LC.CardCombType.MGang);
+        // let combCards = new LC.ComboCards;
+        // combCards.bottom = 0;
+        // combCards.setCombCardsTexture(LC.Directions.Up, combList, LC.CardCombType.MGang);
+        // this.mod2.AllCards.addChildAt(combCards, 0);
         // var index =  this.mod1.HandCards.numChildren;
         // index > 1 && this.mod1.HandCards.removeChildAt(index-1);
     };
@@ -203,12 +222,17 @@ var Main = (function (_super) {
         //     handCardList: handCardList,
         //     outCardList: outCardList,
         // });
-        if (direction == LC.Directions.Down) {
-            cardMod.initHandCards(direction, handCardList, 25);
+        // if (direction == LC.Directions.Down) {
+        cardMod.initHandCards(direction, handCardList, 25);
+        for (var i = 0; i < cardMod.HandCards.numElements; i++) {
+            var card = cardMod.HandCards.getChildAt(i);
+            card.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
+                cardMod.moveDrawCardToHandList(cardMod.drawCard, 8);
+            }, this);
         }
-        else {
-            cardMod.initHandCards(direction, handCardList);
-        }
+        // } else {
+        // cardMod.initHandCards(direction, handCardList);
+        // }
         this.addChild(cardMod);
         return cardMod;
     };

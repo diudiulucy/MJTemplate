@@ -12,14 +12,6 @@ var __extends = (this && this.__extends) || function (d, b) {
  */
 var LC;
 (function (LC) {
-    // export class CombData {
-    //     CombValue: [number, number, number, number];
-    // }
-    // export interface CardMod {
-    //     handCardList?: Array<number>;
-    //     outCardList?: Array<number>;
-    //     combList?: Array<CombData>;
-    // }
     /**
     * 麻将布局类
     * 麻将吃碰打出的牌手牌的变换位置等的操作全在此类进行
@@ -35,110 +27,81 @@ var LC;
         CardModLayout.prototype.childrenCreated = function () {
             _super.prototype.childrenCreated.call(this);
         };
-        // public initView(direction: LC.Directions, handCardList: Array<number>, data: CardMod) {
-        //     this.currentState = LC.Directions[direction];
-        //     //手牌
-        //     for (let value of handCardList) {
-        //         let card = new LC.Card;
-        //         card.setCardTexture(direction, LC.CardState.Stand, value);
-        //         this.HandCards.addChild(card);
-        //     }
-        //     let combList = [
-        //         22,
-        //         22,
-        //         22,
-        //         22,
-        //         // 23,
-        //         // 24,
-        //     ];
-        //     //组合牌
-        //     for (let i = 0; i < 4; i++) {
-        //         let combCards = new LC.ComboCards;
-        //         combCards.bottom = 0;
-        //         combCards.setCombCardsTexture(direction, combList, LC.CardCombType.AnGang);
-        //         // this.AllCards.addChild(combCards);
-        //     }
-        //     // this._childAddToHandCards();
-        //     this.AllCards.setChildIndex(this.HandCards, 10);
-        //     //摸的牌
-        //     let drawCard = new LC.Card();
-        //     drawCard.setCardTexture(direction, LC.CardState.Stand, 38);
-        //     // drawCard.setCardTexture(LC.CardSkinState.stand_up, 38);
-        //     drawCard.bottom = 0;
-        //     this.AllCards.addChild(drawCard);
-        //     //打出的牌
-        //     for (let i = 0; i < data.outCardList.length; i++) {
-        //         let card = new LC.Card;
-        //         card.scaleX = 0.75;
-        //         card.scaleY = 0.75
-        //         card.setCardTexture(direction, LC.CardState.Fall, data.outCardList[i]);
-        //         this.OutCards.addChild(card);
-        //     }
-        // }
         /**
          * 初始化手牌（注：初始状态只有手牌,庄家多一张摸牌）
          *
          */
         CardModLayout.prototype.initHandCards = function (direction, handCardList, drawCardValue) {
-            var _this = this;
             this.currentState = LC.Directions[direction];
-            var drawCard = drawCardValue && this.addDrawCard(direction, drawCardValue);
-            var _loop_1 = function (i) {
-                var card = new LC.Card;
-                card.setCardTexture(direction, LC.CardState.Stand, handCardList[i]);
-                this_1.HandCards.addChild(card);
-                direction == LC.Directions.Down && card.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
-                    console.log(i);
-                    if (_this.HandCards.numChildren > 1) {
-                        _this.HandCards.removeChild(card);
-                        _this.addOutCards(direction, handCardList[i]);
-                        drawCard && _this.addDrawCardAt(direction, drawCard, 4);
-                    }
-                }, this_1);
-            };
-            var this_1 = this;
+            drawCardValue && this.addDrawCard(direction, drawCardValue);
             for (var i = 0; i < handCardList.length; i++) {
-                _loop_1(i);
+                var card = this._createHandCard(direction, handCardList[i]);
+                this.HandCards.addChild(card);
+            }
+        };
+        CardModLayout.prototype._handCardHandler = function (event) {
+            var card = event.currentTarget;
+            //打印其深度
+            var index = this.HandCards.getChildIndex(card);
+            console.log("inner initHandCards" + index);
+            this.OutACard(card);
+        };
+        /**
+        * 打出一张牌
+        * @param card 牌类
+        */
+        CardModLayout.prototype.OutACard = function (card) {
+            if (this.HandCards.numChildren > 1) {
+                this._addOutCard(card.direction, card.value);
+                card.parent.removeChild(card);
             }
         };
         /**
-        * 将摸的牌插入手牌list
-        * @param direction   方向
+        * 将摸的牌插入手牌列表
         * @param value       牌值
         * @param index       索引
         */
-        CardModLayout.prototype.addDrawCardAt = function (direction, cardObj, index) {
+        CardModLayout.prototype.moveDrawCardToHandList = function (cardObj, index) {
             if (!cardObj) {
-                console.log("没有摸牌对象");
                 return;
             }
-            var card = this.AllCards.removeChild(cardObj);
-            cardObj = null;
+            var card = this._createHandCard(cardObj.direction, cardObj.value);
             this.HandCards.addChildAt(card, index);
+            cardObj.parent.removeChild(cardObj);
+            this.drawCard = null;
         };
         /**
-        * 摸牌
+        * 摸牌(摸的牌只有一张)
         * @param direction   方向
         * @param value       牌值
         *
         */
         CardModLayout.prototype.addDrawCard = function (direction, value) {
-            var drawCard = new LC.Card();
-            drawCard.setCardTexture(direction, LC.CardState.Stand, value);
-            drawCard.bottom = 0;
-            this.AllCards.addChild(drawCard);
-            return drawCard;
+            this.drawCard = this._createHandCard(direction, value);
+            this.AllCards.addChild(this.drawCard);
         };
         /**
-        * 出牌
-        *
+        * 添加牌到出牌列表
+        * @param direction   方向
+        * @param value       牌值
         */
-        CardModLayout.prototype.addOutCards = function (direction, value) {
+        CardModLayout.prototype._addOutCard = function (direction, value) {
             var card = new LC.Card;
             card.scaleX = 0.75;
             card.scaleY = 0.75;
             card.setCardTexture(direction, LC.CardState.Fall, value);
             this.OutCards.addChild(card);
+        };
+        /**
+        * 创建手牌
+        * @param direction   方向
+        * @param value       牌值
+        */
+        CardModLayout.prototype._createHandCard = function (direction, value) {
+            var card = new LC.Card;
+            card.setCardTexture(direction, LC.CardState.Stand, value);
+            card.addEventListener(egret.TouchEvent.TOUCH_TAP, this._handCardHandler, this);
+            return card;
         };
         /**
         * 添加组合牌
@@ -150,7 +113,7 @@ var LC;
             var combCards = new LC.ComboCards;
             combCards.bottom = 0;
             combCards.setCombCardsTexture(direction, combList, type);
-            this.AllCards.addChild(combCards);
+            this.AllCards.addChildAt(combCards, 0);
         };
         return CardModLayout;
     }(eui.Component));

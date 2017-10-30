@@ -67,6 +67,8 @@ var LC;
          * @param value         牌的值
          */
         Card.prototype.setCardTexture = function (direction, cardState, value) {
+            this.direction = direction;
+            this.value = value;
             this._setCardSkinState(direction, cardState);
             //牌值纹理
             var source = RES.getRes(this._getValueImageURL(value));
