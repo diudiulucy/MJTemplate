@@ -32,6 +32,6 @@
     "resource/views/base/Card.exml",
     "resource/views/base/CardModLayout.exml",
     "resource/views/base/ComboCards.exml",
-    "resource/views/base/LCTest.exml"
+    "resource/views/game/gamLayer.exml"
   ]
 }

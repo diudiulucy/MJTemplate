@@ -7,6 +7,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
+ * 麻将布局
  * @author lucywang
  * @date 2017/10/23
  */
@@ -31,20 +32,13 @@ var LC;
          * 初始化手牌（注：初始状态只有手牌,庄家多一张摸牌）
          *
          */
-        CardModLayout.prototype.initHandCards = function (direction, handCardList, drawCardValue) {
+        CardModLayout.prototype.initAllCards = function (direction, handCardList, drawCardValue) {
             this.currentState = LC.Directions[direction];
             drawCardValue && this.addDrawCard(direction, drawCardValue);
             for (var i = 0; i < handCardList.length; i++) {
                 var card = this._createHandCard(direction, handCardList[i]);
                 this.HandCards.addChild(card);
             }
-        };
-        CardModLayout.prototype._handCardHandler = function (event) {
-            var card = event.currentTarget;
-            //打印其深度
-            var index = this.HandCards.getChildIndex(card);
-            console.log("inner initHandCards" + index);
-            this.OutACard(card);
         };
         /**
         * 打出一张牌
@@ -63,6 +57,7 @@ var LC;
         */
         CardModLayout.prototype.moveDrawCardToHandList = function (cardObj, index) {
             if (!cardObj) {
+                console.log("摸牌对象为空");
                 return;
             }
             var card = this._createHandCard(cardObj.direction, cardObj.value);
@@ -93,6 +88,20 @@ var LC;
             this.OutCards.addChild(card);
         };
         /**
+        * 添加组合牌到列表
+        * @param direction   方向
+        * @param deleteList  手牌中需要删除的牌的索引值的数组
+        * @param combList    组合牌值
+        * @type  type        组合类型
+        */
+        CardModLayout.prototype.addCombToAllCardList = function (direction, deleteList, combList, type) {
+            for (var _i = 0, deleteList_1 = deleteList; _i < deleteList_1.length; _i++) {
+                var v = deleteList_1[_i];
+                this.HandCards.removeChildAt(v);
+            }
+            this._addComboCards(direction, combList, type);
+        };
+        /**
         * 创建手牌
         * @param direction   方向
         * @param value       牌值
@@ -104,12 +113,23 @@ var LC;
             return card;
         };
         /**
+        * 触摸手牌的处理函数（此处只处理UI上的逻辑，其他的逻辑请在外部添加监听调用）
+        * @param event   事件
+        */
+        CardModLayout.prototype._handCardHandler = function (event) {
+            var card = event.currentTarget;
+            //打印其深度
+            var index = this.HandCards.getChildIndex(card);
+            console.log("inner initHandCards" + index);
+            this.OutACard(card);
+        };
+        /**
         * 添加组合牌
         * @param direction   方向
         * @param combList    牌值数组
         * @param type        组合类型
         */
-        CardModLayout.prototype.addComboCards = function (direction, combList, type) {
+        CardModLayout.prototype._addComboCards = function (direction, combList, type) {
             var combCards = new LC.ComboCards;
             combCards.bottom = 0;
             combCards.setCombCardsTexture(direction, combList, type);

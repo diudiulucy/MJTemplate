@@ -1,4 +1,5 @@
 /**
+ * 麻将布局
  * @author lucywang
  * @date 2017/10/23
  */
@@ -29,7 +30,7 @@ module LC {
          * 初始化手牌（注：初始状态只有手牌,庄家多一张摸牌）
          * 
          */
-        public initHandCards(direction: LC.Directions, handCardList: Array<number>, drawCardValue?: number) {
+        public initAllCards(direction: LC.Directions, handCardList: Array<number>, drawCardValue?: number) {
             this.currentState = LC.Directions[direction];
 
             drawCardValue && this.addDrawCard(direction, drawCardValue);
@@ -39,18 +40,6 @@ module LC {
                  this.HandCards.addChild(card);
             }
         }
-
-
-        private _handCardHandler(event: egret.Event) {
-            let card = <LC.Card>event.currentTarget;
-
-            //打印其深度
-            let index = this.HandCards.getChildIndex(card);
-            console.log("inner initHandCards" + index);
-
-            this.OutACard(card);
-        }
-
 
         /**
         * 打出一张牌
@@ -70,6 +59,7 @@ module LC {
         */
         public moveDrawCardToHandList(cardObj: LC.Card, index: number) {
             if(!cardObj){
+                console.log("摸牌对象为空");
                 return;
             }
 
@@ -109,6 +99,21 @@ module LC {
 
 
         /**
+        * 添加组合牌到列表
+        * @param direction   方向
+        * @param deleteList  手牌中需要删除的牌的索引值的数组
+        * @param combList    组合牌值
+        * @type  type        组合类型
+        */
+        public addCombToAllCardList(direction: LC.Directions,deleteList:Array<number>,combList:Array<number>,type: CardCombType){
+            for(let v of deleteList){
+                this.HandCards.removeChildAt(v);
+            }
+            this._addComboCards(direction,combList,type);
+        }
+
+
+        /**
         * 创建手牌
         * @param direction   方向
         * @param value       牌值
@@ -120,6 +125,21 @@ module LC {
             return card;
         }
 
+        
+        /**
+        * 触摸手牌的处理函数（此处只处理UI上的逻辑，其他的逻辑请在外部添加监听调用）
+        * @param event   事件
+        */
+        private _handCardHandler(event: egret.Event) {
+            let card = <LC.Card>event.currentTarget;
+
+            //打印其深度
+            let index = this.HandCards.getChildIndex(card);
+            console.log("inner initHandCards" + index);
+
+            this.OutACard(card);
+        }
+
 
         /**
         * 添加组合牌
@@ -127,7 +147,7 @@ module LC {
         * @param combList    牌值数组
         * @param type        组合类型
         */
-        public addComboCards(direction: LC.Directions, combList: Array<number>, type: CardCombType) {
+        private _addComboCards(direction: LC.Directions, combList: Array<number>, type: CardCombType) {
             let combCards = new LC.ComboCards;
             combCards.bottom = 0;
             combCards.setCombCardsTexture(direction, combList, type);
