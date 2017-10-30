@@ -5,7 +5,7 @@
 module LC {
 
     /**
-     * 组合牌的内部布局皮肤状态
+     * 组合牌的内部布局皮肤状态(外部不关心此状态，只有此类用到)
      */
     enum CardComboSkinState {
         Horizontal,

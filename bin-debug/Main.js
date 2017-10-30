@@ -129,10 +129,6 @@ var Main = (function (_super) {
             this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
         }
     };
-    /**
-     * 创建场景界面
-     * Create scene interface
-     */
     Main.prototype.startCreateScene = function () {
         // this.percentWidth = 100;
         // this.percentHeight = 100;
@@ -142,14 +138,39 @@ var Main = (function (_super) {
         var stageH = this.stage.stageHeight;
         sky.width = stageW;
         sky.height = stageH;
-        var mod1 = this.createMode(LC.Directions.Down);
-        mod1.bottom = 0;
-        var mod2 = this.createMode(LC.Directions.Up);
-        mod2.top = 0;
-        var mod3 = this.createMode(LC.Directions.Left);
-        mod3.left = 50;
-        var mod3 = this.createMode(LC.Directions.Right);
-        mod3.right = 50;
+        var button1 = new eui.Button();
+        button1.label = "吃";
+        button1.horizontalCenter = 0;
+        button1.verticalCenter = 0;
+        button1.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
+        this.addChild(button1);
+        this.mod1 = this.createMode(LC.Directions.Down);
+        this.mod1.bottom = 0;
+        this.mod2 = this.createMode(LC.Directions.Up);
+        this.mod2.top = 0;
+        this.mod3 = this.createMode(LC.Directions.Left);
+        this.mod3.left = 0;
+        this.mod3 = this.createMode(LC.Directions.Right);
+        this.mod3.right = 0;
+    };
+    Main.prototype.callback = function () {
+        console.log("a");
+        this.mod2.HandCards.removeChildAt(1);
+        this.mod2.HandCards.removeChildAt(2);
+        this.mod2.HandCards.removeChildAt(3);
+        this.mod2.HandCards.removeChildAt(4);
+        var combList = [
+            22,
+            22,
+            22,
+            22,
+        ];
+        var combCards = new LC.ComboCards;
+        combCards.bottom = 0;
+        combCards.setCombCardsTexture(LC.Directions.Up, combList, LC.CardCombType.MGang);
+        this.mod2.AllCards.addChildAt(combCards, 0);
+        // var index =  this.mod1.HandCards.numChildren;
+        // index > 1 && this.mod1.HandCards.removeChildAt(index-1);
     };
     Main.prototype.createMode = function (direction) {
         //四个模块其中之一
@@ -159,19 +180,35 @@ var Main = (function (_super) {
             18,
             19,
             20,
-        ];
-        var outCardList = [
+            39,
+            40,
+            49,
+            49,
+            50,
             50,
             51,
+            51,
             53,
+        ];
+        var outCardList = [
+            39,
+            40,
+            49,
+            50,
             49,
             50,
             51
         ];
-        cardMod.initView(direction, handCardList, {
-            handCardList: handCardList,
-            outCardList: outCardList,
-        });
+        // cardMod.initView(direction, handCardList, {
+        //     handCardList: handCardList,
+        //     outCardList: outCardList,
+        // });
+        if (direction == LC.Directions.Down) {
+            cardMod.initHandCards(direction, handCardList, 25);
+        }
+        else {
+            cardMod.initHandCards(direction, handCardList);
+        }
         this.addChild(cardMod);
         return cardMod;
     };

@@ -13,7 +13,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 var LC;
 (function (LC) {
     /**
-     * 组合牌的内部布局皮肤状态
+     * 组合牌的内部布局皮肤状态(外部不关心此状态，只有此类用到)
      */
     var CardComboSkinState;
     (function (CardComboSkinState) {

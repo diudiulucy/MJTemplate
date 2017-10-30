@@ -15,7 +15,7 @@ module LC {
     }
 
     /**
-     * 牌的内部皮肤状态
+     * 牌的内部皮肤状态(外部不关心此状态，只有此类用到)
      */
     enum CardSkinState {
         stand_up,
