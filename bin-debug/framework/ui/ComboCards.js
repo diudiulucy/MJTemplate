@@ -7,6 +7,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
+ * 麻将组合
  * @author lucywang
  * @date 2017/10/19
  */
@@ -70,9 +71,7 @@ var LC;
          * @param cardList    牌值数组
          */
         ComboCards.prototype._setChiOrPeng = function (direction, cardList) {
-            if (cardList.length != 3) {
-                console.log("ChiOrPeng card number error !");
-            }
+            console.assert(cardList.length == 3, "ChiOrPeng card number error !");
             this.cardH_3.visible = false;
             this.cardV_3.visible = false;
             this._setList(direction, LC.CardState.Fall, cardList);
@@ -83,9 +82,7 @@ var LC;
          * @param cardList    牌值数组
          */
         ComboCards.prototype._setMGang = function (direction, cardList) {
-            if (cardList.length != 4) {
-                console.log("MGang card number error !");
-            }
+            console.assert(cardList.length == 4, "MGang card number error !");
             this._setList(direction, LC.CardState.Fall, cardList);
         };
         /**
@@ -94,9 +91,7 @@ var LC;
          * @param cardList    牌值数组
          */
         ComboCards.prototype._setAnGang = function (direction, cardList) {
-            if (cardList.length != 4) {
-                console.log("AnGang card number error !");
-            }
+            console.assert(cardList.length == 4, "AnGang card number error !");
             this._setList(direction, LC.CardState.Hide, cardList);
             if (direction == LC.Directions.Down) {
                 this.cardH_3.setCardTexture(direction, LC.CardState.Fall, cardList[3]);

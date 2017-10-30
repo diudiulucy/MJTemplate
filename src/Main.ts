@@ -32,7 +32,7 @@ class Main extends eui.UILayer {
      * 加载进度界面
      * loading process interface
      */
-    private loadingView: LoadingUI;
+    private loadingScene: LC.LoadingScene;
     protected createChildren(): void {
         super.createChildren();
         //inject the custom material parser
@@ -42,12 +42,11 @@ class Main extends eui.UILayer {
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
         //Config loading process interface
         //设置加载进度界面
-        this.loadingView = new LoadingUI();
-        this.stage.addChild(this.loadingView);
+
         // initialize the Resource loading library
         //初始化Resource资源加载库
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
-        RES.loadConfig("resource/default.res.json", "resource/");
+        RES.loadConfig(LC.Config.default_res_json, LC.Config.default_resource);
     }
     /**
      * 配置文件加载完成,开始预加载皮肤主题资源和preload资源组。
@@ -57,13 +56,14 @@ class Main extends eui.UILayer {
         RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         // load skin theme configuration file, you can manually modify the file. And replace the default skin.
         //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
-        let theme = new eui.Theme("resource/default.thm.json", this.stage);
+        let theme = new eui.Theme(LC.Config.default_thm_json, this.stage);
         theme.addEventListener(eui.UIEvent.COMPLETE, this.onThemeLoadComplete, this);
 
         RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
         RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
         RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
         RES.addEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
+        RES.loadGroup("loading", 1);
         RES.loadGroup("preload");
     }
     private isThemeLoadEnd: boolean = false;
@@ -81,8 +81,12 @@ class Main extends eui.UILayer {
      * preload resource group is loaded
      */
     private onResourceLoadComplete(event: RES.ResourceEvent): void {
-        if (event.groupName == "preload") {
-            this.stage.removeChild(this.loadingView);
+        if (event.groupName == "loading") {
+            //设置加载进度界面
+            this.loadingScene = new LC.LoadingScene();
+            LC.SceneManager.Instance.runWithScene(this.loadingScene);
+        } else if (event.groupName == "preload") {
+            // this.removeChild(this.loadingScene);
             RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
@@ -120,184 +124,19 @@ class Main extends eui.UILayer {
      */
     private onResourceProgress(event: RES.ResourceEvent): void {
         if (event.groupName == "preload") {
-            this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
+            this.loadingScene.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
         }
     }
-    private textfield: egret.TextField;
 
-
-    private _txInfo: egret.TextField;
-    private _grpLayout: eui.Group;
-
-    private _idxCount: number;
     /**
      * 创建场景界面
      * Create scene interface
      */
-
-    public mod1: LC.CardModLayout;
-    public mod2: LC.CardModLayout;
-    public mod3: LC.CardModLayout;
-    public mod4: LC.CardModLayout;
     protected startCreateScene(): void {
-        // this.percentWidth = 100;
-        // this.percentHeight = 100;
+        let gameScene = new LC.GameScene();
+        LC.SceneManager.Instance.replaceScene(gameScene);
 
-        let sky = this.createBitmapByName("room_bg_jpg");
-        this.addChild(sky);
-        let stageW = this.stage.stageWidth;
-        let stageH = this.stage.stageHeight;
-        sky.width = stageW;
-        sky.height = stageH;
-
-        let button1 = new eui.Button();
-        button1.label = "吃";
-        button1.horizontalCenter = -150;
-        button1.verticalCenter = 0;
-        button1.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
-        this.addChild(button1)
-
-
-        let button2 = new eui.Button();
-        button2.label = "碰";
-        button2.horizontalCenter = -50;
-        button2.verticalCenter = 0;
-        button2.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
-        this.addChild(button2)
-
-        let button3 = new eui.Button();
-        button3.label = "明杠";
-        button3.horizontalCenter = 50;
-        button3.verticalCenter = 0;
-        button3.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
-        this.addChild(button3)
-
-
-        let button4 = new eui.Button();
-        button4.label = "暗杠";
-        button4.horizontalCenter = 150;
-        button4.verticalCenter = 0;
-        button4.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
-        this.addChild(button4)
-
-
-
-        this.mod1 = this.createMode(LC.Directions.Down);
-        this.mod1.bottom = 0;
-
-        this.mod2 = this.createMode(LC.Directions.Up);
-        this.mod2.top = 0;
-
-        this.mod3 = this.createMode(LC.Directions.Left);
-        this.mod3.left = 0;
-
-        this.mod4 = this.createMode(LC.Directions.Right);
-        this.mod4.right = 0;
-
+        // LC.SceneManager.Instance.pushScene(gameScene);
+        // LC.SceneManager.Instance.popScene(gameScene);
     }
-
-    public callback() {
-        console.log("a");
-        this.mod3.HandCards.removeChildAt(1);
-        this.mod3.HandCards.removeChildAt(2);
-        this.mod3.HandCards.removeChildAt(3);
-        this.mod3.HandCards.removeChildAt(4);
-
-
-        let combList = [
-            22,
-            22,
-            22,
-            22,
-            // 23,
-            // 24,
-        ];
-
-        this.mod3.addComboCards(LC.Directions.Left, combList, LC.CardCombType.MGang);
-
-        // let combCards = new LC.ComboCards;
-        // combCards.bottom = 0;
-        // combCards.setCombCardsTexture(LC.Directions.Up, combList, LC.CardCombType.MGang);
-        // this.mod2.AllCards.addChildAt(combCards, 0);
-        // var index =  this.mod1.HandCards.numChildren;
-        // index > 1 && this.mod1.HandCards.removeChildAt(index-1);
-    }
-
-    public createMode(direction: LC.Directions) {
-        //四个模块其中之一
-        let cardMod: LC.CardModLayout = new LC.CardModLayout;
-        let handCardList = [
-            17,
-            18,
-            19,
-            20,
-
-            39,
-            40,
-
-            49,
-            49,
-            50,
-            50,
-            51,
-            51,
-
-            53,
-        ];
-
-        let outCardList = [
-            39,
-            40,
-            49,
-            50,
-            49,
-            50,
-            51
-        ]
-
-        // cardMod.initView(direction, handCardList, {
-        //     handCardList: handCardList,
-        //     outCardList: outCardList,
-        // });
-
-        // if (direction == LC.Directions.Down) {
-            cardMod.initHandCards(direction, handCardList, 25);
-            for(let i=0;i < cardMod.HandCards.numElements; i++){
-                let card = cardMod.HandCards.getChildAt(i);
-                card.addEventListener(egret.TouchEvent.TOUCH_TAP, ()=>{
-                    
-                    //对数据重排序之后，更新视图
-                    cardMod.moveDrawCardToHandList(cardMod.drawCard,8);   
-                }, this);
-            }
-        // } else {
-            // cardMod.initHandCards(direction, handCardList);
-        // }
-        this.addChild(cardMod);
-        return cardMod;
-    }
-
-
-    /**
-     * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
-     * Create a Bitmap object according to name keyword.As for the property of name please refer to the configuration file of resources/resource.json.
-     */
-    private createBitmapByName(name: string): egret.Bitmap {
-        let result = new egret.Bitmap();
-        let texture: egret.Texture = RES.getRes(name);
-        result.texture = texture;
-        return result;
-    }
-
-}
-
-class L {
-    public static WBASE_OUTLINE: number = 580;
-    public static HBASE_OUTLINE: number = 650;
-}
-
-/// 两种对齐模式之间可以切换
-class AlignMode {
-    public static GAP: number = 0;
-    public static WH: number = 1;
 }

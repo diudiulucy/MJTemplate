@@ -1,4 +1,5 @@
 /**
+ * 麻将组合
  * @author lucywang
  * @date 2017/10/19
  */
@@ -73,10 +74,7 @@ module LC {
          * @param cardList    牌值数组
          */
         private _setChiOrPeng(direction: LC.Directions, cardList: Array<number>) {
-            if (cardList.length != 3) {
-                console.log("ChiOrPeng card number error !");
-            }
-
+            console.assert(cardList.length == 3, "ChiOrPeng card number error !");
             this.cardH_3.visible = false;
             this.cardV_3.visible = false;
             this._setList(direction, LC.CardState.Fall, cardList);
@@ -88,9 +86,7 @@ module LC {
          * @param cardList    牌值数组
          */
         private _setMGang(direction: LC.Directions, cardList: Array<number>) {
-            if (cardList.length != 4) {
-                console.log("MGang card number error !");
-            }
+            console.assert(cardList.length == 4, "MGang card number error !");
             this._setList(direction, LC.CardState.Fall, cardList, );
         }
 
@@ -100,10 +96,7 @@ module LC {
          * @param cardList    牌值数组
          */
         private _setAnGang(direction: LC.Directions, cardList: Array<number>) {
-            if (cardList.length != 4) {
-                console.log("AnGang card number error !");
-            }
-
+            console.assert(cardList.length == 4, "AnGang card number error !");
             this._setList(direction, LC.CardState.Hide, cardList);
 
             if (direction == LC.Directions.Down) {
@@ -111,12 +104,12 @@ module LC {
             }
         }
 
-         /**
-          *  设置牌的纹理
-          * @param direction   方向
-          * @param cardState     牌的状态 Stand,Fall,Hide
-          * @param cardList    牌值数组
-          */
+        /**
+         *  设置牌的纹理
+         * @param direction   方向
+         * @param cardState     牌的状态 Stand,Fall,Hide
+         * @param cardList    牌值数组
+         */
         private _setList(direction: LC.Directions, state: LC.CardState, cardList: Array<number>) {
             for (let i = 0; i < cardList.length; i++) {
                 this["cardH_" + i].setCardTexture(direction, state, cardList[i]);
