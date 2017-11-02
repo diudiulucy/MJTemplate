@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="Skin.GameLayer"  xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:LC="LC.*" width="1334">
+	<e:Group width="100%" height="100%" horizontalCenter="0" verticalCenter="0">
+		<e:Image source="room_bg_jpg" anchorOffsetX="667" anchorOffsetY="375" scaleX="1" scaleY="1" horizontalCenter="0" verticalCenter="0"/>
+		<LC:CardModLayout id="mod1" width="1334" height="240" skinName="Skin.CardModLayout" bottom="0" horizontalCenter="0" currentState="Down"/>
+		<LC:CardModLayout id="mod2" width="1334" height="240" skinName="Skin.CardModLayout" horizontalCenter="0" currentState="Up" top="0"/>
+		<LC:CardModLayout id="mod3" width="184" height="750" skinName="Skin.CardModLayout" currentState="Left" left="0" verticalCenter="0"/>
+		<LC:CardModLayout id="mod4" width="184" height="750" skinName="Skin.CardModLayout" currentState="Left" right="0" verticalCenter="0"/>
+		<e:Group id="handler" height="100" verticalCenter="0" horizontalCenter="0">
+			<e:Button id="btn1" label="吃" x="25" y="33" height="100" width="107"/>
+			<e:Button id="btn2" label="碰" x="25" y="33" height="100" width="107"/>
+			<e:Button id="btn3" label="杠" x="35" y="43" height="100" width="107"/>
+			<e:Button id="btn4" label="暗杠" x="45" y="53" height="100" width="107"/>
+			<e:layout>
+				<e:HorizontalLayout/>
+			</e:layout>
+		</e:Group>
+	</e:Group>
+</e:Skin>

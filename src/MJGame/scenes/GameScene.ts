@@ -15,6 +15,9 @@ module LC {
 			super.init();
 			this.gameLayer = new LC.GameLayer();
 			this.addChild(this.gameLayer);
+
+			// ErrorCodeManager.Instance.init("error_txt");
+			// console.log(ErrorCodeManager.Instance.getErrorCode(1001));
 		}
 	}
 }

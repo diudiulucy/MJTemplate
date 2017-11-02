@@ -11,7 +11,7 @@ module LC {
 	export class EventManager extends egret.EventDispatcher {
 		private static instance: EventManager;
 
-		public constructor() {
+		private constructor() {
 			super();
 		}
 

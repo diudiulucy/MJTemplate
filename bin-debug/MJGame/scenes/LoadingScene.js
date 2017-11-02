@@ -23,6 +23,10 @@ var LC;
             this.loadingView = new LC.LoadingLayer();
             this.addChild(this.loadingView);
         };
+        LoadingScene.prototype.cleanup = function () {
+            this.removeChildren();
+            this.loadingView = null;
+        };
         return LoadingScene;
     }(LC.Scene));
     LC.LoadingScene = LoadingScene;

@@ -135,7 +135,6 @@ class Main extends eui.UILayer {
     protected startCreateScene(): void {
         let gameScene = new LC.GameScene();
         LC.SceneManager.Instance.replaceScene(gameScene);
-
         // LC.SceneManager.Instance.pushScene(gameScene);
         // LC.SceneManager.Instance.popScene(gameScene);
     }

@@ -19,7 +19,10 @@ module LC {
             this.addChild(this.loadingView);
 		}
 
-		
+		public cleanup(){
+			this.removeChildren();
+			this.loadingView = null;
+		} 		
 
 	}
 }

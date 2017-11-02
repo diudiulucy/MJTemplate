@@ -22,6 +22,8 @@ var LC;
             _super.prototype.init.call(this);
             this.gameLayer = new LC.GameLayer();
             this.addChild(this.gameLayer);
+            // ErrorCodeManager.Instance.init("error_txt");
+            // console.log(ErrorCodeManager.Instance.getErrorCode(1001));
         };
         return GameScene;
     }(LC.Scene));

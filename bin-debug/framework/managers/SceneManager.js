@@ -7,7 +7,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * 场景管理类(全局唯一管理场景的地方)
+ * 场景管理类(全局唯一管理场景的地方)控制游戏场景流程的切换
  * @author lucywang
  * @date 2017/10/19
  */
@@ -23,6 +23,7 @@ var LC;
             return _this;
         }
         Object.defineProperty(SceneManager, "Instance", {
+            //为方便提示，加入此接口
             get: function () {
                 return this.getInstance();
             },
