@@ -63,6 +63,6 @@ var LC;
         return Scene;
     }(eui.UILayer));
     LC.Scene = Scene;
-    __reflect(Scene.prototype, "LC.Scene", ["LC.IScene"]);
+    __reflect(Scene.prototype, "LC.Scene");
 })(LC || (LC = {}));
 //# sourceMappingURL=Scene.js.map
