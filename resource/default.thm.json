@@ -32,7 +32,8 @@
     "resource/views/base/Card.exml",
     "resource/views/base/CardModLayout.exml",
     "resource/views/base/ComboCards.exml",
+    "resource/views/common/LCProgressBarSkin.exml",
     "resource/views/game/GamLayer.exml",
-    "resource/views/load/LoadSkin.exml"
+    "resource/views/load/LoadLayer.exml"
   ]
 }

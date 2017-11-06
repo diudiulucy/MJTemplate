@@ -30,6 +30,8 @@ var LC;
             }, this);
             this.bg = new egret.Bitmap;
             this.bg.texture = RES.getRes("PreLoadingBg_png");
+            this.bg.width = this.w;
+            this.bg.height = this.h;
             this.addChild(this.bg);
             this.pgBg = new egret.Bitmap;
             this.pgBg.texture = RES.getRes("PreLoadingBarBg_png");

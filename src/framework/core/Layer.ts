@@ -17,9 +17,21 @@ module LC {
 			this.init();
 		}
 
+
+		// 进行一些初始化的操作
 		protected init(): void {
 			this.TAG = egret.getQualifiedClassName(this);
-			// console.log(this.TAG + " init");			
+			// console.log(this.TAG + " init");	
+			this.setOnTouchListener();
+		}
+
+		// 触摸消息的注册全在这里操作
+		protected setOnTouchListener() {
+			console.log(this.TAG + " setOnTouchListener");
+		}
+
+		protected removeOnTouchListener() {
+			console.log(this.TAG + " removeOnTouchListener");
 		}
 
 		// 进入层时调用
@@ -44,7 +56,7 @@ module LC {
 
 		//层对象被清除时调用
 		public cleanup() {
-
+			this.removeOnTouchListener();
 		}
 	}
 }

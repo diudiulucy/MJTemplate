@@ -20,7 +20,9 @@ module LC {
 		}
 
 		public cleanup(){
+			super.cleanup();
 			this.removeChildren();
+			this.loadingView.cleanup();
 			this.loadingView = null;
 		} 		
 

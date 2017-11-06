@@ -63,8 +63,14 @@ declare module Skin{
 	}
 }
 declare module Skin{
+	class LCProgressBarSkin extends eui.Skin{
+	}
+}
+declare module Skin{
 	class GameLayer extends eui.Skin{
 	}
 }
-declare class LoadSkin extends eui.Skin{
+declare module Skin{
+	class LoadLayer extends eui.Skin{
+	}
 }

@@ -24,7 +24,9 @@ var LC;
             this.addChild(this.loadingView);
         };
         LoadingScene.prototype.cleanup = function () {
+            _super.prototype.cleanup.call(this);
             this.removeChildren();
+            this.loadingView.cleanup();
             this.loadingView = null;
         };
         return LoadingScene;

@@ -23,23 +23,21 @@ module LC {
 		protected init() {
 			super.init();
 
-			this.createMode(LC.Directions.Down, this.mod1);
-			this.createMode(LC.Directions.Up, this.mod2);
-			this.createMode(LC.Directions.Left, this.mod3);
-			this.createMode(LC.Directions.Right, this.mod4);
+			this._initMode(LC.Directions.Down, this.mod1);
+			this._initMode(LC.Directions.Up, this.mod2);
+			this._initMode(LC.Directions.Left, this.mod3);
+			this._initMode(LC.Directions.Right, this.mod4);
+		}
 
-
+		protected setOnTouchListener(){
 			this.btn1.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
 			this.btn2.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
 			this.btn3.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
 			this.btn4.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
-
-			EventManager.dispatchEvent("lucy",{lucy:"a"});
 		}
 
 		public callback(event: egret.Event) {
-
-
+			EventManager.dispatchEvent("lucy", { lucy: "a" });
 			let mod = this.mod2;
 			let btn = event.currentTarget;
 			let direction = LC.Directions.Up
@@ -53,7 +51,9 @@ module LC {
 				mod.addCombToAllCardList(direction, [0, 1, 2, 3], [22, 22, 22, 22], LC.CardCombType.AnGang);
 			}
 		}
-		public createMode(direction, cardMod: LC.CardModLayout) {
+
+
+		private _initMode(direction, cardMod: LC.CardModLayout) {
 
 			let handCardList = [
 				17,

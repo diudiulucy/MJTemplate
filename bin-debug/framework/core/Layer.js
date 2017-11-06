@@ -25,9 +25,18 @@ var LC;
             _super.prototype.createChildren.call(this);
             this.init();
         };
+        // 进行一些初始化的操作
         Layer.prototype.init = function () {
             this.TAG = egret.getQualifiedClassName(this);
-            // console.log(this.TAG + " init");			
+            // console.log(this.TAG + " init");	
+            this.setOnTouchListener();
+        };
+        // 触摸消息的注册全在这里操作
+        Layer.prototype.setOnTouchListener = function () {
+            console.log(this.TAG + " setOnTouchListener");
+        };
+        Layer.prototype.removeOnClickListener = function () {
+            console.log(this.TAG + " removeOnClickListener");
         };
         // 进入层时调用
         Layer.prototype.onEnter = function () {
@@ -43,6 +52,7 @@ var LC;
         };
         //层对象被清除时调用
         Layer.prototype.cleanup = function () {
+            this.removeOnClickListener();
         };
         return Layer;
     }(eui.Component));

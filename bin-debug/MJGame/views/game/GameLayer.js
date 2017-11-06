@@ -22,17 +22,19 @@ var LC;
         }
         GameLayer.prototype.init = function () {
             _super.prototype.init.call(this);
-            this.createMode(LC.Directions.Down, this.mod1);
-            this.createMode(LC.Directions.Up, this.mod2);
-            this.createMode(LC.Directions.Left, this.mod3);
-            this.createMode(LC.Directions.Right, this.mod4);
+            this._initMode(LC.Directions.Down, this.mod1);
+            this._initMode(LC.Directions.Up, this.mod2);
+            this._initMode(LC.Directions.Left, this.mod3);
+            this._initMode(LC.Directions.Right, this.mod4);
+        };
+        GameLayer.prototype.setOnTouchListener = function () {
             this.btn1.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
             this.btn2.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
             this.btn3.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
             this.btn4.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
-            LC.EventManager.dispatchEvent("lucy", { lucy: "a" });
         };
         GameLayer.prototype.callback = function (event) {
+            LC.EventManager.dispatchEvent("lucy", { lucy: "a" });
             var mod = this.mod2;
             var btn = event.currentTarget;
             var direction = LC.Directions.Up;
@@ -49,7 +51,7 @@ var LC;
                 mod.addCombToAllCardList(direction, [0, 1, 2, 3], [22, 22, 22, 22], LC.CardCombType.AnGang);
             }
         };
-        GameLayer.prototype.createMode = function (direction, cardMod) {
+        GameLayer.prototype._initMode = function (direction, cardMod) {
             var handCardList = [
                 17,
                 18,
