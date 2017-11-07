@@ -1,964 +1,565 @@
 {
-	"groups": [
-		{
-			"keys": "description_json,button_down_png,button_up_png,checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,thumb_pb_png,track_pb_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,track_sb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,egret_icon_png,bg_jpg,room_bg_jpg,hall_bg_png,kwx_card_left_bg0_png,kwx_card_left_bg1_png,kwx_card_left_bg2_png,tpm_cardbg_1_png,tpm_cardbg_2_png,tpm_cardbg_3_png,tpm_cardbg_4_png,tpm_cardbg_5_png,tpm_cardbg_6_png,tpm_cardbg_7_png,tpm_cardbg_8_png,tpm_card_big_17_png,tpm_card_big_18_png,tpm_card_big_19_png,tpm_card_big_20_png,tpm_card_big_21_png,tpm_card_big_22_png,tpm_card_big_23_png,tpm_card_big_24_png,tpm_card_big_25_png,tpm_card_big_33_png,tpm_card_big_34_png,tpm_card_big_35_png,tpm_card_big_36_png,tpm_card_big_37_png,tpm_card_big_38_png,tpm_card_big_39_png,tpm_card_big_40_png,tpm_card_big_41_png,tpm_card_big_49_png,tpm_card_big_50_png,tpm_card_big_51_png,tpm_card_big_52_png,tpm_card_big_53_png,tpm_card_big_54_png,tpm_card_big_55_png,tpm_card_big_56_png,tpm_card_big_57_png,tpm_card_big_65_png,tpm_card_big_66_png,tpm_card_big_67_png,tpm_card_big_68_png,tpm_card_big_81_png,tpm_card_big_82_png,tpm_card_big_83_png,tpm_card_small_17_png,tpm_card_small_18_png,tpm_card_small_19_png,tpm_card_small_20_png,tpm_card_small_21_png,tpm_card_small_22_png,tpm_card_small_23_png,tpm_card_small_24_png,tpm_card_small_25_png,tpm_card_small_33_png,tpm_card_small_34_png,tpm_card_small_35_png,tpm_card_small_36_png,tpm_card_small_37_png,tpm_card_small_38_png,tpm_card_small_39_png,tpm_card_small_40_png,tpm_card_small_41_png,tpm_card_small_49_png,tpm_card_small_50_png,tpm_card_small_51_png,tpm_card_small_52_png,tpm_card_small_53_png,tpm_card_small_54_png,tpm_card_small_55_png,tpm_card_small_56_png,tpm_card_small_57_png,tpm_card_small_65_png,tpm_card_small_66_png,tpm_card_small_67_png,tpm_card_small_68_png,tpm_card_small_81_png,tpm_card_small_82_png,tpm_card_small_83_png,kwx_card_left_bg02_png,kwx_card_left_bg12_png,kwx_card_left_bg22_png,tpm_cardbg_12_png,tpm_cardbg_22_png,tpm_cardbg_32_png,tpm_cardbg_42_png,tpm_cardbg_52_png,tpm_cardbg_62_png,tpm_cardbg_72_png,tpm_cardbg_82_png,tpm_card_big_172_png,tpm_card_big_182_png,tpm_card_big_192_png,tpm_card_big_202_png,tpm_card_big_212_png,tpm_card_big_222_png,tpm_card_big_232_png,tpm_card_big_242_png,tpm_card_big_252_png,tpm_card_big_332_png,tpm_card_big_342_png,tpm_card_big_352_png,tpm_card_big_362_png,tpm_card_big_372_png,tpm_card_big_382_png,tpm_card_big_392_png,tpm_card_big_402_png,tpm_card_big_412_png,tpm_card_big_492_png,tpm_card_big_502_png,tpm_card_big_512_png,tpm_card_big_522_png,tpm_card_big_532_png,tpm_card_big_542_png,tpm_card_big_552_png,tpm_card_big_562_png,tpm_card_big_572_png,tpm_card_big_652_png,tpm_card_big_662_png,tpm_card_big_672_png,tpm_card_big_682_png,tpm_card_big_812_png,tpm_card_big_822_png,tpm_card_big_832_png,tpm_card_small_172_png,tpm_card_small_182_png,tpm_card_small_192_png,tpm_card_small_202_png,tpm_card_small_212_png,tpm_card_small_222_png,tpm_card_small_232_png,tpm_card_small_242_png,tpm_card_small_252_png,tpm_card_small_332_png,tpm_card_small_342_png,tpm_card_small_352_png,tpm_card_small_362_png,tpm_card_small_372_png,tpm_card_small_382_png,tpm_card_small_392_png,tpm_card_small_402_png,tpm_card_small_412_png,tpm_card_small_492_png,tpm_card_small_502_png,tpm_card_small_512_png,tpm_card_small_522_png,tpm_card_small_532_png,tpm_card_small_542_png,tpm_card_small_552_png,tpm_card_small_562_png,tpm_card_small_572_png,tpm_card_small_652_png,tpm_card_small_662_png,tpm_card_small_672_png,tpm_card_small_682_png,tpm_card_small_812_png,tpm_card_small_822_png,tpm_card_small_832_png,error_txt",
-			"name": "preload"
-		},
-		{
-			"keys": "PreLoadingBar_png,PreLoadingBarBg_png,PreLoadingBg_png",
-			"name": "loading"
-		}
-	],
 	"resources": [
 		{
-			"url": "config/description.json",
+			"name": "kwx_card_left_bg0_png",
+			"type": "image",
+			"url": "assets/base/card/kwx_card_left_bg0.png"
+		},
+		{
+			"name": "kwx_card_left_bg1_png",
+			"type": "image",
+			"url": "assets/base/card/kwx_card_left_bg1.png"
+		},
+		{
+			"name": "kwx_card_left_bg2_png",
+			"type": "image",
+			"url": "assets/base/card/kwx_card_left_bg2.png"
+		},
+		{
+			"name": "tpm_cardbg_1_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_cardbg_1.png"
+		},
+		{
+			"name": "tpm_cardbg_2_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_cardbg_2.png"
+		},
+		{
+			"name": "tpm_cardbg_3_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_cardbg_3.png"
+		},
+		{
+			"name": "tpm_cardbg_4_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_cardbg_4.png"
+		},
+		{
+			"name": "tpm_cardbg_5_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_cardbg_5.png"
+		},
+		{
+			"name": "tpm_cardbg_6_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_cardbg_6.png"
+		},
+		{
+			"name": "tpm_cardbg_7_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_cardbg_7.png"
+		},
+		{
+			"name": "tpm_cardbg_8_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_cardbg_8.png"
+		},
+		{
+			"name": "tpm_card_big_17_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_17.png"
+		},
+		{
+			"name": "tpm_card_big_18_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_18.png"
+		},
+		{
+			"name": "tpm_card_big_19_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_19.png"
+		},
+		{
+			"name": "tpm_card_big_20_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_20.png"
+		},
+		{
+			"name": "tpm_card_big_21_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_21.png"
+		},
+		{
+			"name": "tpm_card_big_22_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_22.png"
+		},
+		{
+			"name": "tpm_card_big_23_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_23.png"
+		},
+		{
+			"name": "tpm_card_big_24_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_24.png"
+		},
+		{
+			"name": "tpm_card_big_25_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_25.png"
+		},
+		{
+			"name": "tpm_card_big_33_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_33.png"
+		},
+		{
+			"name": "tpm_card_big_34_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_34.png"
+		},
+		{
+			"name": "tpm_card_big_35_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_35.png"
+		},
+		{
+			"name": "tpm_card_big_36_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_36.png"
+		},
+		{
+			"name": "tpm_card_big_37_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_37.png"
+		},
+		{
+			"name": "tpm_card_big_38_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_38.png"
+		},
+		{
+			"name": "tpm_card_big_39_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_39.png"
+		},
+		{
+			"name": "tpm_card_big_40_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_40.png"
+		},
+		{
+			"name": "tpm_card_big_41_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_41.png"
+		},
+		{
+			"name": "tpm_card_big_49_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_49.png"
+		},
+		{
+			"name": "tpm_card_big_50_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_50.png"
+		},
+		{
+			"name": "tpm_card_big_51_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_51.png"
+		},
+		{
+			"name": "tpm_card_big_52_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_52.png"
+		},
+		{
+			"name": "tpm_card_big_53_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_53.png"
+		},
+		{
+			"name": "tpm_card_big_54_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_54.png"
+		},
+		{
+			"name": "tpm_card_big_55_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_55.png"
+		},
+		{
+			"name": "tpm_card_big_56_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_56.png"
+		},
+		{
+			"name": "tpm_card_big_57_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_57.png"
+		},
+		{
+			"name": "tpm_card_big_65_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_65.png"
+		},
+		{
+			"name": "tpm_card_big_66_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_66.png"
+		},
+		{
+			"name": "tpm_card_big_67_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_67.png"
+		},
+		{
+			"name": "tpm_card_big_68_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_68.png"
+		},
+		{
+			"name": "tpm_card_big_81_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_81.png"
+		},
+		{
+			"name": "tpm_card_big_82_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_82.png"
+		},
+		{
+			"name": "tpm_card_big_83_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_big_83.png"
+		},
+		{
+			"name": "tpm_card_small_17_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_17.png"
+		},
+		{
+			"name": "tpm_card_small_18_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_18.png"
+		},
+		{
+			"name": "tpm_card_small_19_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_19.png"
+		},
+		{
+			"name": "tpm_card_small_20_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_20.png"
+		},
+		{
+			"name": "tpm_card_small_21_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_21.png"
+		},
+		{
+			"name": "tpm_card_small_22_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_22.png"
+		},
+		{
+			"name": "tpm_card_small_23_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_23.png"
+		},
+		{
+			"name": "tpm_card_small_24_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_24.png"
+		},
+		{
+			"name": "tpm_card_small_25_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_25.png"
+		},
+		{
+			"name": "tpm_card_small_33_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_33.png"
+		},
+		{
+			"name": "tpm_card_small_34_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_34.png"
+		},
+		{
+			"name": "tpm_card_small_35_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_35.png"
+		},
+		{
+			"name": "tpm_card_small_36_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_36.png"
+		},
+		{
+			"name": "tpm_card_small_37_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_37.png"
+		},
+		{
+			"name": "tpm_card_small_38_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_38.png"
+		},
+		{
+			"name": "tpm_card_small_39_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_39.png"
+		},
+		{
+			"name": "tpm_card_small_40_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_40.png"
+		},
+		{
+			"name": "tpm_card_small_41_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_41.png"
+		},
+		{
+			"name": "tpm_card_small_49_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_49.png"
+		},
+		{
+			"name": "tpm_card_small_50_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_50.png"
+		},
+		{
+			"name": "tpm_card_small_51_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_51.png"
+		},
+		{
+			"name": "tpm_card_small_52_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_52.png"
+		},
+		{
+			"name": "tpm_card_small_53_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_53.png"
+		},
+		{
+			"name": "tpm_card_small_54_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_54.png"
+		},
+		{
+			"name": "tpm_card_small_55_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_55.png"
+		},
+		{
+			"name": "tpm_card_small_56_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_56.png"
+		},
+		{
+			"name": "tpm_card_small_57_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_57.png"
+		},
+		{
+			"name": "tpm_card_small_65_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_65.png"
+		},
+		{
+			"name": "tpm_card_small_66_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_66.png"
+		},
+		{
+			"name": "tpm_card_small_67_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_67.png"
+		},
+		{
+			"name": "tpm_card_small_68_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_68.png"
+		},
+		{
+			"name": "tpm_card_small_81_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_81.png"
+		},
+		{
+			"name": "tpm_card_small_82_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_82.png"
+		},
+		{
+			"name": "tpm_card_small_83_png",
+			"type": "image",
+			"url": "assets/base/card/tpm_card_small_83.png"
+		},
+		{
+			"name": "hall_bg_png",
+			"type": "image",
+			"url": "assets/common/bg/hall_bg.png"
+		},
+		{
+			"name": "room_bg_jpg",
+			"type": "image",
+			"url": "assets/common/bg/room_bg.jpg"
+		},
+		{
+			"name": "PreLoadingBar_png",
+			"type": "image",
+			"url": "assets/loading/PreLoadingBar.png"
+		},
+		{
+			"name": "PreLoadingBarBg_png",
+			"type": "image",
+			"url": "assets/loading/PreLoadingBarBg.png"
+		},
+		{
+			"name": "PreLoadingBg_png",
+			"type": "image",
+			"url": "assets/loading/PreLoadingBg.png"
+		},
+		{
+			"name": "bg_jpg",
+			"type": "image",
+			"url": "assets/System/bg.jpg"
+		},
+		{
+			"name": "button_down_png",
+			"type": "image",
+			"url": "assets/System/Button/button_down.png"
+		},
+		{
+			"name": "button_up_png",
+			"type": "image",
+			"url": "assets/System/Button/button_up.png"
+		},
+		{
+			"name": "checkbox_select_disabled_png",
+			"type": "image",
+			"url": "assets/System/CheckBox/checkbox_select_disabled.png"
+		},
+		{
+			"name": "checkbox_select_down_png",
+			"type": "image",
+			"url": "assets/System/CheckBox/checkbox_select_down.png"
+		},
+		{
+			"name": "checkbox_select_up_png",
+			"type": "image",
+			"url": "assets/System/CheckBox/checkbox_select_up.png"
+		},
+		{
+			"name": "checkbox_unselect_png",
+			"type": "image",
+			"url": "assets/System/CheckBox/checkbox_unselect.png"
+		},
+		{
+			"name": "egret_icon_png",
+			"type": "image",
+			"url": "assets/System/egret_icon.png"
+		},
+		{
+			"name": "selected_png",
+			"type": "image",
+			"url": "assets/System/ItemRenderer/selected.png"
+		},
+		{
+			"name": "border_png",
+			"type": "image",
+			"url": "assets/System/Panel/border.png"
+		},
+		{
+			"name": "header_png",
+			"type": "image",
+			"url": "assets/System/Panel/header.png"
+		},
+		{
+			"name": "thumb_pb_png",
+			"type": "image",
+			"url": "assets/System/ProgressBar/thumb_pb.png"
+		},
+		{
+			"name": "track_pb_png",
+			"type": "image",
+			"url": "assets/System/ProgressBar/track_pb.png"
+		},
+		{
+			"name": "radiobutton_select_disabled_png",
+			"type": "image",
+			"url": "assets/System/RadioButton/radiobutton_select_disabled.png"
+		},
+		{
+			"name": "radiobutton_select_down_png",
+			"type": "image",
+			"url": "assets/System/RadioButton/radiobutton_select_down.png"
+		},
+		{
+			"name": "radiobutton_select_up_png",
+			"type": "image",
+			"url": "assets/System/RadioButton/radiobutton_select_up.png"
+		},
+		{
+			"name": "radiobutton_unselect_png",
+			"type": "image",
+			"url": "assets/System/RadioButton/radiobutton_unselect.png"
+		},
+		{
+			"name": "roundthumb_png",
+			"type": "image",
+			"url": "assets/System/ScrollBar/roundthumb.png"
+		},
+		{
+			"name": "track_sb_png",
+			"type": "image",
+			"url": "assets/System/ScrollBar/track_sb.png"
+		},
+		{
+			"name": "thumb_png",
+			"type": "image",
+			"url": "assets/System/Slider/thumb.png"
+		},
+		{
+			"name": "track_png",
+			"type": "image",
+			"url": "assets/System/Slider/track.png"
+		},
+		{
+			"name": "tracklight_png",
+			"type": "image",
+			"url": "assets/System/Slider/tracklight.png"
+		},
+		{
+			"name": "handle_png",
+			"type": "image",
+			"url": "assets/System/ToggleSwitch/handle.png"
+		},
+		{
+			"name": "off_png",
+			"type": "image",
+			"url": "assets/System/ToggleSwitch/off.png"
+		},
+		{
+			"name": "on_png",
+			"type": "image",
+			"url": "assets/System/ToggleSwitch/on.png"
+		},
+		{
+			"name": "description_json",
 			"type": "json",
-			"name": "description_json"
+			"url": "config/description.json"
 		},
 		{
-			"url": "assets/System/Button/button_down.png",
-			"type": "image",
-			"name": "button_down_png"
-		},
-		{
-			"url": "assets/System/Button/button_up.png",
-			"type": "image",
-			"name": "button_up_png"
-		},
-		{
-			"url": "assets/System/CheckBox/checkbox_select_disabled.png",
-			"type": "image",
-			"name": "checkbox_select_disabled_png"
-		},
-		{
-			"url": "assets/System/CheckBox/checkbox_select_down.png",
-			"type": "image",
-			"name": "checkbox_select_down_png"
-		},
-		{
-			"url": "assets/System/CheckBox/checkbox_select_up.png",
-			"type": "image",
-			"name": "checkbox_select_up_png"
-		},
-		{
-			"url": "assets/System/CheckBox/checkbox_unselect.png",
-			"type": "image",
-			"name": "checkbox_unselect_png"
-		},
-		{
-			"url": "assets/System/ItemRenderer/selected.png",
-			"type": "image",
-			"name": "selected_png"
-		},
-		{
-			"url": "assets/System/Panel/border.png",
-			"type": "image",
-			"name": "border_png"
-		},
-		{
-			"url": "assets/System/Panel/header.png",
-			"type": "image",
-			"name": "header_png"
-		},
-		{
-			"url": "assets/System/ProgressBar/thumb_pb.png",
-			"type": "image",
-			"name": "thumb_pb_png"
-		},
-		{
-			"url": "assets/System/ProgressBar/track_pb.png",
-			"type": "image",
-			"name": "track_pb_png"
-		},
-		{
-			"url": "assets/System/RadioButton/radiobutton_select_disabled.png",
-			"type": "image",
-			"name": "radiobutton_select_disabled_png"
-		},
-		{
-			"url": "assets/System/RadioButton/radiobutton_select_down.png",
-			"type": "image",
-			"name": "radiobutton_select_down_png"
-		},
-		{
-			"url": "assets/System/RadioButton/radiobutton_select_up.png",
-			"type": "image",
-			"name": "radiobutton_select_up_png"
-		},
-		{
-			"url": "assets/System/RadioButton/radiobutton_unselect.png",
-			"type": "image",
-			"name": "radiobutton_unselect_png"
-		},
-		{
-			"url": "assets/System/ScrollBar/roundthumb.png",
-			"type": "image",
-			"name": "roundthumb_png"
-		},
-		{
-			"url": "assets/System/ScrollBar/track_sb.png",
-			"type": "image",
-			"name": "track_sb_png"
-		},
-		{
-			"url": "assets/System/Slider/thumb.png",
-			"type": "image",
-			"name": "thumb_png"
-		},
-		{
-			"url": "assets/System/Slider/track.png",
-			"type": "image",
-			"name": "track_png"
-		},
-		{
-			"url": "assets/System/Slider/tracklight.png",
-			"type": "image",
-			"name": "tracklight_png"
-		},
-		{
-			"url": "assets/System/ToggleSwitch/handle.png",
-			"type": "image",
-			"name": "handle_png"
-		},
-		{
-			"url": "assets/System/ToggleSwitch/off.png",
-			"type": "image",
-			"name": "off_png"
-		},
-		{
-			"url": "assets/System/ToggleSwitch/on.png",
-			"type": "image",
-			"name": "on_png"
-		},
-		{
-			"url": "assets/System/egret_icon.png",
-			"type": "image",
-			"name": "egret_icon_png"
-		},
-		{
-			"url": "assets/System/bg.jpg",
-			"type": "image",
-			"name": "bg_jpg"
-		},
-		{
-			"url": "assets/common/bg/room_bg.jpg",
-			"type": "image",
-			"name": "room_bg_jpg"
-		},
-		{
-			"url": "assets/common/bg/hall_bg.png",
-			"type": "image",
-			"name": "hall_bg_png"
-		},
-		{
-			"url": "assets/base/card/kwx_card_left_bg0.png",
-			"type": "image",
-			"name": "kwx_card_left_bg0_png"
-		},
-		{
-			"url": "assets/base/card/kwx_card_left_bg1.png",
-			"type": "image",
-			"name": "kwx_card_left_bg1_png"
-		},
-		{
-			"url": "assets/base/card/kwx_card_left_bg2.png",
-			"type": "image",
-			"name": "kwx_card_left_bg2_png"
-		},
-		{
-			"url": "assets/base/card/tpm_cardbg_1.png",
-			"type": "image",
-			"name": "tpm_cardbg_1_png"
-		},
-		{
-			"url": "assets/base/card/tpm_cardbg_2.png",
-			"type": "image",
-			"name": "tpm_cardbg_2_png"
-		},
-		{
-			"url": "assets/base/card/tpm_cardbg_3.png",
-			"type": "image",
-			"name": "tpm_cardbg_3_png"
-		},
-		{
-			"url": "assets/base/card/tpm_cardbg_4.png",
-			"type": "image",
-			"name": "tpm_cardbg_4_png"
-		},
-		{
-			"url": "assets/base/card/tpm_cardbg_5.png",
-			"type": "image",
-			"name": "tpm_cardbg_5_png"
-		},
-		{
-			"url": "assets/base/card/tpm_cardbg_6.png",
-			"type": "image",
-			"name": "tpm_cardbg_6_png"
-		},
-		{
-			"url": "assets/base/card/tpm_cardbg_7.png",
-			"type": "image",
-			"name": "tpm_cardbg_7_png"
-		},
-		{
-			"url": "assets/base/card/tpm_cardbg_8.png",
-			"type": "image",
-			"name": "tpm_cardbg_8_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_17.png",
-			"type": "image",
-			"name": "tpm_card_big_17_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_18.png",
-			"type": "image",
-			"name": "tpm_card_big_18_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_19.png",
-			"type": "image",
-			"name": "tpm_card_big_19_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_20.png",
-			"type": "image",
-			"name": "tpm_card_big_20_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_21.png",
-			"type": "image",
-			"name": "tpm_card_big_21_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_22.png",
-			"type": "image",
-			"name": "tpm_card_big_22_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_23.png",
-			"type": "image",
-			"name": "tpm_card_big_23_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_24.png",
-			"type": "image",
-			"name": "tpm_card_big_24_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_25.png",
-			"type": "image",
-			"name": "tpm_card_big_25_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_33.png",
-			"type": "image",
-			"name": "tpm_card_big_33_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_34.png",
-			"type": "image",
-			"name": "tpm_card_big_34_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_35.png",
-			"type": "image",
-			"name": "tpm_card_big_35_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_36.png",
-			"type": "image",
-			"name": "tpm_card_big_36_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_37.png",
-			"type": "image",
-			"name": "tpm_card_big_37_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_38.png",
-			"type": "image",
-			"name": "tpm_card_big_38_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_39.png",
-			"type": "image",
-			"name": "tpm_card_big_39_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_40.png",
-			"type": "image",
-			"name": "tpm_card_big_40_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_41.png",
-			"type": "image",
-			"name": "tpm_card_big_41_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_49.png",
-			"type": "image",
-			"name": "tpm_card_big_49_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_50.png",
-			"type": "image",
-			"name": "tpm_card_big_50_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_51.png",
-			"type": "image",
-			"name": "tpm_card_big_51_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_52.png",
-			"type": "image",
-			"name": "tpm_card_big_52_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_53.png",
-			"type": "image",
-			"name": "tpm_card_big_53_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_54.png",
-			"type": "image",
-			"name": "tpm_card_big_54_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_55.png",
-			"type": "image",
-			"name": "tpm_card_big_55_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_56.png",
-			"type": "image",
-			"name": "tpm_card_big_56_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_57.png",
-			"type": "image",
-			"name": "tpm_card_big_57_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_65.png",
-			"type": "image",
-			"name": "tpm_card_big_65_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_66.png",
-			"type": "image",
-			"name": "tpm_card_big_66_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_67.png",
-			"type": "image",
-			"name": "tpm_card_big_67_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_68.png",
-			"type": "image",
-			"name": "tpm_card_big_68_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_81.png",
-			"type": "image",
-			"name": "tpm_card_big_81_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_82.png",
-			"type": "image",
-			"name": "tpm_card_big_82_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_83.png",
-			"type": "image",
-			"name": "tpm_card_big_83_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_17.png",
-			"type": "image",
-			"name": "tpm_card_small_17_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_18.png",
-			"type": "image",
-			"name": "tpm_card_small_18_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_19.png",
-			"type": "image",
-			"name": "tpm_card_small_19_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_20.png",
-			"type": "image",
-			"name": "tpm_card_small_20_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_21.png",
-			"type": "image",
-			"name": "tpm_card_small_21_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_22.png",
-			"type": "image",
-			"name": "tpm_card_small_22_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_23.png",
-			"type": "image",
-			"name": "tpm_card_small_23_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_24.png",
-			"type": "image",
-			"name": "tpm_card_small_24_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_25.png",
-			"type": "image",
-			"name": "tpm_card_small_25_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_33.png",
-			"type": "image",
-			"name": "tpm_card_small_33_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_34.png",
-			"type": "image",
-			"name": "tpm_card_small_34_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_35.png",
-			"type": "image",
-			"name": "tpm_card_small_35_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_36.png",
-			"type": "image",
-			"name": "tpm_card_small_36_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_37.png",
-			"type": "image",
-			"name": "tpm_card_small_37_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_38.png",
-			"type": "image",
-			"name": "tpm_card_small_38_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_39.png",
-			"type": "image",
-			"name": "tpm_card_small_39_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_40.png",
-			"type": "image",
-			"name": "tpm_card_small_40_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_41.png",
-			"type": "image",
-			"name": "tpm_card_small_41_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_49.png",
-			"type": "image",
-			"name": "tpm_card_small_49_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_50.png",
-			"type": "image",
-			"name": "tpm_card_small_50_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_51.png",
-			"type": "image",
-			"name": "tpm_card_small_51_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_52.png",
-			"type": "image",
-			"name": "tpm_card_small_52_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_53.png",
-			"type": "image",
-			"name": "tpm_card_small_53_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_54.png",
-			"type": "image",
-			"name": "tpm_card_small_54_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_55.png",
-			"type": "image",
-			"name": "tpm_card_small_55_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_56.png",
-			"type": "image",
-			"name": "tpm_card_small_56_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_57.png",
-			"type": "image",
-			"name": "tpm_card_small_57_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_65.png",
-			"type": "image",
-			"name": "tpm_card_small_65_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_66.png",
-			"type": "image",
-			"name": "tpm_card_small_66_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_67.png",
-			"type": "image",
-			"name": "tpm_card_small_67_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_68.png",
-			"type": "image",
-			"name": "tpm_card_small_68_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_81.png",
-			"type": "image",
-			"name": "tpm_card_small_81_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_82.png",
-			"type": "image",
-			"name": "tpm_card_small_82_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_83.png",
-			"type": "image",
-			"name": "tpm_card_small_83_png"
-		},
-		{
-			"url": "assets/base/card/kwx_card_left_bg0.png",
-			"type": "image",
-			"name": "kwx_card_left_bg02_png"
-		},
-		{
-			"url": "assets/base/card/kwx_card_left_bg1.png",
-			"type": "image",
-			"name": "kwx_card_left_bg12_png"
-		},
-		{
-			"url": "assets/base/card/kwx_card_left_bg2.png",
-			"type": "image",
-			"name": "kwx_card_left_bg22_png"
-		},
-		{
-			"url": "assets/base/card/tpm_cardbg_1.png",
-			"type": "image",
-			"name": "tpm_cardbg_12_png"
-		},
-		{
-			"url": "assets/base/card/tpm_cardbg_2.png",
-			"type": "image",
-			"name": "tpm_cardbg_22_png"
-		},
-		{
-			"url": "assets/base/card/tpm_cardbg_3.png",
-			"type": "image",
-			"name": "tpm_cardbg_32_png"
-		},
-		{
-			"url": "assets/base/card/tpm_cardbg_4.png",
-			"type": "image",
-			"name": "tpm_cardbg_42_png"
-		},
-		{
-			"url": "assets/base/card/tpm_cardbg_5.png",
-			"type": "image",
-			"name": "tpm_cardbg_52_png"
-		},
-		{
-			"url": "assets/base/card/tpm_cardbg_6.png",
-			"type": "image",
-			"name": "tpm_cardbg_62_png"
-		},
-		{
-			"url": "assets/base/card/tpm_cardbg_7.png",
-			"type": "image",
-			"name": "tpm_cardbg_72_png"
-		},
-		{
-			"url": "assets/base/card/tpm_cardbg_8.png",
-			"type": "image",
-			"name": "tpm_cardbg_82_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_17.png",
-			"type": "image",
-			"name": "tpm_card_big_172_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_18.png",
-			"type": "image",
-			"name": "tpm_card_big_182_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_19.png",
-			"type": "image",
-			"name": "tpm_card_big_192_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_20.png",
-			"type": "image",
-			"name": "tpm_card_big_202_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_21.png",
-			"type": "image",
-			"name": "tpm_card_big_212_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_22.png",
-			"type": "image",
-			"name": "tpm_card_big_222_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_23.png",
-			"type": "image",
-			"name": "tpm_card_big_232_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_24.png",
-			"type": "image",
-			"name": "tpm_card_big_242_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_25.png",
-			"type": "image",
-			"name": "tpm_card_big_252_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_33.png",
-			"type": "image",
-			"name": "tpm_card_big_332_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_34.png",
-			"type": "image",
-			"name": "tpm_card_big_342_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_35.png",
-			"type": "image",
-			"name": "tpm_card_big_352_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_36.png",
-			"type": "image",
-			"name": "tpm_card_big_362_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_37.png",
-			"type": "image",
-			"name": "tpm_card_big_372_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_38.png",
-			"type": "image",
-			"name": "tpm_card_big_382_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_39.png",
-			"type": "image",
-			"name": "tpm_card_big_392_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_40.png",
-			"type": "image",
-			"name": "tpm_card_big_402_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_41.png",
-			"type": "image",
-			"name": "tpm_card_big_412_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_49.png",
-			"type": "image",
-			"name": "tpm_card_big_492_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_50.png",
-			"type": "image",
-			"name": "tpm_card_big_502_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_51.png",
-			"type": "image",
-			"name": "tpm_card_big_512_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_52.png",
-			"type": "image",
-			"name": "tpm_card_big_522_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_53.png",
-			"type": "image",
-			"name": "tpm_card_big_532_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_54.png",
-			"type": "image",
-			"name": "tpm_card_big_542_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_55.png",
-			"type": "image",
-			"name": "tpm_card_big_552_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_56.png",
-			"type": "image",
-			"name": "tpm_card_big_562_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_57.png",
-			"type": "image",
-			"name": "tpm_card_big_572_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_65.png",
-			"type": "image",
-			"name": "tpm_card_big_652_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_66.png",
-			"type": "image",
-			"name": "tpm_card_big_662_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_67.png",
-			"type": "image",
-			"name": "tpm_card_big_672_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_68.png",
-			"type": "image",
-			"name": "tpm_card_big_682_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_81.png",
-			"type": "image",
-			"name": "tpm_card_big_812_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_82.png",
-			"type": "image",
-			"name": "tpm_card_big_822_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_big_83.png",
-			"type": "image",
-			"name": "tpm_card_big_832_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_17.png",
-			"type": "image",
-			"name": "tpm_card_small_172_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_18.png",
-			"type": "image",
-			"name": "tpm_card_small_182_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_19.png",
-			"type": "image",
-			"name": "tpm_card_small_192_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_20.png",
-			"type": "image",
-			"name": "tpm_card_small_202_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_21.png",
-			"type": "image",
-			"name": "tpm_card_small_212_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_22.png",
-			"type": "image",
-			"name": "tpm_card_small_222_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_23.png",
-			"type": "image",
-			"name": "tpm_card_small_232_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_24.png",
-			"type": "image",
-			"name": "tpm_card_small_242_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_25.png",
-			"type": "image",
-			"name": "tpm_card_small_252_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_33.png",
-			"type": "image",
-			"name": "tpm_card_small_332_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_34.png",
-			"type": "image",
-			"name": "tpm_card_small_342_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_35.png",
-			"type": "image",
-			"name": "tpm_card_small_352_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_36.png",
-			"type": "image",
-			"name": "tpm_card_small_362_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_37.png",
-			"type": "image",
-			"name": "tpm_card_small_372_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_38.png",
-			"type": "image",
-			"name": "tpm_card_small_382_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_39.png",
-			"type": "image",
-			"name": "tpm_card_small_392_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_40.png",
-			"type": "image",
-			"name": "tpm_card_small_402_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_41.png",
-			"type": "image",
-			"name": "tpm_card_small_412_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_49.png",
-			"type": "image",
-			"name": "tpm_card_small_492_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_50.png",
-			"type": "image",
-			"name": "tpm_card_small_502_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_51.png",
-			"type": "image",
-			"name": "tpm_card_small_512_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_52.png",
-			"type": "image",
-			"name": "tpm_card_small_522_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_53.png",
-			"type": "image",
-			"name": "tpm_card_small_532_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_54.png",
-			"type": "image",
-			"name": "tpm_card_small_542_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_55.png",
-			"type": "image",
-			"name": "tpm_card_small_552_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_56.png",
-			"type": "image",
-			"name": "tpm_card_small_562_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_57.png",
-			"type": "image",
-			"name": "tpm_card_small_572_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_65.png",
-			"type": "image",
-			"name": "tpm_card_small_652_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_66.png",
-			"type": "image",
-			"name": "tpm_card_small_662_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_67.png",
-			"type": "image",
-			"name": "tpm_card_small_672_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_68.png",
-			"type": "image",
-			"name": "tpm_card_small_682_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_81.png",
-			"type": "image",
-			"name": "tpm_card_small_812_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_82.png",
-			"type": "image",
-			"name": "tpm_card_small_822_png"
-		},
-		{
-			"url": "assets/base/card/tpm_card_small_83.png",
-			"type": "image",
-			"name": "tpm_card_small_832_png"
-		},
-		{
-			"url": "assets/loading/PreLoadingBar.png",
-			"type": "image",
-			"name": "PreLoadingBar_png"
-		},
-		{
-			"url": "assets/loading/PreLoadingBarBg.png",
-			"type": "image",
-			"name": "PreLoadingBarBg_png"
-		},
-		{
-			"url": "assets/loading/PreLoadingBg.png",
-			"type": "image",
-			"name": "PreLoadingBg_png"
-		},
-		{
-			"url": "config/error.txt",
+			"name": "error_txt",
 			"type": "text",
-			"name": "error_txt"
+			"url": "config/error.txt"
+		}
+	],
+	"groups": [
+		{
+			"name": "preload",
+			"keys": "kwx_card_left_bg0_png,kwx_card_left_bg1_png,kwx_card_left_bg2_png,tpm_cardbg_1_png,tpm_cardbg_2_png,tpm_cardbg_3_png,tpm_cardbg_4_png,tpm_cardbg_5_png,tpm_cardbg_6_png,tpm_cardbg_7_png,tpm_cardbg_8_png,tpm_card_big_17_png,tpm_card_big_18_png,tpm_card_big_19_png,tpm_card_big_20_png,tpm_card_big_21_png,tpm_card_big_22_png,tpm_card_big_23_png,tpm_card_big_24_png,tpm_card_big_25_png,tpm_card_big_33_png,tpm_card_big_34_png,tpm_card_big_35_png,tpm_card_big_36_png,tpm_card_big_37_png,tpm_card_big_38_png,tpm_card_big_39_png,tpm_card_big_40_png,tpm_card_big_41_png,tpm_card_big_49_png,tpm_card_big_50_png,tpm_card_big_51_png,tpm_card_big_52_png,tpm_card_big_53_png,tpm_card_big_54_png,tpm_card_big_55_png,tpm_card_big_56_png,tpm_card_big_57_png,tpm_card_big_65_png,tpm_card_big_66_png,tpm_card_big_67_png,tpm_card_big_68_png,tpm_card_big_81_png,tpm_card_big_82_png,tpm_card_big_83_png,tpm_card_small_17_png,tpm_card_small_18_png,tpm_card_small_19_png,tpm_card_small_20_png,tpm_card_small_21_png,tpm_card_small_22_png,tpm_card_small_23_png,tpm_card_small_24_png,tpm_card_small_25_png,tpm_card_small_33_png,tpm_card_small_34_png,tpm_card_small_35_png,tpm_card_small_36_png,tpm_card_small_37_png,tpm_card_small_38_png,tpm_card_small_39_png,tpm_card_small_40_png,tpm_card_small_41_png,tpm_card_small_49_png,tpm_card_small_50_png,tpm_card_small_51_png,tpm_card_small_52_png,tpm_card_small_53_png,tpm_card_small_54_png,tpm_card_small_55_png,tpm_card_small_56_png,tpm_card_small_57_png,tpm_card_small_65_png,tpm_card_small_66_png,tpm_card_small_67_png,tpm_card_small_68_png,tpm_card_small_81_png,tpm_card_small_82_png,tpm_card_small_83_png,hall_bg_png,room_bg_jpg,PreLoadingBar_png,PreLoadingBarBg_png,PreLoadingBg_png,bg_jpg,button_down_png,button_up_png,checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,egret_icon_png,selected_png,border_png,header_png,thumb_pb_png,track_pb_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,track_sb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,description_json,error_txt"
 		}
 	]
 }
