@@ -5,14 +5,17 @@
  */
 module LC {
 	export class GameLayerController extends Controller{
-		public constructor() {
-			super();
+		
+		protected registerSocket() {
+
+		}
+		
+		protected unRegisterSocket(){
+
 		}
 
 		public text(){
 			console.log("test");
-		}
-
-		
+		}	
 	}
 }

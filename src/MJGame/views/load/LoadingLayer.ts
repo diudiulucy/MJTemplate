@@ -76,7 +76,7 @@ module LC {
 
         protected registerCustomEvents() {
             super.registerCustomEvents();
-            EventManager.getInstance().register(LC.CustomEvent.UPDATE_VIEW, this.updateView, this);                 
+            EventManager.getInstance().register(CustomEvents.UPDATE_VIEW, this.updateView, this);                 
         }
 
         protected updateView(){
@@ -85,7 +85,7 @@ module LC {
 
         protected unRegisterCustomEvents() {
             super.unRegisterCustomEvents()
-            EventManager.getInstance().unRegister(LC.CustomEvent.UPDATE_VIEW,  this.updateView, this);
+            EventManager.getInstance().unRegister(CustomEvents.UPDATE_VIEW,  this.updateView, this);
         }
 
     }

@@ -27,9 +27,40 @@ module LC {
 			this._initMode(LC.Directions.Up, this.mod2);
 			this._initMode(LC.Directions.Left, this.mod3);
 			this._initMode(LC.Directions.Right, this.mod4);
+
+			LC.Http.post("http://httpbin.org/post", { id: 1, level: 1 }, (e) => {
+				var request = e.currentTarget;
+				console.log("post data : ", request.response);
+			}, this);
+
+			LC.Http.get("http://httpbin.org/get", { id: 1, level: 1 }, (e) => {
+				var request = e.currentTarget;
+				console.log("get data : ", request.response);
+			}, this);
+
+			this.createGameScene();//test
 		}
 
-		protected setOnTouchListener(){
+
+		private webSocket: egret.WebSocket;
+		private createGameScene(): void {
+			this.webSocket = new egret.WebSocket();
+			this.webSocket.addEventListener(egret.ProgressEvent.SOCKET_DATA, this.onReceiveMessage, this);
+			this.webSocket.addEventListener(egret.Event.CONNECT, this.onSocketOpen, this);
+			this.webSocket.connect("echo.websocket.org", 80);
+		}
+		private onSocketOpen(): void {
+			var cmd = "Hello Egret WebSocket，的风格和地方";
+			console.log("连接成功，发送数据：" + cmd);
+			this.webSocket.writeUTF(cmd);
+		}
+		private onReceiveMessage(e: egret.Event): void {
+			var msg = this.webSocket.readUTF();
+			console.log("收到数据：" + msg);
+		}
+
+
+		protected setOnTouchListener() {
 			this.btn1.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
 			this.btn2.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
 			this.btn3.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
@@ -37,7 +68,7 @@ module LC {
 		}
 
 
-		protected removeOnTouchListener(){
+		protected removeOnTouchListener() {
 			this.btn1.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
 			this.btn2.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
 			this.btn3.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
@@ -49,7 +80,7 @@ module LC {
 			//需要强转一下类型才看的到代码提示
 			(<GameLayerController>this.Ctrl).text();
 
-			EventManager.getInstance().dispatchCustomEvent(LC.CustomEvent.UPDATE_VIEW,{ lucy: "a" });
+			EventManager.getInstance().dispatchCustomEvent(CustomEvents.UPDATE_VIEW, { lucy: "a" });
 			let mod = this.mod2;
 			let btn = event.currentTarget;
 			let direction = LC.Directions.Up
