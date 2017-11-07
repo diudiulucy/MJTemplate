@@ -10,6 +10,9 @@ var LC;
 (function (LC) {
     var Controller = (function () {
         function Controller() {
+            this.TAG = "";
+            this.TAG = egret.getQualifiedClassName(this);
+            console.log(this.TAG + " created");
         }
         return Controller;
     }());

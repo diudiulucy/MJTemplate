@@ -36,8 +36,20 @@ module LC {
 			this.btn4.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
 		}
 
+
+		protected removeOnTouchListener(){
+			this.btn1.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
+			this.btn2.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
+			this.btn3.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
+			this.btn4.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
+		}
+
 		public callback(event: egret.Event) {
-			EventManager.dispatchEvent("lucy", { lucy: "a" });
+
+			//需要强转一下类型才看的到代码提示
+			(<GameLayerController>this.Ctrl).text();
+
+			EventManager.getInstance().dispatchCustomEvent(LC.CustomEvent.UPDATE_VIEW,{ lucy: "a" });
 			let mod = this.mod2;
 			let btn = event.currentTarget;
 			let direction = LC.Directions.Up

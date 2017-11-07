@@ -7,7 +7,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * 层级类,只处理UI上的逻辑
+ * 层级类,只处理UI上的逻辑(一个layer对应一个controller,处理和后端的交互)
  * @author lucywang
  * @date 2017/10/19
  */
@@ -23,20 +23,37 @@ var LC;
         // 此方法仅在组件第一次添加到舞台时回调一次。
         Layer.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this);
+            this.TAG = egret.getQualifiedClassName(this);
             this.init();
         };
+        Object.defineProperty(Layer.prototype, "Ctrl", {
+            get: function () {
+                return this._ctrl;
+            },
+            set: function (ctrl) {
+                this._ctrl = ctrl;
+            },
+            enumerable: true,
+            configurable: true
+        });
         // 进行一些初始化的操作
         Layer.prototype.init = function () {
-            this.TAG = egret.getQualifiedClassName(this);
-            // console.log(this.TAG + " init");	
+            console.log(this.TAG + " init");
             this.setOnTouchListener();
+            this.registerCustomEvents();
         };
         // 触摸消息的注册全在这里操作
         Layer.prototype.setOnTouchListener = function () {
             console.log(this.TAG + " setOnTouchListener");
         };
-        Layer.prototype.removeOnClickListener = function () {
-            console.log(this.TAG + " removeOnClickListener");
+        Layer.prototype.removeOnTouchListener = function () {
+            console.log(this.TAG + " removeOnTouchListener");
+        };
+        Layer.prototype.registerCustomEvents = function () {
+            console.log(this.TAG + " registerCustomEvents");
+        };
+        Layer.prototype.unRegisterCustomEvents = function () {
+            console.log(this.TAG + " unRegisterCustomEvents");
         };
         // 进入层时调用
         Layer.prototype.onEnter = function () {
@@ -52,7 +69,8 @@ var LC;
         };
         //层对象被清除时调用
         Layer.prototype.cleanup = function () {
-            this.removeOnClickListener();
+            this.removeOnTouchListener();
+            this.unRegisterCustomEvents();
         };
         return Layer;
     }(eui.Component));

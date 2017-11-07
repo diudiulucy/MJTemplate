@@ -22,16 +22,16 @@ module LC {
 			return EventManager.instance;
 		}
 
-		public static dispatchEvent(type: string, data?: any): void {
-			EventManager.getInstance().dispatchEventWith(type, false, data);
+		public dispatchCustomEvent(type: string, data?: any): void {
+			EventManager.instance.dispatchEventWith(type, false, data);
 		}
 
-		public static register(type: string, callback: Function, thisObj: any): void {
-			EventManager.getInstance().addEventListener(type, callback, thisObj);
+		public register(type: string, callback: Function, thisObj: any): void {
+			EventManager.instance.addEventListener(type, callback, thisObj);
 		}
 
-		public static unRegister(type: string, callback: Function, thisObj: any):void{
-			EventManager.getInstance().removeEventListener(type, callback, thisObj);
+		public unRegister(type: string, callback: Function, thisObj: any):void{
+			EventManager.instance.removeEventListener(type, callback, thisObj);
 		}
 	}
 }

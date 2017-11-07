@@ -25,9 +25,6 @@ var LC;
             _super.prototype.init.call(this);
             this.w = egret.MainContext.instance.stage.stageWidth;
             this.h = egret.MainContext.instance.stage.stageHeight;
-            LC.EventManager.register("lucy", function (e) {
-                console.log("aasdfasd");
-            }, this);
             this.bg = new egret.Bitmap;
             this.bg.texture = RES.getRes("PreLoadingBg_png");
             this.bg.width = this.w;
@@ -70,6 +67,18 @@ var LC;
             var rate = Math.round((current / total) * 100);
             this.textField.text = rate + "%";
             this.pgBar.width = 641 * (current / total);
+        };
+        LoadingLayer.prototype.registerCustomEvents = function () {
+            _super.prototype.registerCustomEvents.call(this);
+            LC.EventManager.getInstance().register(LC.CustomEvent.UPDATE_VIEW, this.updateView, this);
+            //    this.addEventListener(LC.CustomEvent.UPDATE_VIEW, this.updateView, this);               
+        };
+        LoadingLayer.prototype.updateView = function () {
+            console.log("updateView");
+        };
+        LoadingLayer.prototype.unRegisterCustomEvents = function () {
+            _super.prototype.unRegisterCustomEvents.call(this);
+            // EventManager.getInstance().unRegister(LC.CustomEvent.UPDATE_VIEW,  this.updateView, this);
         };
         return LoadingLayer;
     }(LC.Layer));

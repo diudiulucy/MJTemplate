@@ -15,6 +15,8 @@ module LC {
 		protected createChildren(): void {
 			super.createChildren();
 			this._isRunning = true;
+			this.TAG = egret.getQualifiedClassName(this);
+			
 			this.init();
 		}
 
@@ -24,7 +26,7 @@ module LC {
 
 		// 初始化场景时调用，需要覆盖
 		protected init(): void {
-			this.TAG = egret.getQualifiedClassName(this);
+
 			console.log(this.TAG + " init");
 		}
 
@@ -35,7 +37,7 @@ module LC {
 
 		// 进入层而且过渡动画结束时调用           
 		public onEnterTransitionDidFinish() {
-			console.log(this.TAG +  " onEnterTransitionDidFinish");
+			console.log(this.TAG + " onEnterTransitionDidFinish");
 			// egret.Tween.get(this).to({x:this.stage.width*1.5 }, 0, egret.Ease.backInOut).to({x:0 }, 600, egret.Ease.sineInOut);
 		}
 

@@ -33,8 +33,16 @@ var LC;
             this.btn3.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
             this.btn4.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
         };
+        GameLayer.prototype.removeOnTouchListener = function () {
+            this.btn1.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
+            this.btn2.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
+            this.btn3.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
+            this.btn4.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
+        };
         GameLayer.prototype.callback = function (event) {
-            LC.EventManager.dispatchEvent("lucy", { lucy: "a" });
+            //需要强转一下类型才看的到代码提示
+            this.Ctrl.text();
+            LC.EventManager.getInstance().dispatchCustomEvent(LC.CustomEvent.UPDATE_VIEW, { lucy: "a" });
             var mod = this.mod2;
             var btn = event.currentTarget;
             var direction = LC.Directions.Up;

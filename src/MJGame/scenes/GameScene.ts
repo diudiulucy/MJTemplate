@@ -6,6 +6,7 @@
 module LC {
 	export class GameScene extends Scene {
 		private gameLayer: LC.GameLayer;
+
 		public constructor() {
 			super();
 			
@@ -13,7 +14,9 @@ module LC {
 
 		protected init() {
 			super.init();
+
 			this.gameLayer = new LC.GameLayer();
+			this.gameLayer.Ctrl = new GameLayerController();
 			this.addChild(this.gameLayer);
 
 			// ErrorCodeManager.Instance.init("error_txt");

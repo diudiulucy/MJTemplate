@@ -21,6 +21,7 @@ var LC;
         GameScene.prototype.init = function () {
             _super.prototype.init.call(this);
             this.gameLayer = new LC.GameLayer();
+            this.gameLayer.Ctrl = new LC.GameLayerController();
             this.addChild(this.gameLayer);
             // ErrorCodeManager.Instance.init("error_txt");
             // console.log(ErrorCodeManager.Instance.getErrorCode(1001));

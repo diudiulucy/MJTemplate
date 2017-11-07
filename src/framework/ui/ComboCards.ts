@@ -107,7 +107,7 @@ module LC {
         /**
          *  设置牌的纹理
          * @param direction   方向
-         * @param cardState     牌的状态 Stand,Fall,Hide
+         * @param cardState   牌的状态 Stand,Fall,Hide
          * @param cardList    牌值数组
          */
         private _setList(direction: LC.Directions, state: LC.CardState, cardList: Array<number>) {

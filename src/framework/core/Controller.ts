@@ -5,8 +5,11 @@
  */
 module LC {
 	export class Controller {
+		private TAG: string = "";
+		
 		public constructor() {
-			
+			this.TAG = egret.getQualifiedClassName(this);
+			console.log(this.TAG + " created");
 		}
 
 	}

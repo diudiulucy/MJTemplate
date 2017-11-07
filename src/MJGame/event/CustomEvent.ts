@@ -5,6 +5,6 @@
  */
 module LC {
 	export class CustomEvent {
-		public static TEST :string = "SocketConnect";
+		public static UPDATE_VIEW :string = "UpdateView";
 	}
 }

@@ -24,6 +24,7 @@ var LC;
         Scene.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this);
             this._isRunning = true;
+            this.TAG = egret.getQualifiedClassName(this);
             this.init();
         };
         Object.defineProperty(Scene.prototype, "isRunning", {
@@ -35,7 +36,6 @@ var LC;
         });
         // 初始化场景时调用，需要覆盖
         Scene.prototype.init = function () {
-            this.TAG = egret.getQualifiedClassName(this);
             console.log(this.TAG + " init");
         };
         // 进入层时调用

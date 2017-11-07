@@ -13,7 +13,7 @@ var LC;
         }
         return CustomEvent;
     }());
-    CustomEvent.TEST = "SocketConnect";
+    CustomEvent.UPDATE_VIEW = "UpdateView";
     LC.CustomEvent = CustomEvent;
     __reflect(CustomEvent.prototype, "LC.CustomEvent");
 })(LC || (LC = {}));

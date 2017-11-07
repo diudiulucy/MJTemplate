@@ -23,11 +23,6 @@ module LC {
             this.w = egret.MainContext.instance.stage.stageWidth;
             this.h = egret.MainContext.instance.stage.stageHeight;
 
-            EventManager.register("lucy",(e)=>{
-                console.log("aasdfasd");
-            },this);
-
-            
             this.bg = new egret.Bitmap;
             this.bg.texture = RES.getRes("PreLoadingBg_png");
             this.bg.width = this.w;
@@ -78,6 +73,22 @@ module LC {
             this.pgBar.width = 641 * (current / total);
         }
 
+
+        protected registerCustomEvents() {
+            super.registerCustomEvents();
+
+            EventManager.getInstance().register(LC.CustomEvent.UPDATE_VIEW, this.updateView, this);     
+        //    this.addEventListener(LC.CustomEvent.UPDATE_VIEW, this.updateView, this);               
+        }
+
+        protected updateView(){
+            console.log("updateView");
+        }
+
+        protected unRegisterCustomEvents() {
+            super.unRegisterCustomEvents()
+            // EventManager.getInstance().unRegister(LC.CustomEvent.UPDATE_VIEW,  this.updateView, this);
+        }
 
     }
 }

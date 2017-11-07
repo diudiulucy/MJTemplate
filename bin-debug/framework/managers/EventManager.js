@@ -28,14 +28,14 @@ var LC;
             }
             return EventManager.instance;
         };
-        EventManager.dispatchEvent = function (type, data) {
-            EventManager.getInstance().dispatchEventWith(type, false, data);
+        EventManager.prototype.dispatchCustomEvent = function (type, data) {
+            EventManager.instance.dispatchEventWith(type, false, data);
         };
-        EventManager.register = function (type, callback, thisObj) {
-            EventManager.getInstance().addEventListener(type, callback, thisObj);
+        EventManager.prototype.register = function (type, callback, thisObj) {
+            EventManager.instance.addEventListener(type, callback, thisObj);
         };
-        EventManager.unRegister = function (type, callback, thisObj) {
-            EventManager.getInstance().removeEventListener(type, callback, thisObj);
+        EventManager.prototype.unRegister = function (type, callback, thisObj) {
+            EventManager.instance.removeEventListener(type, callback, thisObj);
         };
         return EventManager;
     }(egret.EventDispatcher));
