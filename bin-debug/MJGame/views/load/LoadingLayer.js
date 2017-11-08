@@ -70,14 +70,14 @@ var LC;
         };
         LoadingLayer.prototype.registerCustomEvents = function () {
             _super.prototype.registerCustomEvents.call(this);
-            LC.EventManager.getInstance().register(LC.CustomEvent.UPDATE_VIEW, this.updateView, this);
+            LC.EventManager.getInstance().register(CustomEvents.UPDATE_VIEW, this.updateView, this);
         };
         LoadingLayer.prototype.updateView = function () {
             console.log("updateView");
         };
         LoadingLayer.prototype.unRegisterCustomEvents = function () {
             _super.prototype.unRegisterCustomEvents.call(this);
-            LC.EventManager.getInstance().unRegister(LC.CustomEvent.UPDATE_VIEW, this.updateView, this);
+            LC.EventManager.getInstance().unRegister(CustomEvents.UPDATE_VIEW, this.updateView, this);
         };
         return LoadingLayer;
     }(LC.Layer));

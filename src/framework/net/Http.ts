@@ -19,8 +19,13 @@ module LC {
 	export class Http {
 		/**
 		 * 发送post请求
+		 * @param url 		路径
+		 * @param data 		数据
+		 * @param success  	成功的回调
+		 * @param 
+		 * @param error 	失败的回调
 		 */
-		public static post(url: string, data?: any, success?: Function, thisObject?: any, error?: Function): void {
+		public static post(url: string, data?: any, success?: Function, thisObject?: any, error?: Function,progress?:Function): void {
 			let request = new egret.HttpRequest();
 			request.responseType = egret.HttpResponseType.TEXT;
 			request.open(url, egret.HttpMethod.POST);
@@ -32,12 +37,17 @@ module LC {
 				request.send();
 			}
 
-			success && request.addEventListener(egret.Event.COMPLETE, success, this);
-			error && request.addEventListener(egret.IOErrorEvent.IO_ERROR, error, this);
+			success && request.addEventListener(egret.Event.COMPLETE, success, thisObject);
+			error && request.addEventListener(egret.IOErrorEvent.IO_ERROR, error, thisObject);
+			progress && request.addEventListener(egret.ProgressEvent.PROGRESS,progress,thisObject);
 		}
 
 		/**
 		 * 发送get请求
+		 * @param url 		路径
+		 * @param data 		数据
+		 * @param success  	成功的回调
+		 * @param error 	失败的回调
 		 */
 		public static get(url: string, data?: any, success?: Function, thisObject?: any, error?: Function): void {
 			let request = new egret.HttpRequest();
@@ -51,10 +61,9 @@ module LC {
 			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			request.send();
 
-			success && request.addEventListener(egret.Event.COMPLETE, success, this);
-			error && request.addEventListener(egret.IOErrorEvent.IO_ERROR, error, this);
+			success && request.addEventListener(egret.Event.COMPLETE, success, thisObject);
+			error && request.addEventListener(egret.IOErrorEvent.IO_ERROR, error, thisObject);
 		}
-
 
 		private static changeUrlCode(param: Object): string {
 			if (!param) return null;
