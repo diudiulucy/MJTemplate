@@ -19,6 +19,7 @@ var LC;
 (function (LC) {
     var EventManager = (function (_super) {
         __extends(EventManager, _super);
+        //构造函数必须私有
         function EventManager() {
             return _super.call(this) || this;
         }

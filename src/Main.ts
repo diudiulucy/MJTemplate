@@ -82,6 +82,9 @@ class Main extends eui.UILayer {
      */
     private onResourceLoadComplete(event: RES.ResourceEvent): void {
         if (event.groupName == "loading") {
+            let url = "ws://echo.websocket.org:80";
+
+            LC.Socket.Instance.startConnect(url);
             //设置加载进度界面
             this.loadingScene = new LC.LoadingScene();
             LC.SceneManager.Instance.runWithScene(this.loadingScene);
@@ -134,7 +137,7 @@ class Main extends eui.UILayer {
      */
     protected startCreateScene(): void {
         let gameScene = new LC.GameScene();
-        
+
         LC.SceneManager.Instance.replaceScene(gameScene);
         // LC.SceneManager.Instance.pushScene(gameScene);
         // LC.SceneManager.Instance.popScene(gameScene);

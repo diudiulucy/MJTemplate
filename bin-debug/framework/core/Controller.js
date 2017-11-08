@@ -13,7 +13,21 @@ var LC;
             this.TAG = "";
             this.TAG = egret.getQualifiedClassName(this);
             console.log(this.TAG + " created");
+            this.init();
         }
+        // 进行一些初始化的操作
+        Controller.prototype.init = function () {
+            //监听协议
+            this.registerSocket();
+        };
+        //监听协议的接口
+        Controller.prototype.registerSocket = function () {
+        };
+        Controller.prototype.unRegisterSocket = function () {
+        };
+        Controller.prototype.destroy = function () {
+            this.unRegisterSocket();
+        };
         return Controller;
     }());
     LC.Controller = Controller;

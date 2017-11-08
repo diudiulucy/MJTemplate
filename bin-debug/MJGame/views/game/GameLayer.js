@@ -26,6 +26,8 @@ var LC;
             this._initMode(LC.Directions.Up, this.mod2);
             this._initMode(LC.Directions.Left, this.mod3);
             this._initMode(LC.Directions.Right, this.mod4);
+            //需要强转一下类型才看的到代码提示
+            this.Ctrl.text();
         };
         GameLayer.prototype.setOnTouchListener = function () {
             this.btn1.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
@@ -40,9 +42,7 @@ var LC;
             this.btn4.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
         };
         GameLayer.prototype.callback = function (event) {
-            //需要强转一下类型才看的到代码提示
-            this.Ctrl.text();
-            LC.EventManager.getInstance().dispatchCustomEvent(LC.CustomEvent.UPDATE_VIEW, { lucy: "a" });
+            LC.EventManager.getInstance().dispatchCustomEvent(CustomEvents.UPDATE_VIEW, { lucy: "a" });
             var mod = this.mod2;
             var btn = event.currentTarget;
             var direction = LC.Directions.Up;
