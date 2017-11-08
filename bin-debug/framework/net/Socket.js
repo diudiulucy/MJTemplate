@@ -16,10 +16,9 @@ var LC;
     var Socket = (function (_super) {
         __extends(Socket, _super);
         function Socket() {
-            var _this = _super.call(this) || this;
+            var _this = _super !== null && _super.apply(this, arguments) || this;
             _this._connectInterval = 4500;
             _this._headSize = 12;
-            _this._initWebSocket();
             return _this;
         }
         Object.defineProperty(Socket, "Instance", {
@@ -30,6 +29,9 @@ var LC;
             enumerable: true,
             configurable: true
         });
+        /**
+         * 创建socket
+         */
         Socket.prototype._initWebSocket = function () {
             //创建 WebSocket 对象
             this._socket = new egret.WebSocket();
@@ -50,6 +52,7 @@ var LC;
          */
         Socket.prototype.startConnect = function (url) {
             egret.log("start connect " + url);
+            this._initWebSocket();
             this._socket.connectByUrl(url);
             this._timerId = egret.setTimeout(this.timeOutHandler, this, this._connectInterval);
         };
@@ -84,6 +87,13 @@ var LC;
             else {
                 egret.log("socket is not connected");
             }
+        };
+        /**是否已连接*/
+        Socket.prototype.isConnected = function () {
+            if (this._socket && this._socket.connected) {
+                return true;
+            }
+            return false;
         };
         Socket.prototype.timeOutHandler = function () {
             if (!this._socket.connected) {

@@ -16,11 +16,9 @@ module LC {
 
 		public text() {
 			console.log("test");
-			egret.setTimeout(() => {
-				let js = { id: 1 };
-				Socket.Instance.sendData(JSON.stringify(js), LC.SocketEvents.Rev100000);
-			}, this, 5000);
 
+			let js = { id: 1 };
+			Socket.Instance.sendData(JSON.stringify(js), LC.SocketEvents.Rev100000);
 		}
 	}
 }

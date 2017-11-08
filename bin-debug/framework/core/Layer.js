@@ -38,22 +38,22 @@ var LC;
         });
         // 进行一些初始化的操作
         Layer.prototype.init = function () {
-            console.log(this.TAG + " init");
+            // console.log(this.TAG + " init");	
             this.setOnTouchListener();
             this.registerCustomEvents();
         };
         // 触摸消息的注册全在这里操作
         Layer.prototype.setOnTouchListener = function () {
-            console.log(this.TAG + " setOnTouchListener");
+            // console.log(this.TAG + " setOnTouchListener");
         };
         Layer.prototype.removeOnTouchListener = function () {
-            console.log(this.TAG + " removeOnTouchListener");
+            // console.log(this.TAG + " removeOnTouchListener");
         };
         Layer.prototype.registerCustomEvents = function () {
-            console.log(this.TAG + " registerCustomEvents");
+            // console.log(this.TAG + " registerCustomEvents");
         };
         Layer.prototype.unRegisterCustomEvents = function () {
-            console.log(this.TAG + " unRegisterCustomEvents");
+            // console.log(this.TAG + " unRegisterCustomEvents");
         };
         // 进入层时调用
         Layer.prototype.onEnter = function () {

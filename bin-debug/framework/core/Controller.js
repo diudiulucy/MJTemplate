@@ -12,7 +12,7 @@ var LC;
         function Controller() {
             this.TAG = "";
             this.TAG = egret.getQualifiedClassName(this);
-            console.log(this.TAG + " created");
+            // console.log(this.TAG + " created");
             this.init();
         }
         // 进行一些初始化的操作

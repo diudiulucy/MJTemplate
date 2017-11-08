@@ -9,7 +9,7 @@ module LC {
 
 		public constructor() {
 			this.TAG = egret.getQualifiedClassName(this);
-			console.log(this.TAG + " created");
+			// console.log(this.TAG + " created");
 			this.init();
 		}
 

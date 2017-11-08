@@ -28,26 +28,26 @@ module LC {
 
 		// 进行一些初始化的操作
 		protected init(): void {
-			console.log(this.TAG + " init");	
+			// console.log(this.TAG + " init");	
 			this.setOnTouchListener();
 			this.registerCustomEvents();
 		}
 
 		// 触摸消息的注册全在这里操作
 		protected setOnTouchListener() {
-			console.log(this.TAG + " setOnTouchListener");
+			// console.log(this.TAG + " setOnTouchListener");
 		}
 
 		protected removeOnTouchListener() {
-			console.log(this.TAG + " removeOnTouchListener");
+			// console.log(this.TAG + " removeOnTouchListener");
 		}
 
 		protected registerCustomEvents(){
-			console.log(this.TAG + " registerCustomEvents");
+			// console.log(this.TAG + " registerCustomEvents");
 		}
 
 		protected unRegisterCustomEvents(){
-			console.log(this.TAG + " unRegisterCustomEvents");
+			// console.log(this.TAG + " unRegisterCustomEvents");
 		}
 
 		// 进入层时调用

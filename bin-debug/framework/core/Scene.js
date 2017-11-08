@@ -36,29 +36,29 @@ var LC;
         });
         // 初始化场景时调用，需要覆盖
         Scene.prototype.init = function () {
-            console.log(this.TAG + " init");
+            // console.log(this.TAG + " init");
         };
         // 进入层时调用
         Scene.prototype.onEnter = function () {
-            console.log(this.TAG + " onEnter");
+            // console.log(this.TAG + " onEnter");
         };
         // 进入层而且过渡动画结束时调用           
         Scene.prototype.onEnterTransitionDidFinish = function () {
-            console.log(this.TAG + " onEnterTransitionDidFinish");
+            // console.log(this.TAG + " onEnterTransitionDidFinish");
             // egret.Tween.get(this).to({x:this.stage.width*1.5 }, 0, egret.Ease.backInOut).to({x:0 }, 600, egret.Ease.sineInOut);
         };
         // 退出层时调用     
         Scene.prototype.onExit = function () {
-            console.log(this.TAG + " onExit");
+            // console.log(this.TAG + " onExit");
         };
         // 退出层而且开始过渡动画时调用       
         Scene.prototype.onEixtTransitionDidStart = function () {
-            console.log(this.TAG + " onEixtTransitionDidStart");
+            // console.log(this.TAG + " onEixtTransitionDidStart");
             // egret.Tween.get(this).to({x:-this.stage.width}, 0, egret.Ease.backInOut);
         };
         //层对象被清除时调用
         Scene.prototype.cleanup = function () {
-            console.log(this.TAG + " cleanup");
+            // console.log(this.TAG + " cleanup");
         };
         return Scene;
     }(eui.UILayer));

@@ -15,11 +15,9 @@ module LC {
 			return this.getInstance();
 		}
 
-		protected constructor() {
-			super();
-			this._initWebSocket();
-		}
-
+		/**
+		 * 创建socket
+		 */
 		private _initWebSocket(): void {
 			//创建 WebSocket 对象
 			this._socket = new egret.WebSocket();
@@ -41,6 +39,7 @@ module LC {
 		 */
 		public startConnect(url: string) {
 			egret.log("start connect " + url);
+			this._initWebSocket();
 			this._socket.connectByUrl(url);
 			this._timerId = egret.setTimeout(this.timeOutHandler, this, this._connectInterval);
 		}
@@ -78,6 +77,15 @@ module LC {
 				egret.log("socket is not connected");
 			}
 		}
+
+		/**是否已连接*/
+		public isConnected() {
+			if (this._socket && this._socket.connected) {
+				return true;
+			}
+			return false;
+		}
+
 
 		private timeOutHandler() {
 			if (!this._socket.connected) {
@@ -133,6 +141,8 @@ module LC {
 
 			let data = byte.readUTFBytes(len - this._headSize);
 			console.log("mainID: " + mainID + " receive data : " + data);
+
+
 		}
 
 		/**

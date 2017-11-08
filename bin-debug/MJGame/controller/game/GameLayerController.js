@@ -24,10 +24,8 @@ var LC;
         };
         GameLayerController.prototype.text = function () {
             console.log("test");
-            egret.setTimeout(function () {
-                var js = { id: 1 };
-                LC.Socket.Instance.sendData(JSON.stringify(js), LC.SocketEvents.Rev100000);
-            }, this, 5000);
+            var js = { id: 1 };
+            LC.Socket.Instance.sendData(JSON.stringify(js), LC.SocketEvents.Rev100000);
         };
         return GameLayerController;
     }(LC.Controller));
