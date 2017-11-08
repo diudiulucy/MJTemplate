@@ -5,6 +5,7 @@
  */
 module LC {
 	export class Socket extends Single {
+		private print_log:false;
 		private _socket: egret.WebSocket;
 		private _timerId: number;
 		private _connectInterval: number = 4500;
@@ -142,6 +143,7 @@ module LC {
 			let data = byte.readUTFBytes(len - this._headSize);
 			console.log("mainID: " + mainID + " receive data : " + data);
 
+			EventManager.getInstance().dispatchEventWith(mainID.toString(),false,data);
 
 		}
 
@@ -166,6 +168,10 @@ module LC {
 			byte.writeInt(25355);
 			byte.writeBytes(body, 0, len);
 			return byte;
+		}
+
+		private trace(msg:any):void{
+
 		}
 	}
 }

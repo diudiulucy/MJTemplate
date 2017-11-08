@@ -143,6 +143,7 @@ var LC;
             var AssistantID = byte.readInt();
             var data = byte.readUTFBytes(len - this._headSize);
             console.log("mainID: " + mainID + " receive data : " + data);
+            LC.EventManager.getInstance().dispatchEventWith(mainID.toString(), false, data);
         };
         /**
          * 封装数据
@@ -163,6 +164,8 @@ var LC;
             byte.writeInt(25355);
             byte.writeBytes(body, 0, len);
             return byte;
+        };
+        Socket.prototype.trace = function (msg) {
         };
         return Socket;
     }(LC.Single));

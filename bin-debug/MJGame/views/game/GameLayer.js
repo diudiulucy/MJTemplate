@@ -27,7 +27,7 @@ var LC;
             this._initMode(LC.Directions.Left, this.mod3);
             this._initMode(LC.Directions.Right, this.mod4);
             //需要强转一下类型才看的到代码提示
-            this.Ctrl.text();
+            this._ctrl.text();
         };
         GameLayer.prototype.setOnTouchListener = function () {
             this.btn1.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);

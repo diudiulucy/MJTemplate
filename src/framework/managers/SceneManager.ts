@@ -21,7 +21,7 @@ module LC {
             this._nextScene.onEnter();
 
             if (this._runningScene) {
-                this._runningScene.onEixtTransitionDidStart();
+                this._runningScene.onExitTransitionDidStart();
                 this._runningScene.onExit();
             }
 

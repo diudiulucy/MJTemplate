@@ -34,7 +34,7 @@ var LC;
             egret.MainContext.instance.stage.addChild(this._nextScene);
             this._nextScene.onEnter();
             if (this._runningScene) {
-                this._runningScene.onEixtTransitionDidStart();
+                this._runningScene.onExitTransitionDidStart();
                 this._runningScene.onExit();
             }
             this._nextScene.onEnterTransitionDidFinish();

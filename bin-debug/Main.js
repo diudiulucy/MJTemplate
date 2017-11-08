@@ -87,8 +87,7 @@ var Main = (function (_super) {
      */
     Main.prototype.onResourceLoadComplete = function (event) {
         if (event.groupName == "loading") {
-            var url = "ws://echo.websocket.org:80";
-            LC.Socket.Instance.startConnect(url);
+            LC.Socket.Instance.startConnect(LC.SERVER_URL);
             //设置加载进度界面
             this.loadingScene = new LC.LoadingScene();
             LC.SceneManager.Instance.runWithScene(this.loadingScene);

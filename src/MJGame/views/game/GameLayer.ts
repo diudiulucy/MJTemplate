@@ -5,6 +5,7 @@
  */
 module LC {
 	export class GameLayer extends Layer {
+		protected _ctrl:GameLayerController;
 		public mod1: LC.CardModLayout;
 		public mod2: LC.CardModLayout;
 		public mod3: LC.CardModLayout;
@@ -29,7 +30,7 @@ module LC {
 			this._initMode(LC.Directions.Right, this.mod4);
 
 			//需要强转一下类型才看的到代码提示
-			(<GameLayerController>this.Ctrl).text();
+			this._ctrl.text();
 		}
 
 		protected setOnTouchListener() {
@@ -48,8 +49,6 @@ module LC {
 		}
 
 		public callback(event: egret.Event) {
-
-
 
 			EventManager.getInstance().dispatchCustomEvent(CustomEvents.UPDATE_VIEW, { lucy: "a" });
 			let mod = this.mod2;

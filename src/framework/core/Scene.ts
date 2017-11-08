@@ -47,7 +47,7 @@ module LC {
 		}
 
 		// 退出层而且开始过渡动画时调用       
-		public onEixtTransitionDidStart() {
+		public onExitTransitionDidStart() {
 			// console.log(this.TAG + " onEixtTransitionDidStart");
 			// egret.Tween.get(this).to({x:-this.stage.width}, 0, egret.Ease.backInOut);
 		}
