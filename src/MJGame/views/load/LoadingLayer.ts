@@ -5,7 +5,6 @@
  */
 module LC {
     export class LoadingLayer extends Layer {
-
         private pgBg: egret.Bitmap;
         private pgBar: egret.Bitmap;
         private textField: egret.TextField;
@@ -20,9 +19,12 @@ module LC {
         protected init(): void {
             super.init();
 
-            this.w = egret.MainContext.instance.stage.stageWidth;
-            this.h = egret.MainContext.instance.stage.stageHeight;
+            // this.width = this.width/2;
+            this.w = this.width;
+            this.h = this.height;
 
+            this.anchorOffsetX = this.w / 2;
+            this.horizontalCenter = 0;
             this.bg = new egret.Bitmap;
             this.bg.texture = RES.getRes("PreLoadingBg_png");
             this.bg.width = this.w;
@@ -73,20 +75,29 @@ module LC {
             this.pgBar.width = 641 * (current / total);
         }
 
+        protected setOnTouchListener() {
 
-        protected registerCustomEvents() {
-            super.registerCustomEvents();
-            EventManager.getInstance().register(CustomEvents.UPDATE_VIEW, this.updateView, this);                 
         }
 
-        protected updateView(){
+        protected removeOnTouchListener() {
+
+        }
+
+        protected registerCustomEvents() {
+            EventManager.getInstance().register(CustomEvents.UPDATE_VIEW, this._updateView, this);
+        }
+
+
+        protected unRegisterCustomEvents() {
+            EventManager.getInstance().unRegister(CustomEvents.UPDATE_VIEW, this._updateView, this);
+        }
+
+
+        private _updateView() {
             console.log("updateView");
         }
 
-        protected unRegisterCustomEvents() {
-            super.unRegisterCustomEvents()
-            EventManager.getInstance().unRegister(CustomEvents.UPDATE_VIEW,  this.updateView, this);
-        }
+
 
     }
 }

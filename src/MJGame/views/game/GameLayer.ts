@@ -5,7 +5,7 @@
  */
 module LC {
 	export class GameLayer extends Layer {
-		protected _ctrl:GameLayerController;
+		protected _ctrl: GameLayerController;
 		public mod1: LC.CardModLayout;
 		public mod2: LC.CardModLayout;
 		public mod3: LC.CardModLayout;
@@ -33,13 +33,26 @@ module LC {
 			this._ctrl.text();
 		}
 
+		protected registerCustomEvents() {
+			EventManager.getInstance().register(CustomEvents.UPDATE_VIEW, this._updateView, this);
+		}
+
+
+		protected unRegisterCustomEvents() {
+			EventManager.getInstance().unRegister(CustomEvents.UPDATE_VIEW, this._updateView, this);
+		}
+
+		private _updateView() {
+            console.log(this.TAG + " updateView ");
+			// this.btn1.label = "updateView";
+        }
+
 		protected setOnTouchListener() {
 			this.btn1.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
 			this.btn2.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
 			this.btn3.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
 			this.btn4.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
 		}
-
 
 		protected removeOnTouchListener() {
 			this.btn1.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);

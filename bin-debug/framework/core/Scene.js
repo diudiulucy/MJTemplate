@@ -8,6 +8,9 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 /**
  * 场景类(一个场景下可以加多个Layer或者其他的组件)
+ * 继承自eui.UILayer
+ * UILayer 是 Group 的子类，它除了具有容器的所有标准功能，还能够自动保持自身尺寸始终与舞台尺寸相同（Stage.stageWidth,Stage.stageHeight）
+ * 当舞台尺寸发生改变时，它会跟随舞台尺寸改变
  * @author lucywang
  * @date 2017/10/19
  */
@@ -23,19 +26,29 @@ var LC;
             _this.addEventListener(egret.Event.REMOVED_FROM_STAGE, _this.onDestroy, _this);
             return _this;
         }
-        /**组件创建完毕*/
+        /**
+         * 组件创建完毕
+         * 此方法仅在组件第一次添加到舞台时回调一次
+        */
         Scene.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this);
             this._isRunning = true;
         };
         Object.defineProperty(Scene.prototype, "isRunning", {
+            /**
+             * 场景是否在运行
+             * @return boolean true表示正在运行，falseb表示没有运行
+            */
             get: function () {
                 return this._isRunning;
             },
             enumerable: true,
             configurable: true
         });
-        // 场景被添加到舞台时调用，需要覆盖
+        /**
+         * 场景被添加到舞台时调用
+         * 进行一些初始化的操作
+        */
         Scene.prototype.init = function () {
             console.log(this.TAG + " init");
         };
@@ -49,9 +62,13 @@ var LC;
             console.log(this.TAG + " onExitTransitionDidStart");
             // egret.Tween.get(this).to({x:-this.stage.width}, 0, egret.Ease.backInOut);
         };
-        /**场景被销毁时调用*/
+        /**
+         * 场景被销毁时调用
+         * 场景被销毁时注意移除其所有的子节点，会触发相应的Destory来清理注册事件
+        */
         Scene.prototype.onDestroy = function () {
             console.log(this.TAG + " onDestroy");
+            this.removeChildren();
         };
         return Scene;
     }(eui.UILayer));

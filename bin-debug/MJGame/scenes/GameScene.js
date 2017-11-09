@@ -26,9 +26,6 @@ var LC;
             // ErrorCodeManager.Instance.init("error_txt");
             // console.log(ErrorCodeManager.Instance.getErrorCode(1001));
         };
-        GameScene.prototype.onDestroy = function () {
-            _super.prototype.onDestroy.call(this);
-        };
         return GameScene;
     }(LC.Scene));
     LC.GameScene = GameScene;

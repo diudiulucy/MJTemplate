@@ -22,9 +22,5 @@ module LC {
 			// ErrorCodeManager.Instance.init("error_txt");
 			// console.log(ErrorCodeManager.Instance.getErrorCode(1001));
 		}
-
-		protected onDestroy() {
-			super.onDestroy();
-		}
 	}
 }

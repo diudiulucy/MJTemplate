@@ -23,8 +23,11 @@ var LC;
         }
         LoadingLayer.prototype.init = function () {
             _super.prototype.init.call(this);
-            this.w = egret.MainContext.instance.stage.stageWidth;
-            this.h = egret.MainContext.instance.stage.stageHeight;
+            // this.width = this.width/2;
+            this.w = this.width;
+            this.h = this.height;
+            this.anchorOffsetX = this.w / 2;
+            this.horizontalCenter = 0;
             this.bg = new egret.Bitmap;
             this.bg.texture = RES.getRes("PreLoadingBg_png");
             this.bg.width = this.w;
@@ -68,16 +71,18 @@ var LC;
             this.textField.text = rate + "%";
             this.pgBar.width = 641 * (current / total);
         };
-        LoadingLayer.prototype.registerCustomEvents = function () {
-            _super.prototype.registerCustomEvents.call(this);
-            LC.EventManager.getInstance().register(CustomEvents.UPDATE_VIEW, this.updateView, this);
+        LoadingLayer.prototype.setOnTouchListener = function () {
         };
-        LoadingLayer.prototype.updateView = function () {
-            console.log("updateView");
+        LoadingLayer.prototype.removeOnTouchListener = function () {
+        };
+        LoadingLayer.prototype.registerCustomEvents = function () {
+            LC.EventManager.getInstance().register(CustomEvents.UPDATE_VIEW, this._updateView, this);
         };
         LoadingLayer.prototype.unRegisterCustomEvents = function () {
-            _super.prototype.unRegisterCustomEvents.call(this);
-            LC.EventManager.getInstance().unRegister(CustomEvents.UPDATE_VIEW, this.updateView, this);
+            LC.EventManager.getInstance().unRegister(CustomEvents.UPDATE_VIEW, this._updateView, this);
+        };
+        LoadingLayer.prototype._updateView = function () {
+            console.log("updateView");
         };
         return LoadingLayer;
     }(LC.Layer));

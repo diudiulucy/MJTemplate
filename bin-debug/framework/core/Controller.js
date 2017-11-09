@@ -2,7 +2,7 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
 /**
- * 控制器
+ * 控制器（处理和后端的交互和纯游戏逻辑，不做UI处理，用派发器通知相应的界面来更新）
  * @author lucywang
  * @date 2017/10/19
  */

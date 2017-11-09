@@ -29,6 +29,16 @@ var LC;
             //需要强转一下类型才看的到代码提示
             this._ctrl.text();
         };
+        GameLayer.prototype.registerCustomEvents = function () {
+            LC.EventManager.getInstance().register(CustomEvents.UPDATE_VIEW, this._updateView, this);
+        };
+        GameLayer.prototype.unRegisterCustomEvents = function () {
+            LC.EventManager.getInstance().unRegister(CustomEvents.UPDATE_VIEW, this._updateView, this);
+        };
+        GameLayer.prototype._updateView = function () {
+            console.log(this.TAG + " updateView ");
+            // this.btn1.label = "updateView";
+        };
         GameLayer.prototype.setOnTouchListener = function () {
             this.btn1.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);
             this.btn2.addEventListener(egret.TouchEvent.TOUCH_TAP, this.callback, this);

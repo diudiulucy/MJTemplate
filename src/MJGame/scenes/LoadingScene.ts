@@ -19,10 +19,5 @@ module LC {
 			this.loadingView.Ctrl = new LC.LoadingLayerController();
             this.addChild(this.loadingView);
 		}
-
-		protected onDestroy(){
-			super.onDestroy();
-			this.removeChildren();
-		}
 	}
 }

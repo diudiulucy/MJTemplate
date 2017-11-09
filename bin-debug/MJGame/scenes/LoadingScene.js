@@ -24,10 +24,6 @@ var LC;
             this.loadingView.Ctrl = new LC.LoadingLayerController();
             this.addChild(this.loadingView);
         };
-        LoadingScene.prototype.onDestroy = function () {
-            _super.prototype.onDestroy.call(this);
-            this.removeChildren();
-        };
         return LoadingScene;
     }(LC.Scene));
     LC.LoadingScene = LoadingScene;
