@@ -12,7 +12,6 @@ var LC;
         function Controller() {
             this.TAG = "";
             this.TAG = egret.getQualifiedClassName(this);
-            // console.log(this.TAG + " created");
             this.init();
         }
         // 进行一些初始化的操作
@@ -25,7 +24,7 @@ var LC;
         };
         Controller.prototype.unRegisterSocket = function () {
         };
-        Controller.prototype.destroy = function () {
+        Controller.prototype.onDestroy = function () {
             this.unRegisterSocket();
         };
         return Controller;

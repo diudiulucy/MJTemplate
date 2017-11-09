@@ -18,17 +18,14 @@ module LC {
 
         private _setNextScene() {
             egret.MainContext.instance.stage.addChild(this._nextScene);
-            this._nextScene.onEnter();
 
             if (this._runningScene) {
                 this._runningScene.onExitTransitionDidStart();
-                this._runningScene.onExit();
             }
 
             this._nextScene.onEnterTransitionDidFinish();
 
             if (this._sendCleanupToScene && this._runningScene) {
-                this._runningScene.cleanup();
                 this._runningScene.parent.removeChild(this._runningScene);
             }
 
@@ -57,9 +54,9 @@ module LC {
 
             if (this._nextScene) {
                 if (this._nextScene.isRunning) {
-                    this._nextScene.onExit();
-                }
-                this._nextScene.cleanup();
+                    this._nextScene.parent.removeChild(this._nextScene);
+                }  
+                
                 this._nextScene = null;
             }
 

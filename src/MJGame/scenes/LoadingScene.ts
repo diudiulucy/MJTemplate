@@ -16,15 +16,13 @@ module LC {
 			super.init();
 		
             this.loadingView = new LC.LoadingLayer();
+			this.loadingView.Ctrl = new LC.LoadingLayerController();
             this.addChild(this.loadingView);
 		}
 
-		public cleanup(){
-			super.cleanup();
+		protected onDestroy(){
+			super.onDestroy();
 			this.removeChildren();
-			this.loadingView.cleanup();
-			this.loadingView = null;
-		} 		
-
+		}
 	}
 }

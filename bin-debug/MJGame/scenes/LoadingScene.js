@@ -21,13 +21,12 @@ var LC;
         LoadingScene.prototype.init = function () {
             _super.prototype.init.call(this);
             this.loadingView = new LC.LoadingLayer();
+            this.loadingView.Ctrl = new LC.LoadingLayerController();
             this.addChild(this.loadingView);
         };
-        LoadingScene.prototype.cleanup = function () {
-            _super.prototype.cleanup.call(this);
+        LoadingScene.prototype.onDestroy = function () {
+            _super.prototype.onDestroy.call(this);
             this.removeChildren();
-            this.loadingView.cleanup();
-            this.loadingView = null;
         };
         return LoadingScene;
     }(LC.Scene));

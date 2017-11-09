@@ -19,23 +19,13 @@ var LC;
             var _this = _super.call(this) || this;
             _this.TAG = "";
             _this.TAG = egret.getQualifiedClassName(_this);
-            _this.addEventListener(egret.Event.ADDED_TO_STAGE, _this.onEnable, _this);
-            _this.addEventListener(egret.Event.REMOVED_FROM_STAGE, _this.onRemove, _this);
+            _this.addEventListener(egret.Event.ADDED_TO_STAGE, _this.init, _this);
+            _this.addEventListener(egret.Event.REMOVED_FROM_STAGE, _this.onDestroy, _this);
             return _this;
         }
         // 此方法仅在组件第一次添加到舞台时回调一次。
         Layer.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this);
-            // console.log(this.TAG + " createChildren");
-            this.init();
-        };
-        /**添加到场景中*/
-        Layer.prototype.onEnable = function () {
-            // console.log(this.TAG + " onEnable");
-        };
-        /**从场景中移除*/
-        Layer.prototype.onRemove = function () {
-            // console.log(this.TAG + " onRemove");
         };
         Object.defineProperty(Layer.prototype, "Ctrl", {
             get: function () {
@@ -55,10 +45,10 @@ var LC;
         };
         // 触摸消息的注册全在这里操作
         Layer.prototype.setOnTouchListener = function () {
-            // console.log(this.TAG + " setOnTouchListener");
+            console.log(this.TAG + " setOnTouchListener");
         };
         Layer.prototype.removeOnTouchListener = function () {
-            // console.log(this.TAG + " removeOnTouchListener");
+            console.log(this.TAG + " removeOnTouchListener");
         };
         Layer.prototype.registerCustomEvents = function () {
             // console.log(this.TAG + " registerCustomEvents");
@@ -66,24 +56,18 @@ var LC;
         Layer.prototype.unRegisterCustomEvents = function () {
             // console.log(this.TAG + " unRegisterCustomEvents");
         };
-        // 进入层时调用
-        Layer.prototype.onEnter = function () {
-            // console.log(this.TAG + " onEnter");	
-        };
         // 进入层而且过渡动画结束时调用           
         Layer.prototype.onEnterTransitionDidFinish = function () {
-        };
-        // 退出层时调用     
-        Layer.prototype.onExit = function () {
-            // console.log(this.TAG + " onExit");	
         };
         // 退出层而且开始过渡动画时调用       
         Layer.prototype.onExitTransitionDidStart = function () {
         };
         //层对象被清除时调用
-        Layer.prototype.cleanup = function () {
+        Layer.prototype.onDestroy = function () {
+            console.log(this.TAG + " onDestroy");
             this.removeOnTouchListener();
             this.unRegisterCustomEvents();
+            // this.Ctrl.onDestroy();
         };
         return Layer;
     }(eui.Component));

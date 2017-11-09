@@ -18,14 +18,15 @@ var LC;
         function Scene() {
             var _this = _super.call(this) || this;
             _this.TAG = "";
+            _this.TAG = egret.getQualifiedClassName(_this);
+            _this.addEventListener(egret.Event.ADDED_TO_STAGE, _this.init, _this);
+            _this.addEventListener(egret.Event.REMOVED_FROM_STAGE, _this.onDestroy, _this);
             return _this;
         }
         /**组件创建完毕*/
         Scene.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this);
             this._isRunning = true;
-            this.TAG = egret.getQualifiedClassName(this);
-            this.init();
         };
         Object.defineProperty(Scene.prototype, "isRunning", {
             get: function () {
@@ -34,31 +35,23 @@ var LC;
             enumerable: true,
             configurable: true
         });
-        // 初始化场景时调用，需要覆盖
+        // 场景被添加到舞台时调用，需要覆盖
         Scene.prototype.init = function () {
-            // console.log(this.TAG + " init");
-        };
-        // 进入层时调用
-        Scene.prototype.onEnter = function () {
-            // console.log(this.TAG + " onEnter");
+            console.log(this.TAG + " init");
         };
         // 进入层而且过渡动画结束时调用           
         Scene.prototype.onEnterTransitionDidFinish = function () {
-            // console.log(this.TAG + " onEnterTransitionDidFinish");
+            console.log(this.TAG + " onEnterTransitionDidFinish");
             // egret.Tween.get(this).to({x:this.stage.width*1.5 }, 0, egret.Ease.backInOut).to({x:0 }, 600, egret.Ease.sineInOut);
-        };
-        // 退出层时调用     
-        Scene.prototype.onExit = function () {
-            // console.log(this.TAG + " onExit");
         };
         // 退出层而且开始过渡动画时调用       
         Scene.prototype.onExitTransitionDidStart = function () {
-            // console.log(this.TAG + " onEixtTransitionDidStart");
+            console.log(this.TAG + " onExitTransitionDidStart");
             // egret.Tween.get(this).to({x:-this.stage.width}, 0, egret.Ease.backInOut);
         };
-        //层对象被清除时调用
-        Scene.prototype.cleanup = function () {
-            // console.log(this.TAG + " cleanup");
+        /**场景被销毁时调用*/
+        Scene.prototype.onDestroy = function () {
+            console.log(this.TAG + " onDestroy");
         };
         return Scene;
     }(eui.UILayer));

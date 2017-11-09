@@ -10,25 +10,14 @@ module LC {
 		public constructor() {
 			super();
 			this.TAG = egret.getQualifiedClassName(this);
-			this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onEnable, this);
-			this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onRemove, this);
+			this.addEventListener(egret.Event.ADDED_TO_STAGE, this.init, this);
+			this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onDestroy, this);
+
 		}
 
 		// 此方法仅在组件第一次添加到舞台时回调一次。
 		protected createChildren(): void {
 			super.createChildren();
-			// console.log(this.TAG + " createChildren");
-			this.init();
-		}
-
-		/**添加到场景中*/
-		protected onEnable() {
-			// console.log(this.TAG + " onEnable");
-		}
-
-		/**从场景中移除*/
-		protected onRemove() {
-			// console.log(this.TAG + " onRemove");
 		}
 
 		public get Ctrl() {
@@ -48,11 +37,11 @@ module LC {
 
 		// 触摸消息的注册全在这里操作
 		protected setOnTouchListener() {
-			// console.log(this.TAG + " setOnTouchListener");
+			console.log(this.TAG + " setOnTouchListener");
 		}
 
 		protected removeOnTouchListener() {
-			// console.log(this.TAG + " removeOnTouchListener");
+			console.log(this.TAG + " removeOnTouchListener");
 		}
 
 		protected registerCustomEvents() {
@@ -63,19 +52,9 @@ module LC {
 			// console.log(this.TAG + " unRegisterCustomEvents");
 		}
 
-		// 进入层时调用
-		public onEnter() {
-			// console.log(this.TAG + " onEnter");	
-		}
-
 		// 进入层而且过渡动画结束时调用           
 		public onEnterTransitionDidFinish() {
 
-		}
-
-		// 退出层时调用     
-		public onExit() {
-			// console.log(this.TAG + " onExit");	
 		}
 
 		// 退出层而且开始过渡动画时调用       
@@ -84,9 +63,11 @@ module LC {
 		}
 
 		//层对象被清除时调用
-		public cleanup() {
+		protected onDestroy() {
+			console.log(this.TAG + " onDestroy");
 			this.removeOnTouchListener();
 			this.unRegisterCustomEvents();
+			this.Ctrl.onDestroy();
 		}
 	}
 }

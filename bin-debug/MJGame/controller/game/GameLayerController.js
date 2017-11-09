@@ -19,10 +19,10 @@ var LC;
             return _super !== null && _super.apply(this, arguments) || this;
         }
         GameLayerController.prototype.registerSocket = function () {
-            LC.EventManager.getInstance().register(LC.SocketEvents.Rev100000.toString(), this.on100000_event, this);
+            // EventManager.getInstance().register(LC.SocketEvents.Rev100000.toString(),this.on100000_event,this);
         };
         GameLayerController.prototype.unRegisterSocket = function () {
-            LC.EventManager.getInstance().unRegister(LC.SocketEvents.Rev100000.toString(), this.on100000_event, this);
+            // EventManager.getInstance().unRegister(LC.SocketEvents.Rev100000.toString(),this.on100000_event,this);
         };
         GameLayerController.prototype.text = function () {
             console.log("test");

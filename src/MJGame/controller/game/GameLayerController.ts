@@ -7,11 +7,11 @@ module LC {
 	export class GameLayerController extends Controller {
 
 		protected registerSocket() {
-			EventManager.getInstance().register(LC.SocketEvents.Rev100000.toString(),this.on100000_event,this);
+			// EventManager.getInstance().register(LC.SocketEvents.Rev100000.toString(),this.on100000_event,this);
 		}
 
 		protected unRegisterSocket() {
-			EventManager.getInstance().unRegister(LC.SocketEvents.Rev100000.toString(),this.on100000_event,this);
+			// EventManager.getInstance().unRegister(LC.SocketEvents.Rev100000.toString(),this.on100000_event,this);
 		}
 
 		public text() {

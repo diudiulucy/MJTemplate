@@ -5,11 +5,10 @@
  */
 module LC {
 	export class Controller {
-		private TAG: string = "";
+		protected TAG: string = "";
 
 		public constructor() {
 			this.TAG = egret.getQualifiedClassName(this);
-			// console.log(this.TAG + " created");
 			this.init();
 		}
 
@@ -29,7 +28,7 @@ module LC {
 
 		}
 
-		protected destroy() {
+		public onDestroy() {
 			this.unRegisterSocket();
 		}
 	}
