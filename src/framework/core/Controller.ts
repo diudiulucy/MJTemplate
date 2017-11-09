@@ -6,30 +6,61 @@
 module LC {
 	export class Controller {
 		protected TAG: string = "";
-
+		protected SocketEventList: Array<any> = null;//对此数组赋值，可以快速绑定 不需要重复操作，注意对每个id添加对应的函数
 		public constructor() {
 			this.TAG = egret.getQualifiedClassName(this);
 			this.init();
+			this._registerManySockets(true);
 		}
 
 		// 进行一些初始化的操作
 		protected init() {
-			//监听协议
-			this.registerSocket();
+			this.SocketEventList = new Array<any>();
+			this.registerSockets();
 		}
 
+		/**
+		 * 以某种特定的格式来注册协议
+		 * 协议的回调函数以 on + socket的id + event 的函数名 
+		 * @param isRegister true 表示注册  false表示注销
+		 */
+		private _registerManySockets(isRegister: boolean) {
+			for (let value of this.SocketEventList) {
+				let eventName: string = value.toString();
+				let funcName: string = "on_" + eventName + "_event";
+				if (this[funcName]) {
+					if (isRegister) {
+						EventManager.getInstance().register(eventName, this[funcName], this);
+					} else {
+						EventManager.getInstance().unRegister(eventName, this[funcName], this);
+					}
+				}else{
+					console.error("未添加相应的协议的监听");
+				}
+			}
+		}
 
-		//监听协议的接口
-		protected registerSocket() {
+		/**
+		 * 注册协议
+		 * 保留此接口，一般省事儿用初始化SocketEventList即可
+		 */
+		protected registerSockets() {
 
 		}
-		
-		protected unRegisterSocket(){
+
+		/**
+		 * 注销协议
+		 * 保留此接口，一般省事儿用初始化SocketEventList即可
+		 */
+		protected unRegisterSockets() {
 
 		}
 
 		public onDestroy() {
-			this.unRegisterSocket();
+			// console.log(this.TAG + " onDestroy");
+			this.unRegisterSockets();
+			this._registerManySockets(false);
+			this.SocketEventList = null;
 		}
 	}
 }

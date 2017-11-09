@@ -5,6 +5,6 @@
  */
 var CustomEvents;
 (function (CustomEvents) {
-    CustomEvents.UPDATE_VIEW = "UpdateView";
+    CustomEvents.UPDATE_VIEW = "updateView";
 })(CustomEvents || (CustomEvents = {}));
 //# sourceMappingURL=CustomEvents.js.map

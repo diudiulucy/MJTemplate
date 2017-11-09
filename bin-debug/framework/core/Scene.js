@@ -7,7 +7,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * 场景类(一个场景下可以加多个Layer或者其他的组件)
+ * 场景类(一个场景下可以加多个Layer或者其他的组件) 其子类不用关心销毁的操作 全在此类进行，销毁时移除所有的子节点以触发其相应的destory
  * 继承自eui.UILayer
  * UILayer 是 Group 的子类，它除了具有容器的所有标准功能，还能够自动保持自身尺寸始终与舞台尺寸相同（Stage.stageWidth,Stage.stageHeight）
  * 当舞台尺寸发生改变时，它会跟随舞台尺寸改变
@@ -50,16 +50,16 @@ var LC;
          * 进行一些初始化的操作
         */
         Scene.prototype.init = function () {
-            console.log(this.TAG + " init");
+            // console.log(this.TAG + " init");
         };
         // 进入层而且过渡动画结束时调用           
         Scene.prototype.onEnterTransitionDidFinish = function () {
-            console.log(this.TAG + " onEnterTransitionDidFinish");
+            // console.log(this.TAG + " onEnterTransitionDidFinish");
             // egret.Tween.get(this).to({x:this.stage.width*1.5 }, 0, egret.Ease.backInOut).to({x:0 }, 600, egret.Ease.sineInOut);
         };
         // 退出层而且开始过渡动画时调用       
         Scene.prototype.onExitTransitionDidStart = function () {
-            console.log(this.TAG + " onExitTransitionDidStart");
+            // console.log(this.TAG + " onExitTransitionDidStart");
             // egret.Tween.get(this).to({x:-this.stage.width}, 0, egret.Ease.backInOut);
         };
         /**
@@ -67,7 +67,7 @@ var LC;
          * 场景被销毁时注意移除其所有的子节点，会触发相应的Destory来清理注册事件
         */
         Scene.prototype.onDestroy = function () {
-            console.log(this.TAG + " onDestroy");
+            // console.log(this.TAG + " onDestroy");
             this.removeChildren();
         };
         return Scene;

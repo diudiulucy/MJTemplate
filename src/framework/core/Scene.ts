@@ -40,18 +40,18 @@ module LC {
 		 * 进行一些初始化的操作
 		*/
 		protected init(): void {
-			console.log(this.TAG + " init");
+			// console.log(this.TAG + " init");
 		}
 
 		// 进入层而且过渡动画结束时调用           
 		public onEnterTransitionDidFinish() {
-			console.log(this.TAG + " onEnterTransitionDidFinish");
+			// console.log(this.TAG + " onEnterTransitionDidFinish");
 			// egret.Tween.get(this).to({x:this.stage.width*1.5 }, 0, egret.Ease.backInOut).to({x:0 }, 600, egret.Ease.sineInOut);
 		}
 
 		// 退出层而且开始过渡动画时调用       
 		public onExitTransitionDidStart() {
-			console.log(this.TAG + " onExitTransitionDidStart");
+			// console.log(this.TAG + " onExitTransitionDidStart");
 			// egret.Tween.get(this).to({x:-this.stage.width}, 0, egret.Ease.backInOut);
 		}
 
@@ -60,7 +60,7 @@ module LC {
 		 * 场景被销毁时注意移除其所有的子节点，会触发相应的Destory来清理注册事件
 		*/
 		private onDestroy() {
-			console.log(this.TAG + " onDestroy");
+			// console.log(this.TAG + " onDestroy");
 			this.removeChildren();
 		}
 	}

@@ -18,19 +18,14 @@ var LC;
         function LoadingLayerController() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        LoadingLayerController.prototype.registerSocket = function () {
-            LC.EventManager.getInstance().register(LC.SocketEvents.Rev100000.toString(), this.on100000_event, this);
+        LoadingLayerController.prototype.init = function () {
+            _super.prototype.init.call(this);
+            this.SocketEventList = [
+                LC.SocketEvents.Rev100000,
+            ];
         };
-        LoadingLayerController.prototype.unRegisterSocket = function () {
-            LC.EventManager.getInstance().unRegister(LC.SocketEvents.Rev100000.toString(), this.on100000_event, this);
-        };
-        LoadingLayerController.prototype.text = function () {
-            console.log("test");
-            var js = { id: 1 };
-            LC.Socket.Instance.sendData(JSON.stringify(js), LC.SocketEvents.Rev100000);
-        };
-        LoadingLayerController.prototype.on100000_event = function (event) {
-            console.log(this.TAG + " on100000_event: " + event.data);
+        LoadingLayerController.prototype.on_100000_event = function (event) {
+            console.log(this.TAG + " on_100000_event: " + event.data);
         };
         return LoadingLayerController;
     }(LC.Controller));

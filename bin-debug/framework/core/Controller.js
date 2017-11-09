@@ -11,21 +11,56 @@ var LC;
     var Controller = (function () {
         function Controller() {
             this.TAG = "";
+            this.SocketEventList = null; //对此数组赋值，可以快速绑定 不需要重复操作，注意对每个id添加对应的函数
             this.TAG = egret.getQualifiedClassName(this);
             this.init();
+            this._registerManySockets(true);
         }
         // 进行一些初始化的操作
         Controller.prototype.init = function () {
-            //监听协议
-            this.registerSocket();
+            this.SocketEventList = new Array();
+            this.registerSockets();
         };
-        //监听协议的接口
-        Controller.prototype.registerSocket = function () {
+        /**
+         * 以某种特定的格式来注册协议
+         * 协议的回调函数以 on + socket的id + event 的函数名
+         * @param isRegister true 表示注册  false表示注销
+         */
+        Controller.prototype._registerManySockets = function (isRegister) {
+            for (var _i = 0, _a = this.SocketEventList; _i < _a.length; _i++) {
+                var value = _a[_i];
+                var eventName = value.toString();
+                var funcName = "on_" + eventName + "_event";
+                if (this[funcName]) {
+                    if (isRegister) {
+                        LC.EventManager.getInstance().register(eventName, this[funcName], this);
+                    }
+                    else {
+                        LC.EventManager.getInstance().unRegister(eventName, this[funcName], this);
+                    }
+                }
+                else {
+                    console.error("未添加相应的协议的监听");
+                }
+            }
         };
-        Controller.prototype.unRegisterSocket = function () {
+        /**
+         * 注册协议
+         * 保留此接口，一般省事儿用初始化SocketEventList即可
+         */
+        Controller.prototype.registerSockets = function () {
+        };
+        /**
+         * 注销协议
+         * 保留此接口，一般省事儿用初始化SocketEventList即可
+         */
+        Controller.prototype.unRegisterSockets = function () {
         };
         Controller.prototype.onDestroy = function () {
-            this.unRegisterSocket();
+            // console.log(this.TAG + " onDestroy");
+            this.unRegisterSockets();
+            this._registerManySockets(false);
+            this.SocketEventList = null;
         };
         return Controller;
     }());

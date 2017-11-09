@@ -7,7 +7,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * 层级类,只处理UI上的逻辑(一个layer对应一个controller,处理和后端的交互)
+ * 层级类,只处理UI上的逻辑(一个layer对应一个controller,处理和后端的交互)，其子类不用关心销毁的操作 全在此类进行，销毁时移除监听事件和触摸事件以及调用Ctrl的销毁
  * 继承自eui.Component可以自定义外观组件
  * 可在构造函数中this.skinName = "Skin.GameLayer"和皮肤绑定
  * 1.用户与界面交互后通知controller来处理相应的逻辑
@@ -22,6 +22,7 @@ var LC;
         function Layer(width, height) {
             var _this = _super.call(this) || this;
             _this.TAG = "";
+            _this.UIEventList = null; //对此数组赋值，可以快速绑定 不需要重复操作，注意对每个id添加对应的函数
             _this.width = width || egret.MainContext.instance.stage.stageWidth;
             _this.height = width || egret.MainContext.instance.stage.stageHeight;
             _this.TAG = egret.getQualifiedClassName(_this);
@@ -49,8 +50,33 @@ var LC;
         // 进行一些初始化的操作
         Layer.prototype.init = function () {
             // console.log(this.TAG + " init");	
+            this.UIEventList = new Array();
             this.setOnTouchListener();
             this.registerCustomEvents();
+            this._registerManyUIEvents(true);
+        };
+        /**
+         * 以某种特定的格式来注册ui消息
+         * 协议的回调函数以 ui + socket的id + event 的函数名
+         * @param isRegister true 表示注册  false表示注销
+         */
+        Layer.prototype._registerManyUIEvents = function (isRegister) {
+            for (var _i = 0, _a = this.UIEventList; _i < _a.length; _i++) {
+                var value = _a[_i];
+                var eventName = value.toString();
+                var funcName = "ui_" + eventName;
+                if (this[funcName]) {
+                    if (isRegister) {
+                        LC.EventManager.getInstance().register(eventName, this[funcName], this);
+                    }
+                    else {
+                        LC.EventManager.getInstance().unRegister(eventName, this[funcName], this);
+                    }
+                }
+                else {
+                    console.error("未添加相应的协议的监听");
+                }
+            }
         };
         // 触摸消息的注册全在这里操作
         Layer.prototype.setOnTouchListener = function () {
@@ -76,9 +102,11 @@ var LC;
          *
         */
         Layer.prototype.onDestroy = function () {
-            console.log(this.TAG + " onDestroy");
+            // console.log(this.TAG + " onDestroy");
             this.removeOnTouchListener();
             this.unRegisterCustomEvents();
+            this._registerManyUIEvents(false);
+            this.UIEventList = null;
             this.Ctrl.onDestroy();
         };
         return Layer;

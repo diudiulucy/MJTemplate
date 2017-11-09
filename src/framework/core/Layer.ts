@@ -11,8 +11,8 @@ module LC {
 	export class Layer extends eui.Component {
 		protected TAG: string = "";
 		protected _ctrl: Controller;
-
-		public constructor(width?:number,height?:number) {
+		protected UIEventList: Array<any> = null;//对此数组赋值，可以快速绑定 不需要重复操作，注意对每个id添加对应的函数
+		public constructor(width?: number, height?: number) {
 			super();
 			this.width = width || egret.MainContext.instance.stage.stageWidth;
 			this.height = width || egret.MainContext.instance.stage.stageHeight;
@@ -40,8 +40,31 @@ module LC {
 		// 进行一些初始化的操作
 		protected init(): void {
 			// console.log(this.TAG + " init");	
+			this.UIEventList = new Array<any>();
 			this.setOnTouchListener();
 			this.registerCustomEvents();
+			this._registerManyUIEvents(true);
+		}
+
+		/**
+		 * 以某种特定的格式来注册ui消息
+		 * 协议的回调函数以 ui + socket的id + event 的函数名 
+		 * @param isRegister true 表示注册  false表示注销
+		 */
+		private _registerManyUIEvents(isRegister: boolean) {
+			for (let value of this.UIEventList) {
+				let eventName: string = value.toString();
+				let funcName: string = "ui_" + eventName;
+				if (this[funcName]) {
+					if (isRegister) {
+						EventManager.getInstance().register(eventName, this[funcName], this);
+					} else {
+						EventManager.getInstance().unRegister(eventName, this[funcName], this);
+					}
+				} else {
+					console.error("未添加相应的协议的监听");
+				}
+			}
 		}
 
 		// 触摸消息的注册全在这里操作
@@ -76,9 +99,11 @@ module LC {
 		 * 
 		*/
 		private onDestroy() {
-			console.log(this.TAG + " onDestroy");
+			// console.log(this.TAG + " onDestroy");
 			this.removeOnTouchListener();
 			this.unRegisterCustomEvents();
+			this._registerManyUIEvents(false);
+			this.UIEventList = null;
 			this.Ctrl.onDestroy();
 		}
 	}

@@ -84,17 +84,13 @@ module LC {
         }
 
         protected registerCustomEvents() {
-            EventManager.getInstance().register(CustomEvents.UPDATE_VIEW, this._updateView, this);
+            this.UIEventList = [
+                CustomEvents.UPDATE_VIEW
+            ];
         }
 
-
-        protected unRegisterCustomEvents() {
-            EventManager.getInstance().unRegister(CustomEvents.UPDATE_VIEW, this._updateView, this);
-        }
-
-
-        private _updateView() {
-            console.log("updateView");
+        private ui_updateView() {
+            console.log(this.TAG + "updateView");
         }
 
 

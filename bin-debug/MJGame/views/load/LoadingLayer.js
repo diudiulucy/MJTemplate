@@ -76,13 +76,12 @@ var LC;
         LoadingLayer.prototype.removeOnTouchListener = function () {
         };
         LoadingLayer.prototype.registerCustomEvents = function () {
-            LC.EventManager.getInstance().register(CustomEvents.UPDATE_VIEW, this._updateView, this);
+            this.UIEventList = [
+                CustomEvents.UPDATE_VIEW
+            ];
         };
-        LoadingLayer.prototype.unRegisterCustomEvents = function () {
-            LC.EventManager.getInstance().unRegister(CustomEvents.UPDATE_VIEW, this._updateView, this);
-        };
-        LoadingLayer.prototype._updateView = function () {
-            console.log("updateView");
+        LoadingLayer.prototype.ui_updateView = function () {
+            console.log(this.TAG + "updateView");
         };
         return LoadingLayer;
     }(LC.Layer));

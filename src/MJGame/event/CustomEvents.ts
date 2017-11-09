@@ -4,7 +4,7 @@
  * @date 2017/10/19
  */
 module CustomEvents {
-	export const UPDATE_VIEW: string = "UpdateView";
+	export const UPDATE_VIEW: string = "updateView";
 
 	
     

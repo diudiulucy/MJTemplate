@@ -18,19 +18,25 @@ var LC;
         function GameLayerController() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        GameLayerController.prototype.registerSocket = function () {
-            // EventManager.getInstance().register(LC.SocketEvents.Rev100000.toString(),this.on100000_event,this);
-        };
-        GameLayerController.prototype.unRegisterSocket = function () {
-            // EventManager.getInstance().unRegister(LC.SocketEvents.Rev100000.toString(),this.on100000_event,this);
+        GameLayerController.prototype.init = function () {
+            _super.prototype.init.call(this);
+            this.SocketEventList = [
+                // LC.SocketEvents.Rev100000,
+                LC.SocketEvents.Rev100002,
+            ];
         };
         GameLayerController.prototype.text = function () {
-            console.log("test");
-            var js = { id: 1 };
-            LC.Socket.Instance.sendData(JSON.stringify(js), LC.SocketEvents.Rev100000);
+            egret.setTimeout(function () {
+                var js = { id: 1 };
+                LC.Socket.Instance.sendData(JSON.stringify(js), LC.SocketEvents.Rev100000);
+                LC.Socket.Instance.sendData(JSON.stringify(js), LC.SocketEvents.Rev100002);
+            }, this, 1000);
         };
-        GameLayerController.prototype.on100000_event = function (event) {
-            console.log("on100000_event: " + event.data);
+        GameLayerController.prototype.on_100000_event = function (event) {
+            console.log(this.TAG + " on_100000_event: " + event.data);
+        };
+        GameLayerController.prototype.on_100002_event = function (event) {
+            console.log(this.TAG + " on_100002_event: " + event.data);
         };
         return GameLayerController;
     }(LC.Controller));

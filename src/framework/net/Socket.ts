@@ -67,7 +67,7 @@ module LC {
          */
 		public sendData(data: string, mainID: number, AssistantID?: number) {
 			if (this._socket && this._socket.connected) {
-				console.log("mainID: " + mainID + " send data : " + data);
+				console.log("Send: mainID = " + mainID + " data = " + data);
 				//创建 ByteArray 对象
 				let byte: egret.ByteArray = this._EnvelopedMessage(data, mainID, AssistantID);
 				byte.endian = egret.Endian.LITTLE_ENDIAN;
@@ -87,7 +87,9 @@ module LC {
 			return false;
 		}
 
-
+		/**
+		 * 连接超时
+		 */
 		private timeOutHandler() {
 			if (!this._socket.connected) {
 				egret.log("connect time out!");
@@ -141,7 +143,7 @@ module LC {
 			var AssistantID: number = byte.readInt();
 
 			let data = byte.readUTFBytes(len - this._headSize);
-			console.log("mainID: " + mainID + " receive data : " + data);
+			console.log("Receive: mainID = " + mainID + " data = " + data);
 
 			EventManager.getInstance().dispatchEventWith(mainID.toString(),false,data);
 
@@ -151,7 +153,7 @@ module LC {
 		 * 封装数据
 		 * @param byte 待封装的数据
 		 */
-		private _EnvelopedMessage(data: string, mainID: number, AssistantID: number): egret.ByteArray {
+		private _EnvelopedMessage(data: string, mainID: number, AssistantID: number = 0): egret.ByteArray {
 			let body: egret.ByteArray = new egret.ByteArray();
 			body.endian = egret.Endian.LITTLE_ENDIAN;
 			//写入数据
@@ -165,13 +167,9 @@ module LC {
 			//写入主命令
 			byte.writeInt(mainID);
 			//写入辅命令
-			byte.writeInt(25355);
+			byte.writeInt(AssistantID);
 			byte.writeBytes(body, 0, len);
 			return byte;
-		}
-
-		private trace(msg:any):void{
-
 		}
 	}
 }

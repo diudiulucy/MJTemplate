@@ -76,7 +76,7 @@ var LC;
          */
         Socket.prototype.sendData = function (data, mainID, AssistantID) {
             if (this._socket && this._socket.connected) {
-                console.log("mainID: " + mainID + " send data : " + data);
+                console.log("Send: mainID = " + mainID + " data = " + data);
                 //创建 ByteArray 对象
                 var byte = this._EnvelopedMessage(data, mainID, AssistantID);
                 byte.endian = egret.Endian.LITTLE_ENDIAN;
@@ -142,7 +142,7 @@ var LC;
             var mainID = byte.readInt();
             var AssistantID = byte.readInt();
             var data = byte.readUTFBytes(len - this._headSize);
-            console.log("mainID: " + mainID + " receive data : " + data);
+            console.log("Receive: mainID = " + mainID + " data = " + data);
             LC.EventManager.getInstance().dispatchEventWith(mainID.toString(), false, data);
         };
         /**
@@ -150,6 +150,7 @@ var LC;
          * @param byte 待封装的数据
          */
         Socket.prototype._EnvelopedMessage = function (data, mainID, AssistantID) {
+            if (AssistantID === void 0) { AssistantID = 0; }
             var body = new egret.ByteArray();
             body.endian = egret.Endian.LITTLE_ENDIAN;
             //写入数据
@@ -161,11 +162,9 @@ var LC;
             //写入主命令
             byte.writeInt(mainID);
             //写入辅命令
-            byte.writeInt(25355);
+            byte.writeInt(AssistantID);
             byte.writeBytes(body, 0, len);
             return byte;
-        };
-        Socket.prototype.trace = function (msg) {
         };
         return Socket;
     }(LC.Single));

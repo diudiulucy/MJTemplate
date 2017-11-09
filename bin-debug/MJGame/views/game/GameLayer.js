@@ -30,12 +30,11 @@ var LC;
             this._ctrl.text();
         };
         GameLayer.prototype.registerCustomEvents = function () {
-            LC.EventManager.getInstance().register(CustomEvents.UPDATE_VIEW, this._updateView, this);
+            this.UIEventList = [
+                CustomEvents.UPDATE_VIEW
+            ];
         };
-        GameLayer.prototype.unRegisterCustomEvents = function () {
-            LC.EventManager.getInstance().unRegister(CustomEvents.UPDATE_VIEW, this._updateView, this);
-        };
-        GameLayer.prototype._updateView = function () {
+        GameLayer.prototype.ui_updateView = function () {
             console.log(this.TAG + " updateView ");
             // this.btn1.label = "updateView";
         };
