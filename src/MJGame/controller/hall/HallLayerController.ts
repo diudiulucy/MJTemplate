@@ -13,6 +13,7 @@ module LC {
 			];
 		}
 
+		/**登录消息返回 */
 		private on_100002_event(event: egret.Event) {
 			let data = event.data;
 			console.log(this.TAG + " on_100002_event: " + event.data);
@@ -22,6 +23,7 @@ module LC {
 			}
 		}
 
+		/**连接socket */
 		public connectSocket() {
 			Socket.Instance.startConnect(Config.SERVER_URL, this.onSocketConnect, this);
 		}
@@ -35,8 +37,10 @@ module LC {
 
 		/**发送登录游戏服务器*/
 		private _wServerLogin(){
-			let js = {userid:"9123",pass:Config.MD5PASS};
-			Socket.Instance.sendData(JSON.stringify(js),SocketEvents.Send100002);
+			let obj:Send100002 = <Send100002>{};
+			obj.pass = Config.MD5PASS;
+			obj.userid = 9123;
+			Socket.Instance.sendData(JSON.stringify(obj),SocketEvents.Send100002);
 		}
 
 	}

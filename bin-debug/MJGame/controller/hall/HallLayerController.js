@@ -24,6 +24,7 @@ var LC;
                 LC.SocketEvents.Send100002,
             ];
         };
+        /**登录消息返回 */
         HallLayerController.prototype.on_100002_event = function (event) {
             var data = event.data;
             console.log(this.TAG + " on_100002_event: " + event.data);
@@ -32,6 +33,7 @@ var LC;
                 console.log("登录成功,是否断线重连:" + obj.info.reconnect);
             }
         };
+        /**连接socket */
         HallLayerController.prototype.connectSocket = function () {
             LC.Socket.Instance.startConnect(LC.Config.SERVER_URL, this.onSocketConnect, this);
         };
@@ -43,8 +45,10 @@ var LC;
         };
         /**发送登录游戏服务器*/
         HallLayerController.prototype._wServerLogin = function () {
-            var js = { userid: "9123", pass: LC.Config.MD5PASS };
-            LC.Socket.Instance.sendData(JSON.stringify(js), LC.SocketEvents.Send100002);
+            var obj = {};
+            obj.pass = LC.Config.MD5PASS;
+            obj.userid = 9123;
+            LC.Socket.Instance.sendData(JSON.stringify(obj), LC.SocketEvents.Send100002);
         };
         return HallLayerController;
     }(LC.Controller));
