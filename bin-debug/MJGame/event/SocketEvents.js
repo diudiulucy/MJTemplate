@@ -58,4 +58,4 @@ var LC;
         SocketEvents[SocketEvents["Send100112"] = 100112] = "Send100112";
     })(SocketEvents = LC.SocketEvents || (LC.SocketEvents = {}));
 })(LC || (LC = {}));
-//# sourceMappingURL=SocketEvent.js.map
+//# sourceMappingURL=SocketEvents.js.map

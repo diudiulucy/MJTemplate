@@ -77,7 +77,6 @@ module LC {
 
 
 		private _initMode(direction, cardMod: LC.CardModLayout) {
-
 			let handCardList = [
 				17,
 				18,

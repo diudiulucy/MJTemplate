@@ -7,5 +7,4 @@ module CustomEvents {
 	export const UPDATE_VIEW: string = "updateView";
 
 	
-    
 }

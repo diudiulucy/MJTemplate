@@ -1,5 +1,5 @@
 /**
- * Socket协议类 
+ * Socket协议类(只做协议的处理,不要处理UI，最好不要依赖其他的模块)
  * @author lucywang
  * @date 2017/10/19
  */
@@ -10,6 +10,10 @@ module LC {
 		private _timerId: number;
 		private _connectInterval: number = 4500;
 		private _headSize: number = 12;
+		private _successCallback:Function;
+		private _errorCallback:Function;
+		private _closeCallback:Function;
+		private _funcObj:any;
 
 		//为方便代码提示，加入此接口
 		public static get Instance(): Socket {
@@ -38,8 +42,13 @@ module LC {
 		 * 开始根据提供的url连接socket
 		 * @param url  全地址。如ws://echo.websocket.org:80
 		 */
-		public startConnect(url: string) {
+		public startConnect(url: string,success?: Function, thisObject?: any, error?: Function, close?: Function) {
 			egret.log("start connect " + url);
+
+			this._successCallback = success;
+			this._errorCallback = error;
+			this._funcObj = thisObject;
+
 			this._initWebSocket();
 			this._socket.connectByUrl(url);
 			this._timerId = egret.setTimeout(this.timeOutHandler, this, this._connectInterval);
@@ -102,6 +111,8 @@ module LC {
 		 */
 		private _onSocketOpen(event: egret.Event): void {
 			egret.log("connect successed");
+			egret.clearTimeout(this._timerId);
+			this._successCallback.call(this._funcObj);
 		}
 
 		/**
@@ -110,6 +121,7 @@ module LC {
 	 	 */
 		private _onSocketClose(event: egret.Event): void {
 			egret.log("onSocketClose");
+			this._closeCallback.call(this._funcObj);
 		}
 
 		/**
@@ -118,6 +130,7 @@ module LC {
 		 */
 		private _onSocketError(event: egret.IOErrorEvent): void {
 			egret.log("_onSocketError");
+			this._errorCallback.call(this._funcObj);
 		}
 
 		/**
@@ -145,8 +158,7 @@ module LC {
 			let data = byte.readUTFBytes(len - this._headSize);
 			console.log("Receive: mainID = " + mainID + " data = " + data);
 
-			EventManager.getInstance().dispatchEventWith(mainID.toString(),false,data);
-
+			EventManager.getInstance().dispatchCustomEvent(mainID.toString(),data);
 		}
 
 		/**

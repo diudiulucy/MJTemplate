@@ -19,27 +19,33 @@ module LC {
 	export class Http {
 		/**
 		 * 发送post请求
-		 * @param url 		路径
-		 * @param data 		数据
-		 * @param success  	成功的回调
-		 * @param 
-		 * @param error 	失败的回调
+		 * @param url 		 路径
+		 * @param data 		 数据
+		 * @param success  	 成功的回调
+		 * @param thisObject 调用回调的对象
+		 * @param error 	 失败的回调
 		 */
-		public static post(url: string, data?: any, success?: Function, thisObject?: any, error?: Function,progress?:Function): void {
+		public static post(url: string, data?: any, success?: Function, thisObject?: any, error?: Function, progress?: Function): void {
+			console.log("post url = " + url);
 			let request = new egret.HttpRequest();
 			request.responseType = egret.HttpResponseType.TEXT;
 			request.open(url, egret.HttpMethod.POST);
 			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			if (data) {
-				let param = this.changeUrlCode(data);
-				request.send(param);
+				if (data instanceof Object) {
+					let param = this.changeUrlCode(data);
+					request.send(param);
+				} else {
+					request.send(data);
+				}
+
 			} else {
 				request.send();
 			}
 
 			success && request.addEventListener(egret.Event.COMPLETE, success, thisObject);
 			error && request.addEventListener(egret.IOErrorEvent.IO_ERROR, error, thisObject);
-			progress && request.addEventListener(egret.ProgressEvent.PROGRESS,progress,thisObject);
+			progress && request.addEventListener(egret.ProgressEvent.PROGRESS, progress, thisObject);
 		}
 
 		/**
@@ -50,6 +56,7 @@ module LC {
 		 * @param error 	失败的回调
 		 */
 		public static get(url: string, data?: any, success?: Function, thisObject?: any, error?: Function): void {
+			console.log("get url = " + url);
 			let request = new egret.HttpRequest();
 			request.responseType = egret.HttpResponseType.TEXT;
 			if (data) {
@@ -65,7 +72,7 @@ module LC {
 			error && request.addEventListener(egret.IOErrorEvent.IO_ERROR, error, thisObject);
 		}
 
-		private static changeUrlCode(param: Object): string {
+		private static changeUrlCode(param: any): string {
 			if (!param) return null;
 			let str: string = "";
 			for (let key in param) {

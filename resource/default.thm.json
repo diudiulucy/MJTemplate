@@ -34,6 +34,8 @@
     "resource/views/base/ComboCards.exml",
     "resource/views/common/LCProgressBarSkin.exml",
     "resource/views/game/GamLayer.exml",
-    "resource/views/load/LoadLayer.exml"
+    "resource/views/hall/HallLayer.exml",
+    "resource/views/load/LoadLayer.exml",
+    "resource/views/login/LoginLayer.exml"
   ]
 }

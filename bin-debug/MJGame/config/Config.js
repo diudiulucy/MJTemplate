@@ -17,8 +17,10 @@ var LC;
     Config.default_res_json = "resource/default.res.json";
     Config.default_thm_json = "resource/default.thm.json";
     Config.default_resource = "resource/";
+    Config.SERVER_URL = "ws://echo.websocket.org:80";
+    Config.MD5PASS = "";
     LC.Config = Config;
     __reflect(Config.prototype, "LC.Config");
-    LC.SERVER_URL = "ws://echo.websocket.org:80";
+    LC.WEB_URL = "http://119.23.66.138:50002/majapi/";
 })(LC || (LC = {}));
 //# sourceMappingURL=Config.js.map

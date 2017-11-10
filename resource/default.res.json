@@ -7,6 +7,18 @@
 		{
 			"keys": "PreLoadingBg_png,PreLoadingBarBg_png,PreLoadingBar_png",
 			"name": "loading"
+		},
+		{
+			"keys": "",
+			"name": "login"
+		},
+		{
+			"keys": "",
+			"name": "hall"
+		},
+		{
+			"keys": "",
+			"name": "game"
 		}
 	],
 	"resources": [

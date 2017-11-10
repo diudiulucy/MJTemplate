@@ -1,1 +1,1 @@
-{"version":3,"file":"CustomEvents.js","sourceRoot":"","sources":["../../../src/MJGame/event/CustomEvents.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AACH,IAAO,YAAY,CAKlB;AALD,WAAO,YAAY;IACL,wBAAW,GAAW,YAAY,CAAC;AAIjD,CAAC,EALM,YAAY,KAAZ,YAAY,QAKlB"}
+{"version":3,"file":"CustomEvents.js","sourceRoot":"","sources":["../../../src/MJGame/event/CustomEvents.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AACH,IAAO,YAAY,CAIlB;AAJD,WAAO,YAAY;IACL,wBAAW,GAAW,YAAY,CAAC;AAGjD,CAAC,EAJM,YAAY,KAAZ,YAAY,QAIlB"}

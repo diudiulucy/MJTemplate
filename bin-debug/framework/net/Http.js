@@ -25,20 +25,26 @@ var LC;
         }
         /**
          * 发送post请求
-         * @param url 		路径
-         * @param data 		数据
-         * @param success  	成功的回调
-         * @param
-         * @param error 	失败的回调
+         * @param url 		 路径
+         * @param data 		 数据
+         * @param success  	 成功的回调
+         * @param thisObject 调用回调的对象
+         * @param error 	 失败的回调
          */
         Http.post = function (url, data, success, thisObject, error, progress) {
+            console.log("post url = " + url);
             var request = new egret.HttpRequest();
             request.responseType = egret.HttpResponseType.TEXT;
             request.open(url, egret.HttpMethod.POST);
             request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             if (data) {
-                var param = this.changeUrlCode(data);
-                request.send(param);
+                if (data instanceof Object) {
+                    var param = this.changeUrlCode(data);
+                    request.send(param);
+                }
+                else {
+                    request.send(data);
+                }
             }
             else {
                 request.send();
@@ -55,6 +61,7 @@ var LC;
          * @param error 	失败的回调
          */
         Http.get = function (url, data, success, thisObject, error) {
+            console.log("get url = " + url);
             var request = new egret.HttpRequest();
             request.responseType = egret.HttpResponseType.TEXT;
             if (data) {

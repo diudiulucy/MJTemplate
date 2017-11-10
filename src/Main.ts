@@ -82,8 +82,6 @@ class Main extends eui.UILayer {
      */
     private onResourceLoadComplete(event: RES.ResourceEvent): void {
         if (event.groupName == "loading") {
-          
-            LC.Socket.Instance.startConnect(LC.SERVER_URL);
             //设置加载进度界面
             this.loadingScene = new LC.LoadingScene();
             LC.SceneManager.Instance.runWithScene(this.loadingScene);
@@ -135,8 +133,11 @@ class Main extends eui.UILayer {
      * Create scene interface
      */
     protected startCreateScene(): void {
-        let gameScene = new LC.GameScene();
-        LC.SceneManager.Instance.replaceScene(gameScene);
+        // let gameScene = new LC.GameScene();
+        // LC.SceneManager.Instance.replaceScene(gameScene);
+    
+        let loginScene = new LC.LoginScene();
+        LC.SceneManager.Instance.replaceScene(loginScene);
         // LC.SceneManager.Instance.pushScene(gameScene);
         // LC.SceneManager.Instance.popScene(gameScene);
     }

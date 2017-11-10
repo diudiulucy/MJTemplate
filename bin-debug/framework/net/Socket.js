@@ -7,7 +7,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * Socket协议类
+ * Socket协议类(只做协议的处理,不要处理UI，最好不要依赖其他的模块)
  * @author lucywang
  * @date 2017/10/19
  */
@@ -50,8 +50,11 @@ var LC;
          * 开始根据提供的url连接socket
          * @param url  全地址。如ws://echo.websocket.org:80
          */
-        Socket.prototype.startConnect = function (url) {
+        Socket.prototype.startConnect = function (url, success, thisObject, error, close) {
             egret.log("start connect " + url);
+            this._successCallback = success;
+            this._errorCallback = error;
+            this._funcObj = thisObject;
             this._initWebSocket();
             this._socket.connectByUrl(url);
             this._timerId = egret.setTimeout(this.timeOutHandler, this, this._connectInterval);
@@ -95,6 +98,9 @@ var LC;
             }
             return false;
         };
+        /**
+         * 连接超时
+         */
         Socket.prototype.timeOutHandler = function () {
             if (!this._socket.connected) {
                 egret.log("connect time out!");
@@ -106,6 +112,8 @@ var LC;
          */
         Socket.prototype._onSocketOpen = function (event) {
             egret.log("connect successed");
+            egret.clearTimeout(this._timerId);
+            this._successCallback.call(this._funcObj);
         };
         /**
          * 关闭连接回调
@@ -113,6 +121,7 @@ var LC;
          */
         Socket.prototype._onSocketClose = function (event) {
             egret.log("onSocketClose");
+            this._closeCallback.call(this._funcObj);
         };
         /**
          * 连接错误回调
@@ -120,6 +129,7 @@ var LC;
          */
         Socket.prototype._onSocketError = function (event) {
             egret.log("_onSocketError");
+            this._errorCallback.call(this._funcObj);
         };
         /**
          * 接收数据回调
@@ -143,7 +153,7 @@ var LC;
             var AssistantID = byte.readInt();
             var data = byte.readUTFBytes(len - this._headSize);
             console.log("Receive: mainID = " + mainID + " data = " + data);
-            LC.EventManager.getInstance().dispatchEventWith(mainID.toString(), false, data);
+            LC.EventManager.getInstance().dispatchCustomEvent(mainID.toString(), data);
         };
         /**
          * 封装数据

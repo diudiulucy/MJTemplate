@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="Skin.HallLayer" width="1334" height="750" xmlns:e="http://ns.egret.com/eui">
+	<e:Image source="hall_bg_png"/>
+	<e:Button label="加入房间" y="350" width="200" horizontalCenter="0"/>
+	<e:Button label="创建房间" y="477" width="200" horizontalCenter="0"/>
+</e:Skin>

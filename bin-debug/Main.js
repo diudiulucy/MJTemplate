@@ -87,7 +87,6 @@ var Main = (function (_super) {
      */
     Main.prototype.onResourceLoadComplete = function (event) {
         if (event.groupName == "loading") {
-            LC.Socket.Instance.startConnect(LC.SERVER_URL);
             //设置加载进度界面
             this.loadingScene = new LC.LoadingScene();
             LC.SceneManager.Instance.runWithScene(this.loadingScene);
@@ -139,8 +138,10 @@ var Main = (function (_super) {
      * Create scene interface
      */
     Main.prototype.startCreateScene = function () {
-        var gameScene = new LC.GameScene();
-        LC.SceneManager.Instance.replaceScene(gameScene);
+        // let gameScene = new LC.GameScene();
+        // LC.SceneManager.Instance.replaceScene(gameScene);
+        var loginScene = new LC.LoginScene();
+        LC.SceneManager.Instance.replaceScene(loginScene);
         // LC.SceneManager.Instance.pushScene(gameScene);
         // LC.SceneManager.Instance.popScene(gameScene);
     };

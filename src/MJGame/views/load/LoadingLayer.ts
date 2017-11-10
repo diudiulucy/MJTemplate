@@ -76,7 +76,7 @@ module LC {
         }
 
         protected setOnTouchListener() {
-
+            
         }
 
         protected removeOnTouchListener() {
@@ -92,8 +92,5 @@ module LC {
         private ui_updateView() {
             console.log(this.TAG + "updateView");
         }
-
-
-
     }
 }

@@ -71,6 +71,14 @@ declare module Skin{
 	}
 }
 declare module Skin{
+	class HallLayer extends eui.Skin{
+	}
+}
+declare module Skin{
 	class LoadLayer extends eui.Skin{
+	}
+}
+declare module Skin{
+	class LoginLayer extends eui.Skin{
 	}
 }
