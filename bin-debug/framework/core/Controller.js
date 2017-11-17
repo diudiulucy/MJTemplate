@@ -40,7 +40,7 @@ var LC;
                     }
                 }
                 else {
-                    console.error("未添加相应的协议的监听");
+                    console.error("\u672A\u6DFB\u52A0" + this.TAG + "\u7684" + funcName + "\u7684\u76D1\u542C");
                 }
             }
         };
@@ -56,6 +56,10 @@ var LC;
          */
         Controller.prototype.unRegisterSockets = function () {
         };
+        /**
+         * 销毁ctrl
+         * Layer基类已经调用此方法，不要在外部随意调用此方法
+         */
         Controller.prototype.onDestroy = function () {
             // console.log(this.TAG + " onDestroy");
             this.unRegisterSockets();

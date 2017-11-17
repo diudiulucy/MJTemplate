@@ -97,7 +97,8 @@ class Main extends eui.UILayer {
     }
     private createScene() {
         if (this.isThemeLoadEnd && this.isResourceLoadEnd) {
-            this.startCreateScene();
+            let loginScene = new LC.LoginScene();
+            LC.SceneManager.Instance.replaceScene(loginScene);
         }
     }
     /**
@@ -125,20 +126,7 @@ class Main extends eui.UILayer {
     private onResourceProgress(event: RES.ResourceEvent): void {
         if (event.groupName == "preload") {
             this.loadingScene.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
+            
         }
-    }
-
-    /**
-     * 创建场景界面
-     * Create scene interface
-     */
-    protected startCreateScene(): void {
-        // let gameScene = new LC.GameScene();
-        // LC.SceneManager.Instance.replaceScene(gameScene);
-    
-        let loginScene = new LC.LoginScene();
-        LC.SceneManager.Instance.replaceScene(loginScene);
-        // LC.SceneManager.Instance.pushScene(gameScene);
-        // LC.SceneManager.Instance.popScene(gameScene);
     }
 }

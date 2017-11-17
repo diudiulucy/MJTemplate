@@ -19,10 +19,10 @@ var LC;
      */
     var Directions;
     (function (Directions) {
-        Directions[Directions["Up"] = 0] = "Up";
-        Directions[Directions["Down"] = 1] = "Down";
-        Directions[Directions["Left"] = 2] = "Left";
-        Directions[Directions["Right"] = 3] = "Right";
+        Directions[Directions["Down"] = 0] = "Down";
+        Directions[Directions["Right"] = 1] = "Right";
+        Directions[Directions["Up"] = 2] = "Up";
+        Directions[Directions["Left"] = 3] = "Left";
     })(Directions = LC.Directions || (LC.Directions = {}));
     /**
      * 牌的内部皮肤状态(外部不关心此状态，只有此类用到)

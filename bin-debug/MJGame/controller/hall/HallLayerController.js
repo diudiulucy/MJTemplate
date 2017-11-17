@@ -15,8 +15,9 @@ var LC;
 (function (LC) {
     var HallLayerController = (function (_super) {
         __extends(HallLayerController, _super);
+        //加入构造器，代码才可以跳转到此类，否则直接跳到父类
         function HallLayerController() {
-            return _super !== null && _super.apply(this, arguments) || this;
+            return _super.call(this) || this;
         }
         HallLayerController.prototype.init = function () {
             _super.prototype.init.call(this);
@@ -26,29 +27,42 @@ var LC;
         };
         /**登录消息返回 */
         HallLayerController.prototype.on_100002_event = function (event) {
+            console.log(this.TAG + " on_100002_event: ");
             var data = event.data;
-            console.log(this.TAG + " on_100002_event: " + event.data);
             var obj = JSON.parse(data);
-            if (data.code = 200) {
-                console.log("登录成功,是否断线重连:" + obj.info.reconnect);
+            if (obj.code == 200) {
+                console.log("登录游戏服务器成功");
+            }
+            else {
             }
         };
         /**连接socket */
         HallLayerController.prototype.connectSocket = function () {
-            LC.Socket.Instance.startConnect(LC.Config.SERVER_URL, this.onSocketConnect, this);
+            LC.Socket.Instance.startConnect(LC.Config.SERVER_URL, this._onSocketConnect, this, this._onSocketClose);
         };
         /**socket连接成功*/
-        HallLayerController.prototype.onSocketConnect = function () {
-            console.log(this.TAG + " connenct socket success");
+        HallLayerController.prototype._onSocketConnect = function () {
+            // console.log(this.TAG + " connenct socket success");
             //游戏服务器连接成功，发送登录请求
             this._wServerLogin();
+            this.timer = egret.setInterval(this._sentHeart, this, 1800000);
+        };
+        /**socket连接关闭*/
+        HallLayerController.prototype._onSocketClose = function () {
+            console.log(this.TAG + " onSocketClose");
+            egret.clearInterval(this.timer);
+        };
+        /**发送心跳包*/
+        HallLayerController.prototype._sentHeart = function () {
+            console.log("发送心跳");
+            LC.Socket.Instance.sendData(LC.SocketEvents.Send100000, "");
         };
         /**发送登录游戏服务器*/
         HallLayerController.prototype._wServerLogin = function () {
             var obj = {};
-            obj.pass = LC.Config.MD5PASS;
-            obj.userid = 9123;
-            LC.Socket.Instance.sendData(JSON.stringify(obj), LC.SocketEvents.Send100002);
+            obj.passwd = LC.Config.MD5PASS;
+            obj.user_id = LC.UsersInfo.MySelf.user_id;
+            LC.Socket.Instance.sendData(LC.SocketEvents.Send100002, JSON.stringify(obj));
         };
         return HallLayerController;
     }(LC.Controller));

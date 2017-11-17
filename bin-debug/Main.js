@@ -103,7 +103,8 @@ var Main = (function (_super) {
     };
     Main.prototype.createScene = function () {
         if (this.isThemeLoadEnd && this.isResourceLoadEnd) {
-            this.startCreateScene();
+            var loginScene = new LC.LoginScene();
+            LC.SceneManager.Instance.replaceScene(loginScene);
         }
     };
     /**
@@ -132,18 +133,6 @@ var Main = (function (_super) {
         if (event.groupName == "preload") {
             this.loadingScene.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
         }
-    };
-    /**
-     * 创建场景界面
-     * Create scene interface
-     */
-    Main.prototype.startCreateScene = function () {
-        // let gameScene = new LC.GameScene();
-        // LC.SceneManager.Instance.replaceScene(gameScene);
-        var loginScene = new LC.LoginScene();
-        LC.SceneManager.Instance.replaceScene(loginScene);
-        // LC.SceneManager.Instance.pushScene(gameScene);
-        // LC.SceneManager.Instance.popScene(gameScene);
     };
     return Main;
 }(eui.UILayer));

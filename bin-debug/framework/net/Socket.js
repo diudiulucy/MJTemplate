@@ -50,7 +50,7 @@ var LC;
          * 开始根据提供的url连接socket
          * @param url  全地址。如ws://echo.websocket.org:80
          */
-        Socket.prototype.startConnect = function (url, success, thisObject, error, close) {
+        Socket.prototype.startConnect = function (url, success, thisObject, close, error) {
             egret.log("start connect " + url);
             this._successCallback = success;
             this._errorCallback = error;
@@ -73,11 +73,11 @@ var LC;
         };
         /**
          * 发送数据
-         * @param data 	      待发送json数据
+         * @param data 	      待发送数据
          * @param mainID      主ID
          * @param AssistantID 辅ID
          */
-        Socket.prototype.sendData = function (data, mainID, AssistantID) {
+        Socket.prototype.sendData = function (mainID, data, AssistantID) {
             if (this._socket && this._socket.connected) {
                 console.log("Send: mainID = " + mainID + " data = " + data);
                 //创建 ByteArray 对象
@@ -113,7 +113,7 @@ var LC;
         Socket.prototype._onSocketOpen = function (event) {
             egret.log("connect successed");
             egret.clearTimeout(this._timerId);
-            this._successCallback.call(this._funcObj);
+            this._successCallback && this._successCallback.call(this._funcObj);
         };
         /**
          * 关闭连接回调
@@ -121,7 +121,7 @@ var LC;
          */
         Socket.prototype._onSocketClose = function (event) {
             egret.log("onSocketClose");
-            this._closeCallback.call(this._funcObj);
+            this._closeCallback && this._closeCallback.call(this._funcObj);
         };
         /**
          * 连接错误回调
@@ -129,7 +129,7 @@ var LC;
          */
         Socket.prototype._onSocketError = function (event) {
             egret.log("_onSocketError");
-            this._errorCallback.call(this._funcObj);
+            this._errorCallback && this._errorCallback.call(this._funcObj);
         };
         /**
          * 接收数据回调
@@ -151,9 +151,11 @@ var LC;
             var len = byte.readInt();
             var mainID = byte.readInt();
             var AssistantID = byte.readInt();
-            var data = byte.readUTFBytes(len - this._headSize);
-            console.log("Receive: mainID = " + mainID + " data = " + data);
-            LC.EventManager.getInstance().dispatchCustomEvent(mainID.toString(), data);
+            var dataByte = new egret.ByteArray();
+            byte.readBytes(dataByte, 0, len - this._headSize);
+            var dataDes = CryptoUtils.AESDecrypt(dataByte, LC.AESKEY);
+            console.log("Receive: mainID = " + mainID + " data = " + dataDes);
+            LC.EventManager.getInstance().dispatchCustomEvent(mainID.toString(), dataDes);
         };
         /**
          * 封装数据
@@ -161,10 +163,14 @@ var LC;
          */
         Socket.prototype._EnvelopedMessage = function (data, mainID, AssistantID) {
             if (AssistantID === void 0) { AssistantID = 0; }
+            var msgBytes = CryptoUtils.AESEncrypt(data, LC.AESKEY);
             var body = new egret.ByteArray();
             body.endian = egret.Endian.LITTLE_ENDIAN;
             //写入数据
-            body.writeUTFBytes(data);
+            // body.writeUTFBytes(data);
+            for (var i = 0; i < msgBytes.length; i++) {
+                body.writeByte(msgBytes[i]);
+            }
             var byte = new egret.ByteArray();
             byte.endian = egret.Endian.LITTLE_ENDIAN;
             var len = this._headSize + body.length;

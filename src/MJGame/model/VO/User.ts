@@ -1,33 +1,30 @@
 /**
- * 
+ * 用户数据
  */
 module LC {
-	/**性别类型*/
-	enum SEX_TYPE {
-		boy = 1,
-		girl = 2,
-		unknow = 3
+
+	export enum ReadyState {
+		UNREADY = 1,    // 待准备
+		READY = 2,     // 准备中
+		PLAYING = 3,    // 游戏中
+		ESCAPE = 4,     // 逃跑
 	}
+
 	export class User {
 		/**用户ID*/
-		public userID: number;
-		/**昵称*/
-		public nickName: string;
-		/**用户头像地址*/
-		public headUrl:string;
-		/**是否点击分享链接进入，并玩了一局游戏  1是，0否*/
-		public hadinvited: number;
-		/**验证用户有效性*/
-		public skey: string;
-		/**过期时间**/
-		public isOvertime: number;
-		/**桌子名称**/
-		public excluroomName: string;
-		/**桌子号**/
-		public excluroomCode: string;
-		/**游客标识 */
-		public isVisitor: number;
-		/**玩家性别*/
-		public sex: SEX_TYPE;
+		public user_id: number;
+		public nick: string = "";
+		public seat_id: number;//服务器座位号
+		public point: number;
+		public status: ReadyState;//是否准备状态
+		public client_seatID: number;//客户端座位号  0,1,2,3取值  保留seat_id的逆时针顺序，与服务器座位号弱关联
+		// private userUI: UserHead;
+		public isBanker: boolean = false;//是否是庄家
+
+		// public set UserUI(userHead: UserHead) {
+		// 	this.userUI = userHead;
+		// 	this.userUI.UserModel = this;
+		// }
+
 	}
 }

@@ -17,7 +17,7 @@ module LC {
 			 public static get Instance(): T {
 			     return this.getInstance();
 			 }
-			*/
+		*/
 		protected static getInstance() {
 			let clsName = egret.getQualifiedClassName(this);
 			let cls = egret.getDefinitionByName(clsName);

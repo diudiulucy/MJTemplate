@@ -16,7 +16,7 @@ var LC;
              public static get Instance(): T {
                  return this.getInstance();
              }
-            */
+        */
         Single.getInstance = function () {
             var clsName = egret.getQualifiedClassName(this);
             var cls = egret.getDefinitionByName(clsName);

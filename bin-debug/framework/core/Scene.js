@@ -8,6 +8,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 /**
  * 场景类(一个场景下可以加多个Layer或者其他的组件) 其子类不用关心销毁的操作 全在此类进行，销毁时移除所有的子节点以触发其相应的destory
+ * 场景类中只处理UI的切换，不做协议的处理
  * 继承自eui.UILayer
  * UILayer 是 Group 的子类，它除了具有容器的所有标准功能，还能够自动保持自身尺寸始终与舞台尺寸相同（Stage.stageWidth,Stage.stageHeight）
  * 当舞台尺寸发生改变时，它会跟随舞台尺寸改变

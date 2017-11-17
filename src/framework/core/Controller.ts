@@ -7,6 +7,7 @@ module LC {
 	export class Controller {
 		protected TAG: string = "";
 		protected SocketEventList: Array<any> = null;//对此数组赋值，可以快速绑定 不需要重复操作，注意对每个id添加对应的函数
+		
 		public constructor() {
 			this.TAG = egret.getQualifiedClassName(this);
 			this.init();
@@ -35,7 +36,7 @@ module LC {
 						EventManager.getInstance().unRegister(eventName, this[funcName], this);
 					}
 				}else{
-					console.error("未添加相应的协议的监听");
+					console.error(`未添加${this.TAG}的${funcName}的监听`);
 				}
 			}
 		}
@@ -56,6 +57,10 @@ module LC {
 
 		}
 
+		/**
+		 * 销毁ctrl
+		 * Layer基类已经调用此方法，不要在外部随意调用此方法
+		 */
 		public onDestroy() {
 			// console.log(this.TAG + " onDestroy");
 			this.unRegisterSockets();

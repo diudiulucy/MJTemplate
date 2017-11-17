@@ -6,5 +6,6 @@
 var CustomEvents;
 (function (CustomEvents) {
     CustomEvents.UPDATE_VIEW = "updateView";
+    CustomEvents.OtherPlayer_EnterROOM = "otherPlayerEnterRoom";
 })(CustomEvents || (CustomEvents = {}));
 //# sourceMappingURL=CustomEvents.js.map

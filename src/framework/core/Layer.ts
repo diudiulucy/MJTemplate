@@ -16,6 +16,13 @@ module LC {
 			super();
 			this.width = width || egret.MainContext.instance.stage.stageWidth;
 			this.height = width || egret.MainContext.instance.stage.stageHeight;
+
+			//锚点设置为中心
+			this.anchorOffsetX = this.width / 2;
+			this.anchorOffsetY = this.height / 2;
+			this.horizontalCenter = 0;
+			this.verticalCenter = 0;
+
 			this.TAG = egret.getQualifiedClassName(this);
 			this.addEventListener(egret.Event.ADDED_TO_STAGE, this.init, this);
 			this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onDestroy, this);
@@ -37,13 +44,23 @@ module LC {
 			this._ctrl = ctrl;
 		}
 
-		// 进行一些初始化的操作
+		/**
+		 * 进行一些初始化的操作
+		*/
 		protected init(): void {
 			// console.log(this.TAG + " init");	
 			this.UIEventList = new Array<any>();
 			this.setOnTouchListener();
 			this.registerCustomEvents();
 			this._registerManyUIEvents(true);
+			this.watchData();
+		}
+
+		/**
+		 * 进行数据的监视
+		*/
+		protected watchData() {
+
 		}
 
 		/**
@@ -62,7 +79,7 @@ module LC {
 						EventManager.getInstance().unRegister(eventName, this[funcName], this);
 					}
 				} else {
-					console.error("未添加相应的协议的监听");
+					console.error(`未添加${this.TAG}的${funcName}的监听`);
 				}
 			}
 		}
@@ -96,6 +113,7 @@ module LC {
 
 		/**
 		 * 层被销毁时调用移除触摸监听和事件派发的监听
+		 * 
 		 * 
 		*/
 		private onDestroy() {

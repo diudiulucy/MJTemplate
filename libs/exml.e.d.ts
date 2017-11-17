@@ -62,8 +62,20 @@ declare module Skin{
 	class ComboCards extends eui.Skin{
 	}
 }
+declare module Skins{
+	class LCButton extends eui.Skin{
+	}
+}
 declare module Skin{
 	class LCProgressBarSkin extends eui.Skin{
+	}
+}
+declare module Skin{
+	class UserHead extends eui.Skin{
+	}
+}
+declare module Skin{
+	class Disc extends eui.Skin{
 	}
 }
 declare module Skin{
@@ -80,5 +92,13 @@ declare module Skin{
 }
 declare module Skin{
 	class LoginLayer extends eui.Skin{
+	}
+}
+declare module Skin{
+	class JoinRoom extends eui.Skin{
+	}
+}
+declare module Skin{
+	class SelectRoom extends eui.Skin{
 	}
 }

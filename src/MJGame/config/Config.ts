@@ -10,8 +10,11 @@ module LC {
 		public static default_res_json:string = "resource/default.res.json";
 		public static default_thm_json:string = "resource/default.thm.json";
 		public static default_resource:string = "resource/";
-		public static SERVER_URL:string = "ws://echo.websocket.org:80";
-		public static MD5PASS:string = "";
+		public static SERVER_URL:string = "ws://192.168.1.101:20000";
+		public static MD5PASS:string = "8222b2020c704671b9c51d6fdcfe776c";
+		// public static MaxPlayerCount:number = 3;//房间最大玩家数
+		public static MaxPlayerCount:number = 4;//房间最大玩家数
+		// public static MaxPlayerCount:number = 2;//房间最大玩家数
 	}
 
 	export const WEB_URL:string = "http://119.23.66.138:50002/majapi/";

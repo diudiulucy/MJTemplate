@@ -25,6 +25,11 @@ var LC;
             _this.UIEventList = null; //对此数组赋值，可以快速绑定 不需要重复操作，注意对每个id添加对应的函数
             _this.width = width || egret.MainContext.instance.stage.stageWidth;
             _this.height = width || egret.MainContext.instance.stage.stageHeight;
+            //锚点设置为中心
+            _this.anchorOffsetX = _this.width / 2;
+            _this.anchorOffsetY = _this.height / 2;
+            _this.horizontalCenter = 0;
+            _this.verticalCenter = 0;
             _this.TAG = egret.getQualifiedClassName(_this);
             _this.addEventListener(egret.Event.ADDED_TO_STAGE, _this.init, _this);
             _this.addEventListener(egret.Event.REMOVED_FROM_STAGE, _this.onDestroy, _this);
@@ -47,13 +52,21 @@ var LC;
             enumerable: true,
             configurable: true
         });
-        // 进行一些初始化的操作
+        /**
+         * 进行一些初始化的操作
+        */
         Layer.prototype.init = function () {
             // console.log(this.TAG + " init");	
             this.UIEventList = new Array();
             this.setOnTouchListener();
             this.registerCustomEvents();
             this._registerManyUIEvents(true);
+            this.watchData();
+        };
+        /**
+         * 进行数据的监视
+        */
+        Layer.prototype.watchData = function () {
         };
         /**
          * 以某种特定的格式来注册ui消息
@@ -74,7 +87,7 @@ var LC;
                     }
                 }
                 else {
-                    console.error("未添加相应的协议的监听");
+                    console.error("\u672A\u6DFB\u52A0" + this.TAG + "\u7684" + funcName + "\u7684\u76D1\u542C");
                 }
             }
         };
@@ -99,6 +112,7 @@ var LC;
         };
         /**
          * 层被销毁时调用移除触摸监听和事件派发的监听
+         *
          *
         */
         Layer.prototype.onDestroy = function () {

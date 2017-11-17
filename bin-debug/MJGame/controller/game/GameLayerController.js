@@ -21,22 +21,124 @@ var LC;
         GameLayerController.prototype.init = function () {
             _super.prototype.init.call(this);
             this.SocketEventList = [
-                // LC.SocketEvents.Rev100000,
-                LC.SocketEvents.Rev100002,
+                LC.SocketEvents.Send100100,
+                LC.SocketEvents.Rev101107,
+                LC.SocketEvents.Rev101106,
+                LC.SocketEvents.Rev101004,
+                LC.SocketEvents.Rev101005,
+                LC.SocketEvents.Rev101008,
+                LC.SocketEvents.Rev101002
             ];
         };
-        GameLayerController.prototype.text = function () {
-            egret.setTimeout(function () {
-                var js = { id: 1 };
-                LC.Socket.Instance.sendData(JSON.stringify(js), LC.SocketEvents.Rev100000);
-                LC.Socket.Instance.sendData(JSON.stringify(js), LC.SocketEvents.Rev100002);
-            }, this, 1000);
+        /**
+         *  玩家自己准备
+         */
+        GameLayerController.prototype.onMySelfReady = function () {
+            var obj = {};
+            obj.user_id = LC.UsersInfo.MySelf.user_id;
+            obj.ready = 1;
+            LC.Socket.Instance.sendData(LC.SocketEvents.Send100100, JSON.stringify(obj));
         };
-        GameLayerController.prototype.on_100000_event = function (event) {
-            console.log(this.TAG + " on_100000_event: " + event.data);
+        /**
+         *  玩家自己准备回调
+         */
+        GameLayerController.prototype.on_100100_event = function (event) {
+            console.log(this.TAG + " on_100100_event: " + event.data);
+            var data = event.data;
+            var obj = JSON.parse(data);
+            if (obj.code == 200) {
+                console.log("准备成功");
+                LC.UsersInfo.MySelf.status = LC.ReadyState.READY;
+            }
+            else {
+            }
         };
-        GameLayerController.prototype.on_100002_event = function (event) {
-            console.log(this.TAG + " on_100002_event: " + event.data);
+        /**
+         * 推送玩家进入房间
+         */
+        GameLayerController.prototype.on_101107_event = function (event) {
+            console.log(this.TAG + " on_101107_event: " + event.data);
+            var data = event.data;
+            var obj = JSON.parse(data);
+            if (obj.code == 200) {
+                console.log("\u73A9\u5BB6id\u4E3A" + obj.info.user_id + "\u8FDB\u5165\u623F\u95F4");
+                var user = new LC.User();
+                for (var key in obj.info) {
+                    user[key] = obj.info[key];
+                }
+                LC.UsersInfo.Instance.addUser(user);
+                LC.EventManager.getInstance().dispatchCustomEvent(CustomEvents.OtherPlayer_EnterROOM, { user: user });
+            }
+            else {
+            }
+        };
+        /**
+         * 推送玩家进入准备
+         */
+        GameLayerController.prototype.on_101106_event = function (event) {
+            console.log(this.TAG + " on_101106_event: " + event.data);
+            var data = event.data;
+            var obj = JSON.parse(data);
+            if (obj.code == 200) {
+                console.log("\u73A9\u5BB6id\u4E3A" + obj.info.user_id + "\u8FDB\u5165\u51C6\u5907\u72B6\u6001");
+                var user = LC.UsersInfo.Instance.getUserById(obj.info.user_id);
+                user.status = LC.ReadyState.READY;
+            }
+            else {
+            }
+        };
+        /**
+         * 推送定庄信息（摇骰子）
+         */
+        GameLayerController.prototype.on_101004_event = function (event) {
+            console.log(this.TAG + " on_101004_event: " + event.data);
+            var data = event.data;
+            var obj = JSON.parse(data);
+            if (obj.code == 200) {
+                var seat_id = obj.info.bank_seat_id;
+                var user = LC.UsersInfo.Instance.getUserBySeatID(seat_id);
+                console.log("\u5BA2\u6237\u7AEF\u5EA7\u4F4D\u4E3A" + user.client_seatID + "\u662F\u5E84\u5BB6");
+                user.isBanker = true;
+                LC.DeskInfo.diceValue = obj.info.dice;
+            }
+            else {
+            }
+        };
+        /**
+         * 推送发牌消息
+         */
+        GameLayerController.prototype.on_101005_event = function (event) {
+            console.log(this.TAG + " on_101005_event: " + event.data);
+            var data = event.data;
+            var obj = JSON.parse(data);
+            if (obj.code == 200) {
+            }
+            else {
+            }
+        };
+        /**
+         * 推送发牌补花
+         */
+        GameLayerController.prototype.on_101008_event = function (event) {
+            console.log(this.TAG + " on_101008_event: " + event.data);
+            var data = event.data;
+            var obj = JSON.parse(data);
+            if (obj.code == 200) {
+            }
+            else {
+            }
+        };
+        /**
+         * 推送玩家摸牌
+         */
+        GameLayerController.prototype.on_101002_event = function (event) {
+            console.log(this.TAG + " on_101002_event: " + event.data);
+            var data = event.data;
+            var obj = JSON.parse(data);
+            if (obj.code == 200) {
+            }
+            else {
+            }
         };
         return GameLayerController;
     }(LC.Controller));

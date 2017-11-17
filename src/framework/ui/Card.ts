@@ -8,11 +8,11 @@ module LC {
      * 方向（布局的方向，牌的方向）
      * 
      */
-    export enum Directions {
-        Up,
+    export enum Directions {//逆时针的顺序排座位
         Down,
+        Right,
+        Up,
         Left,
-        Right
     }
 
     /**
@@ -52,8 +52,8 @@ module LC {
         private standDown: eui.Image;
 
         //card的可供访问的类属性
-        public value:number;
-        public direction:number;
+        public value: number;
+        public direction: number;
 
         public constructor() {
             super();

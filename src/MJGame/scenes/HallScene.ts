@@ -5,9 +5,6 @@
  */
 module LC {
 	export class HallScene extends Scene {
-
-        public hallLayer: LC.HallLayer;
-
 		public constructor() {
 			super();
 		}
@@ -15,9 +12,11 @@ module LC {
 		protected init() {
 			super.init();
 			
-            this.hallLayer = new LC.HallLayer();
-			this.hallLayer.Ctrl = new LC.HallLayerController();
-            this.addChild(this.hallLayer);
+            let hallLayer = new LC.HallLayer();
+			hallLayer.Ctrl = new LC.HallLayerController();
+            this.addChild(hallLayer);
 		}
+
+
 	}
 }

@@ -22,11 +22,11 @@ var LC;
         SocketEvents[SocketEvents["Send100140"] = 100140] = "Send100140";
         SocketEvents[SocketEvents["Send100999"] = 100999] = "Send100999";
         SocketEvents[SocketEvents["Rev100000"] = 100000] = "Rev100000";
-        SocketEvents[SocketEvents["Rev100002"] = 100002] = "Rev100002";
+        //  Rev100002 = 100002,             //接收登录    
         SocketEvents[SocketEvents["Rev100010"] = 100010] = "Rev100010";
-        SocketEvents[SocketEvents["Rev100100"] = 100100] = "Rev100100";
-        SocketEvents[SocketEvents["Rev100101"] = 100101] = "Rev100101";
-        SocketEvents[SocketEvents["Rev100102"] = 100102] = "Rev100102";
+        //  Rev100100 = 100100,             //接收玩家准备，取消准备   
+        //  Rev100101 = 100101,             //接收创建好友桌     
+        //  Rev100102 = 100102,             //接收加入好友桌     
         SocketEvents[SocketEvents["Rev100103"] = 100103] = "Rev100103";
         SocketEvents[SocketEvents["Rev100104"] = 100104] = "Rev100104";
         SocketEvents[SocketEvents["Rev100110"] = 100110] = "Rev100110";

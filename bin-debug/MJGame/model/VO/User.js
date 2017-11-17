@@ -2,19 +2,26 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
 /**
- *
+ * 用户数据
  */
 var LC;
 (function (LC) {
-    /**性别类型*/
-    var SEX_TYPE;
-    (function (SEX_TYPE) {
-        SEX_TYPE[SEX_TYPE["boy"] = 1] = "boy";
-        SEX_TYPE[SEX_TYPE["girl"] = 2] = "girl";
-        SEX_TYPE[SEX_TYPE["unknow"] = 3] = "unknow";
-    })(SEX_TYPE || (SEX_TYPE = {}));
+    var ReadyState;
+    (function (ReadyState) {
+        ReadyState[ReadyState["UNREADY"] = 1] = "UNREADY";
+        ReadyState[ReadyState["READY"] = 2] = "READY";
+        ReadyState[ReadyState["PLAYING"] = 3] = "PLAYING";
+        ReadyState[ReadyState["ESCAPE"] = 4] = "ESCAPE";
+    })(ReadyState = LC.ReadyState || (LC.ReadyState = {}));
     var User = (function () {
         function User() {
+            this.nick = "";
+            // private userUI: UserHead;
+            this.isBanker = false; //是否是庄家
+            // public set UserUI(userHead: UserHead) {
+            // 	this.userUI = userHead;
+            // 	this.userUI.UserModel = this;
+            // }
         }
         return User;
     }());

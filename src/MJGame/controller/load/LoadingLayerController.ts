@@ -4,8 +4,13 @@
  * @date 2017/10/19
  */
 module LC {
-	export class LoadingLayerController extends Controller{
-		protected init(){
+	export class LoadingLayerController extends Controller {
+		//加入构造器，代码才可以跳转到此类，否则直接跳到父类
+		public constructor() {
+			super();
+		}
+		
+		protected init() {
 			super.init();
 			this.SocketEventList = [
 				LC.SocketEvents.Rev100000,

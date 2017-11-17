@@ -20,9 +20,9 @@ var LC;
         }
         HallScene.prototype.init = function () {
             _super.prototype.init.call(this);
-            this.hallLayer = new LC.HallLayer();
-            this.hallLayer.Ctrl = new LC.HallLayerController();
-            this.addChild(this.hallLayer);
+            var hallLayer = new LC.HallLayer();
+            hallLayer.Ctrl = new LC.HallLayerController();
+            this.addChild(hallLayer);
         };
         return HallScene;
     }(LC.Scene));

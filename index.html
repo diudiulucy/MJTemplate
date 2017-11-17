@@ -29,6 +29,7 @@
 	<script egret="lib" src="libs/modules/tween/tween.js" src-release="libs/modules/tween/tween.min.js"></script>
 	<script egret="lib" src="libs/modules/game/game.js" src-release="libs/modules/game/game.min.js"></script>
 	<script egret="lib" src="libs/modules/socket/socket.js" src-release="libs/modules/socket/socket.min.js"></script>
+	<script egret="lib" src="modules/cryptoJS/bin/cryptoJS/cryptoJS.js" src-release="modules/cryptoJS/bin/cryptoJS/cryptoJS.min.js"></script>
 	<!--modules_files_end-->
 
     <!--这个标签为不通过egret提供的第三方库的方式使用的 javascript 文件，请将这些文件放在libs下，但不要放在modules下面。-->
@@ -42,7 +43,9 @@
 	<script egret="game" src="bin-debug/framework/core/Layer.js"></script>
 	<script egret="game" src="bin-debug/framework/core/Scene.js"></script>
 	<script egret="game" src="bin-debug/framework/managers/Single.js"></script>
-	<script egret="game" src="bin-debug/Main.js"></script>
+	<script egret="game" src="bin-debug/MJGame/controller/game/GameLayerController.js"></script>
+	<script egret="game" src="bin-debug/framework/anim/MCPlayer.js"></script>
+	<script egret="game" src="bin-debug/framework/constant/Global.js"></script>
 	<script egret="game" src="bin-debug/framework/managers/ErrorCodeManager.js"></script>
 	<script egret="game" src="bin-debug/framework/managers/EventManager.js"></script>
 	<script egret="game" src="bin-debug/framework/managers/PopupManager.js"></script>
@@ -54,25 +57,36 @@
 	<script egret="game" src="bin-debug/framework/ui/Card.js"></script>
 	<script egret="game" src="bin-debug/framework/ui/CardModLayout.js"></script>
 	<script egret="game" src="bin-debug/framework/ui/ComboCards.js"></script>
+	<script egret="game" src="bin-debug/framework/ui/LCButton.js"></script>
+	<script egret="game" src="bin-debug/framework/ui/Tips.js"></script>
 	<script egret="game" src="bin-debug/framework/utils/base64-typescript-class.js"></script>
-	<script egret="game" src="bin-debug/framework/adapter/ThemeAdapter.js"></script>
+	<script egret="game" src="bin-debug/framework/utils/CryptoUtils.js"></script>
+	<script egret="game" src="bin-debug/Main.js"></script>
 	<script egret="game" src="bin-debug/MJGame/config/Config.js"></script>
-	<script egret="game" src="bin-debug/MJGame/controller/game/GameLayerController.js"></script>
+	<script egret="game" src="bin-debug/framework/adapter/ThemeAdapter.js"></script>
 	<script egret="game" src="bin-debug/MJGame/controller/hall/HallLayerController.js"></script>
 	<script egret="game" src="bin-debug/MJGame/controller/load/LoadingLayerController.js"></script>
 	<script egret="game" src="bin-debug/MJGame/controller/login/LoginLayerController.js"></script>
+	<script egret="game" src="bin-debug/MJGame/controller/popups/hall/JoinRoomController.js"></script>
+	<script egret="game" src="bin-debug/MJGame/controller/popups/hall/SelectRoomController.js"></script>
 	<script egret="game" src="bin-debug/MJGame/event/CustomEvents.js"></script>
 	<script egret="game" src="bin-debug/MJGame/event/SocketEvents.js"></script>
-	<script egret="game" src="bin-debug/MJGame/model/proto/DataInterface.js"></script>
+	<script egret="game" src="bin-debug/MJGame/model/data/DeskInfo.js"></script>
+	<script egret="game" src="bin-debug/MJGame/model/data/UsersInfo.js"></script>
+	<script egret="game" src="bin-debug/MJGame/model/protocol/SocketInterface.js"></script>
 	<script egret="game" src="bin-debug/MJGame/model/vo/User.js"></script>
 	<script egret="game" src="bin-debug/MJGame/scenes/GameScene.js"></script>
 	<script egret="game" src="bin-debug/MJGame/scenes/HallScene.js"></script>
 	<script egret="game" src="bin-debug/MJGame/scenes/LoadingScene.js"></script>
 	<script egret="game" src="bin-debug/MJGame/scenes/LoginScene.js"></script>
+	<script egret="game" src="bin-debug/MJGame/views/components/UserHead.js"></script>
+	<script egret="game" src="bin-debug/MJGame/views/game/comp/Disc.js"></script>
 	<script egret="game" src="bin-debug/MJGame/views/game/GameLayer.js"></script>
 	<script egret="game" src="bin-debug/MJGame/views/hall/HallLayer.js"></script>
 	<script egret="game" src="bin-debug/MJGame/views/load/LoadingLayer.js"></script>
 	<script egret="game" src="bin-debug/MJGame/views/login/LoginLayer.js"></script>
+	<script egret="game" src="bin-debug/MJGame/views/popups/hall/JoinRoom.js"></script>
+	<script egret="game" src="bin-debug/MJGame/views/popups/hall/SelectRoom.js"></script>
 	<!--game_files_end-->
 </head>
 <body>

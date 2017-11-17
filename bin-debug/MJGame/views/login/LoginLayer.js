@@ -30,16 +30,10 @@ var LC;
             this.btn_login.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onLoginClick, this);
         };
         LoginLayer.prototype.registerCustomEvents = function () {
-            this.UIEventList = [
-                CustomEvents.UPDATE_VIEW
-            ];
+            this.UIEventList = [];
         };
         LoginLayer.prototype.onLoginClick = function () {
-            var js = { user: this.edit_name.text, password: this.edit_psw.text };
-            this._ctrl.sendDebugLoginReq(js);
-        };
-        LoginLayer.prototype.ui_updateView = function () {
-            console.log(this.TAG + "updateView");
+            this._ctrl.sendDebugLoginReq(this.edit_name.text, this.edit_psw.text);
         };
         return LoginLayer;
     }(LC.Layer));

@@ -6,5 +6,5 @@
 module CustomEvents {
 	export const UPDATE_VIEW: string = "updateView";
 
-	
+	export const OtherPlayer_EnterROOM:string = "otherPlayerEnterRoom";
 }

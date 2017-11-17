@@ -25,13 +25,30 @@ var LC;
             this._ctrl.connectSocket();
         };
         HallLayer.prototype.setOnTouchListener = function () {
-            // this.btn_login.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onLoginClick,this);
+            this.btn_playGround.addEventListener(egret.TouchEvent.TOUCH_TAP, this._onPlayGroundBtnClick, this);
+            this.btn_friendRoom.addEventListener(egret.TouchEvent.TOUCH_TAP, this._onFriendRoomBtnClick, this);
         };
         HallLayer.prototype.removeOnTouchListener = function () {
-            // this.btn_login.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onLoginClick,this);
+            this.btn_playGround.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onPlayGroundBtnClick, this);
+            this.btn_friendRoom.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onFriendRoomBtnClick, this);
         };
         HallLayer.prototype.registerCustomEvents = function () {
             this.UIEventList = [];
+        };
+        /**
+         * 点击游戏场按钮
+         */
+        HallLayer.prototype._onPlayGroundBtnClick = function () {
+            console.log("_onPlayGroundBtnClick");
+        };
+        /**
+         * 点击好友房按钮
+         */
+        HallLayer.prototype._onFriendRoomBtnClick = function () {
+            console.log("_onFriendRoomBtnClick");
+            var selecRoomLayer = new LC.SelectRoom();
+            selecRoomLayer.Ctrl = new LC.SelectRoomController();
+            LC.SceneManager.Instance.runningScene.addChild(selecRoomLayer);
         };
         return HallLayer;
     }(LC.Layer));

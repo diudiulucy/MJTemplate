@@ -30,17 +30,16 @@ module LC {
 
         protected registerCustomEvents() {
             this.UIEventList = [
-                CustomEvents.UPDATE_VIEW
+                // CustomEvents.UPDATE_VIEW
             ];
         }
 
         private onLoginClick(){
-            let js = {user: this.edit_name.text,password:this.edit_psw.text};
-            this._ctrl.sendDebugLoginReq(js);
+            this._ctrl.sendDebugLoginReq(this.edit_name.text,this.edit_psw.text);
         }
 
-        private ui_updateView() {
-            console.log(this.TAG + "updateView");
-        }
+        // private ui_updateView() {
+        //     console.log(this.TAG + "updateView");
+        // }
     }
 }
