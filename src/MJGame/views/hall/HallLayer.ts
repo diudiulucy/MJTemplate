@@ -48,9 +48,10 @@ module LC {
         private _onFriendRoomBtnClick() {
             console.log("_onFriendRoomBtnClick");
             let selecRoomLayer = new LC.SelectRoom();
-			selecRoomLayer.Ctrl = new LC.SelectRoomController();
+            selecRoomLayer.Ctrl = new LC.SelectRoomController();
             SceneManager.Instance.runningScene.addChild(selecRoomLayer);
+
         }
-        
+
     }
 }

@@ -16,12 +16,7 @@ var LC;
     var User = (function () {
         function User() {
             this.nick = "";
-            // private userUI: UserHead;
             this.isBanker = false; //是否是庄家
-            // public set UserUI(userHead: UserHead) {
-            // 	this.userUI = userHead;
-            // 	this.userUI.UserModel = this;
-            // }
         }
         return User;
     }());

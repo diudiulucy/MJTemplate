@@ -103,6 +103,7 @@ var Main = (function (_super) {
     };
     Main.prototype.createScene = function () {
         if (this.isThemeLoadEnd && this.isResourceLoadEnd) {
+            LC.Tips.Instance.setLayer(this.stage);
             var loginScene = new LC.LoginScene();
             LC.SceneManager.Instance.replaceScene(loginScene);
         }

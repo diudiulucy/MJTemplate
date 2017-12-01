@@ -28,5 +28,5 @@
 
 
 	<e:Label id="scoreLabel" text="0" y="137" size="25" textAlign="center" horizontalCenter="0" visible="false"/>
-	<e:Label id="label_Name" size="25" width="183" verticalAlign="top" textAlign="center" multiline="true" maxChars="5" text="lucy" height="25" y="162" horizontalCenter="0"/>
+	<e:Label id="label_Name" size="25" width="183" verticalAlign="top" textAlign="center" multiline="true" maxChars="5" text="" height="25" y="162" horizontalCenter="0"/>
 </e:Skin>

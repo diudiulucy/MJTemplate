@@ -5,46 +5,107 @@
  * @date 2017/10/19
  */
 module LC {
-	export class Disc extends eui.Component {
-		private anim_shaizi: LC.MCPlayer;
-		private dice: eui.Group;
+	export class Disc extends Layer {
+		private anim_dice: LC.MCPlayer;//骰子动画
+		private dice: eui.Group;//骰子值
+		private remain_count: eui.Label;//剩余的牌值
+		private img_fengDir: eui.Image;//风向图
+
+		private lights: eui.Group;//其方向按下右上左的顺序 和 card的方向一致
 
 		public constructor() {
 			super();
 			this.skinName = "Skin.Disc";
 		}
 
-		protected createChildren() {
-			super.createChildren();
-			this._watchData();
+		protected init() {
+			super.init();
 			//初始化
-			this.anim_shaizi.visible = false;
+			this.anim_dice.MC.stop();
+			this.anim_dice.visible = false;
 			this.dice.visible = false;
-
-			this.anim_shaizi.MC.addEventListener(egret.Event.COMPLETE, this._shaiziAnimComplete, this);
+			this.remain_count.visible = false;
+			//灯全不显示
+			this._setLightsVisible(false);
 		}
+
+		/**
+		 * 设置所有灯的可见性
+		 */
+		private _setLightsVisible(visible: boolean) {
+			for (let i = 0; i < this.lights.numChildren; i++) {
+				this.lights.getChildAt(i).visible = visible;
+			}
+		}
+
 
 		/**
 		 * 摇骰子动画并设置骰子值
 		 */
-		public setDice(dice: [number, number]) {
-			if(dice == null) return;
-			this.anim_shaizi.visible = true;
-			this.anim_shaizi.MC.play(6);
-			(<eui.Image>this.dice.getChildAt(0)).source = RES.getRes(`s${dice[0]}_png`);
-			(<eui.Image>this.dice.getChildAt(1)).source = RES.getRes(`s${dice[1]}_png`);
+		private _setDice(dice: [number, number]) {
+			if (dice == null) return;
+			if (dice[0] == -1 && dice[1] == -1) {
+				this.anim_dice.visible = true;
+				this.anim_dice.MC.play(-1);
+			} else {
+				(<eui.Image>this.dice.getChildAt(0)).source = RES.getRes(`s${dice[0]}_png`);
+				(<eui.Image>this.dice.getChildAt(1)).source = RES.getRes(`s${dice[1]}_png`);
+
+				let timeoutId = egret.setTimeout(() => {
+					this.anim_dice.MC.stop();
+					this.anim_dice.MC.visible = false;
+					this.dice.visible = true;
+					clearTimeout(timeoutId);
+				}, this, 1000);
+			}
 		}
 
-		private _shaiziAnimComplete() {
-			this.anim_shaizi.visible = false;
-			this.dice.visible = true;
-			// this.setDice([5, 6]);
+
+		/**
+		 * 剩余牌数
+		 */
+		private _setRemainCount(value: number) {
+			value && (this.remain_count.text = `剩余:${value.toString()}张牌`);
+			this.remain_count.visible = true;
 		}
 
-		private _watchData(){
-			eui.Binding.bindHandler(DeskInfo, ["diceValue"], this.setDice, this);
+
+		protected watchData() {
+			eui.Binding.bindHandler(DeskInfo, ["diceValue"], this._setDice, this);
+			eui.Binding.bindHandler(DeskInfo, ["remain_count"], this._setRemainCount, this);
+
 		}
 
+
+		//设置座位东西南北风向  设置东风的方向
+		public setDongFengDirection(direction: LC.Directions) {
+			switch (direction) {
+				case LC.Directions.Down:
+					this.img_fengDir.rotation = 0;
+					break;
+				case LC.Directions.Right:
+					this.img_fengDir.rotation = 270;
+					break;
+				case LC.Directions.Up:
+					this.img_fengDir.rotation = 180;
+					break;
+				case LC.Directions.Left:
+					this.img_fengDir.rotation = 90;
+					break;
+			}
+
+		}
+
+		/**
+		 * 轮到出牌的一方的亮灯  后期加入倒计时在这里加
+		 * @param direction 方向
+		 */
+		public lightBright(direction: LC.Directions,coolTime?:number) {
+			this._setLightsVisible(false);
+			let element = this.lights.getChildAt(direction);
+			element.visible = true;
+			egret.Tween.get(element, { loop: true }).to({ alpha: 0 }, 200, egret.Ease.quadIn).to({ alpha: 1 }, 200, egret.Ease.quadIn);
+		}
 
 	}
 }

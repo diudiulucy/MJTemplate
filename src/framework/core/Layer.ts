@@ -1,5 +1,6 @@
 /**
  * 层级类,只处理UI上的逻辑(一个layer对应一个controller,处理和后端的交互)，其子类不用关心销毁的操作 全在此类进行，销毁时移除监听事件和触摸事件以及调用Ctrl的销毁
+ * 所有的组件都继承自Layer
  * 继承自eui.Component可以自定义外观组件
  * 可在构造函数中this.skinName = "Skin.GameLayer"和皮肤绑定
  * 1.用户与界面交互后通知controller来处理相应的逻辑
@@ -16,12 +17,6 @@ module LC {
 			super();
 			this.width = width || egret.MainContext.instance.stage.stageWidth;
 			this.height = width || egret.MainContext.instance.stage.stageHeight;
-
-			//锚点设置为中心
-			this.anchorOffsetX = this.width / 2;
-			this.anchorOffsetY = this.height / 2;
-			this.horizontalCenter = 0;
-			this.verticalCenter = 0;
 
 			this.TAG = egret.getQualifiedClassName(this);
 			this.addEventListener(egret.Event.ADDED_TO_STAGE, this.init, this);
@@ -69,6 +64,7 @@ module LC {
 		 * @param isRegister true 表示注册  false表示注销
 		 */
 		private _registerManyUIEvents(isRegister: boolean) {
+			if(!this.UIEventList) return;
 			for (let value of this.UIEventList) {
 				let eventName: string = value.toString();
 				let funcName: string = "ui_" + eventName;
@@ -86,11 +82,11 @@ module LC {
 
 		// 触摸消息的注册全在这里操作
 		protected setOnTouchListener() {
-			console.log(this.TAG + " setOnTouchListener");
+			// console.log(this.TAG + " setOnTouchListener");
 		}
 
 		protected removeOnTouchListener() {
-			console.log(this.TAG + " removeOnTouchListener");
+			// console.log(this.TAG + " removeOnTouchListener");
 		}
 
 		protected registerCustomEvents() {
@@ -122,7 +118,7 @@ module LC {
 			this.unRegisterCustomEvents();
 			this._registerManyUIEvents(false);
 			this.UIEventList = null;
-			this.Ctrl.onDestroy();
+			this.Ctrl && this.Ctrl.onDestroy();
 		}
 	}
 }

@@ -27,14 +27,20 @@ var LC;
             eui.Binding.bindHandler(this._userModel, ["status"], this._userIsReadyChange, this);
         };
         UserHead.prototype._userNameChange = function (value) {
+            if (!value)
+                return;
             console.log("_userNameChange");
             this.label_Name.text = value || "";
         };
         UserHead.prototype._userIsBankerChange = function (value) {
+            if (!value)
+                return;
             console.log("_userIsBankerChange");
             this.img_banker.visible = value;
         };
         UserHead.prototype._userIsReadyChange = function (value) {
+            if (!value)
+                return;
             console.log("_userIsReadyChange");
             this.label_ready.visible = (value == LC.ReadyState.READY) ? true : false;
         };

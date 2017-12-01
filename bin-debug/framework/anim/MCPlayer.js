@@ -27,7 +27,7 @@ var LC;
             this.horizontalCenter = 0;
             this.verticalCenter = 0;
             this.addChild(this._mc);
-            // this.play(3);
+            this.play(-1);
         };
         Object.defineProperty(MCPlayer.prototype, "MC", {
             get: function () {
@@ -37,6 +37,9 @@ var LC;
             configurable: true
         });
         Object.defineProperty(MCPlayer.prototype, "mcLink", {
+            get: function () {
+                return this._mcLink;
+            },
             set: function (value) {
                 this._mcLink = value;
                 var data = RES.getRes(value + "_mc_json");

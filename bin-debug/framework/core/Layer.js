@@ -8,6 +8,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 /**
  * 层级类,只处理UI上的逻辑(一个layer对应一个controller,处理和后端的交互)，其子类不用关心销毁的操作 全在此类进行，销毁时移除监听事件和触摸事件以及调用Ctrl的销毁
+ * 所有的组件都继承自Layer
  * 继承自eui.Component可以自定义外观组件
  * 可在构造函数中this.skinName = "Skin.GameLayer"和皮肤绑定
  * 1.用户与界面交互后通知controller来处理相应的逻辑
@@ -25,11 +26,6 @@ var LC;
             _this.UIEventList = null; //对此数组赋值，可以快速绑定 不需要重复操作，注意对每个id添加对应的函数
             _this.width = width || egret.MainContext.instance.stage.stageWidth;
             _this.height = width || egret.MainContext.instance.stage.stageHeight;
-            //锚点设置为中心
-            _this.anchorOffsetX = _this.width / 2;
-            _this.anchorOffsetY = _this.height / 2;
-            _this.horizontalCenter = 0;
-            _this.verticalCenter = 0;
             _this.TAG = egret.getQualifiedClassName(_this);
             _this.addEventListener(egret.Event.ADDED_TO_STAGE, _this.init, _this);
             _this.addEventListener(egret.Event.REMOVED_FROM_STAGE, _this.onDestroy, _this);
@@ -74,6 +70,8 @@ var LC;
          * @param isRegister true 表示注册  false表示注销
          */
         Layer.prototype._registerManyUIEvents = function (isRegister) {
+            if (!this.UIEventList)
+                return;
             for (var _i = 0, _a = this.UIEventList; _i < _a.length; _i++) {
                 var value = _a[_i];
                 var eventName = value.toString();
@@ -93,10 +91,10 @@ var LC;
         };
         // 触摸消息的注册全在这里操作
         Layer.prototype.setOnTouchListener = function () {
-            console.log(this.TAG + " setOnTouchListener");
+            // console.log(this.TAG + " setOnTouchListener");
         };
         Layer.prototype.removeOnTouchListener = function () {
-            console.log(this.TAG + " removeOnTouchListener");
+            // console.log(this.TAG + " removeOnTouchListener");
         };
         Layer.prototype.registerCustomEvents = function () {
             // console.log(this.TAG + " registerCustomEvents");
@@ -121,7 +119,7 @@ var LC;
             this.unRegisterCustomEvents();
             this._registerManyUIEvents(false);
             this.UIEventList = null;
-            this.Ctrl.onDestroy();
+            this.Ctrl && this.Ctrl.onDestroy();
         };
         return Layer;
     }(eui.Component));

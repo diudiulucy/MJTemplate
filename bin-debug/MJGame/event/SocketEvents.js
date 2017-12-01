@@ -7,6 +7,9 @@ var LC;
 (function (LC) {
     var SocketEvents;
     (function (SocketEvents) {
+        /**
+         * Game
+         */
         SocketEvents[SocketEvents["Send100000"] = 100000] = "Send100000";
         SocketEvents[SocketEvents["Send100002"] = 100002] = "Send100002";
         SocketEvents[SocketEvents["Send100010"] = 100010] = "Send100010";
@@ -33,14 +36,15 @@ var LC;
         SocketEvents[SocketEvents["Rev100111"] = 100111] = "Rev100111";
         SocketEvents[SocketEvents["Rev100120"] = 100120] = "Rev100120";
         SocketEvents[SocketEvents["Rev100130"] = 100130] = "Rev100130";
-        SocketEvents[SocketEvents["Rev100140"] = 100140] = "Rev100140";
-        SocketEvents[SocketEvents["Rev100999"] = 100999] = "Rev100999";
+        //  Rev100140 = 100140,             //接收玩家叫牌    
+        //  Rev100999 = 100999,             //接收测试接口消息 
         SocketEvents[SocketEvents["Rev101001"] = 101001] = "Rev101001";
         SocketEvents[SocketEvents["Rev101002"] = 101002] = "Rev101002";
         SocketEvents[SocketEvents["Rev101003"] = 101003] = "Rev101003";
         SocketEvents[SocketEvents["Rev101004"] = 101004] = "Rev101004";
         SocketEvents[SocketEvents["Rev101005"] = 101005] = "Rev101005";
         SocketEvents[SocketEvents["Rev101006"] = 101006] = "Rev101006";
+        SocketEvents[SocketEvents["Rev101007"] = 101007] = "Rev101007";
         SocketEvents[SocketEvents["Rev101008"] = 101008] = "Rev101008";
         //  Rev101009 = 101009,             //推送某玩家叫牌的结果
         SocketEvents[SocketEvents["Rev101100"] = 101100] = "Rev101100";

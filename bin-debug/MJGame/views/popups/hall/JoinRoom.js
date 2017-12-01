@@ -37,7 +37,6 @@ var LC;
         JoinRoom.prototype.removeOnTouchListener = function () {
             this.closeButton.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onCloseClick, this);
             this.group_number_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onNumberBtnClick, this);
-            // this.btn_createRoom.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onCreateRoomClick, this);
         };
         JoinRoom.prototype.registerCustomEvents = function () {
             this.UIEventList = [];

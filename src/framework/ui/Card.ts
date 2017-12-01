@@ -1,5 +1,5 @@
 /**
- * 麻将牌
+ * 麻将牌（只可在CardModLayout和ComboCards类中进行操作）
  * @author lucywang
  * @date 2017/10/19
  */
@@ -8,7 +8,7 @@ module LC {
      * 方向（布局的方向，牌的方向）
      * 
      */
-    export enum Directions {//逆时针的顺序排座位
+    export enum Directions {//逆时针的顺序
         Down,
         Right,
         Up,
@@ -19,14 +19,15 @@ module LC {
      * 牌的内部皮肤状态(外部不关心此状态，只有此类用到)
      */
     enum CardSkinState {
-        stand_up,
         stand_down,
-        stand_left,
         stand_right,
-        fall_up,
+        stand_up,
+        stand_left,
+
         fall_down,
-        fall_left,
         fall_right,
+        fall_up,
+        fall_left,
         hide_v,
         hide_h
     }
@@ -54,7 +55,7 @@ module LC {
         //card的可供访问的类属性
         public value: number;
         public direction: number;
-
+      
         public constructor() {
             super();
             this.skinName = "Skin.Card";
@@ -76,7 +77,7 @@ module LC {
 
             this._setCardSkinState(direction, cardState)
             //牌值纹理
-            let source = RES.getRes(this._getValueImageURL(value));
+            let source = RES.getRes(this._getValueImageURL(direction, cardState, value));
 
             //未找到白鹭动态切换某个状态下的纹理的方法，暂且用多个Image对象的方法来切换其不同状态下的纹理
             this.fallRight.source = source;
@@ -90,10 +91,27 @@ module LC {
          * @param value  牌值
          * @returns   string   牌值对应的纹理路径
          */
-        private _getValueImageURL(value: number): string {
-            return "tpm_card_big_" + value + "_png";
+        private _getValueImageURL(direction: LC.Directions, cardState: LC.CardState, value: number): string {
+            if (cardState == LC.CardState.Fall) {
+                return "card_small_" + value + "_png";
+            } else {
+                return "card_big_" + value + "_png";
+            }
+
         }
 
+        /**
+         * 仅做展示牌的时候使用 UI编辑器上赋值不会立马在编辑器显现出来，只有运行时候才会显现
+         */
+        public set Source(value: number) {
+            this.value = value;
+            let source = RES.getRes(this._getValueImageURL(this.direction, CardSkinState[this.currentState], value));
+            this.fallRight.source = source
+            this.fallLeft.source = source;
+            this.fallUp.source = source;
+            this.fallDown.source = source;
+            this.standDown.source = source;
+        }
 
         /**
          * 设置牌的内部皮肤状态
@@ -104,11 +122,11 @@ module LC {
             let cardSkinState: CardSkinState;
             switch (cardState) {
                 case LC.CardState.Stand:
-                    cardSkinState = <CardSkinState>(CardSkinState.stand_up + direction);
+                    cardSkinState = <CardSkinState>(CardSkinState.stand_down + direction);
                     this.currentState = CardSkinState[cardSkinState];
                     break;
                 case LC.CardState.Fall:
-                    cardSkinState = <CardSkinState>(CardSkinState.fall_up + direction);
+                    cardSkinState = <CardSkinState>(CardSkinState.fall_down + direction);
                     this.currentState = CardSkinState[cardSkinState];
                     break;
                 case LC.CardState.Hide:

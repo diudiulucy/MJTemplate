@@ -19,6 +19,7 @@ module LC {
 			this.gameLayer.Ctrl = new GameLayerController();
 			this.addChild(this.gameLayer);
 
+			
 			// ErrorCodeManager.Instance.init("error_txt");
 			// console.log(ErrorCodeManager.Instance.getErrorCode(1001));
 		}

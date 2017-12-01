@@ -38,7 +38,6 @@ module LC {
 		protected removeOnTouchListener() {
 			this.closeButton.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onCloseClick, this);
 			this.group_number_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onNumberBtnClick, this);
-			// this.btn_createRoom.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onCreateRoomClick, this);
 		}
 
 		protected registerCustomEvents() {
@@ -81,10 +80,5 @@ module LC {
 				}
 			}
 		}
-
-
-		// private ui_updateView() {
-		// 	console.log(this.TAG + "updateView");
-		// }
 	}
 }

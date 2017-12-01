@@ -29,14 +29,6 @@ var LC;
             configurable: true
         });
         Object.defineProperty(UsersInfo.prototype, "UsersList", {
-            // /**获取自己用户信息*/
-            // public get MySelf(): User {
-            // 	return this.getUserById(UsersInfo._mySelf.user_id);
-            // }
-            // /**设置自己用户信息*/
-            // public set MySelf(user: User) {
-            // 	UsersInfo._mySelf = user;
-            // }
             /**
              * 获取用户列表信息
              */
@@ -85,6 +77,20 @@ var LC;
                     return this._users[key];
                 }
             }
+        };
+        /**
+         * 是否所有的玩家进入准备状态
+         */
+        UsersInfo.prototype.isAllUsersReady = function () {
+            var result = false;
+            if (ArrayUtils.getObjectLength(this._users) != LC.Config.MaxPlayerCount)
+                return false;
+            for (var key in this._users) {
+                if (this._users[key].status != LC.ReadyState.READY) {
+                    return false;
+                }
+            }
+            return true;
         };
         /**
          * 删除用户信息

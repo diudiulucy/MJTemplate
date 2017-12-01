@@ -13,16 +13,6 @@ module LC {
 			return this.getInstance();
 		}
 
-		// /**获取自己用户信息*/
-		// public get MySelf(): User {
-		// 	return this.getUserById(UsersInfo._mySelf.user_id);
-		// }
-
-		// /**设置自己用户信息*/
-		// public set MySelf(user: User) {
-		// 	UsersInfo._mySelf = user;
-		// }
-
 		/**
 		 * 获取用户列表信息
 		 */
@@ -33,7 +23,7 @@ module LC {
 		/**
  		 * 设置对应的客户端座位号
  		 */
-		private _setClientSeatID(user: User) {//注意客户端的座位号根据自己的座位来计算偏移位置，所以必须先对自己的服务器座位号赋值
+		public _setClientSeatID(user: User) {//注意客户端的座位号根据自己的座位来计算偏移位置，所以必须先对自己的服务器座位号赋值
 			if (user.user_id == UsersInfo.MySelf.user_id) {
 				user.client_seatID = 0;
 				UsersInfo.MySelf = user;
@@ -73,6 +63,21 @@ module LC {
 					return this._users[key];
 				}
 			}
+		}
+
+		/**
+	 	 * 是否所有的玩家进入准备状态
+	     */
+		public isAllUsersReady() :boolean{
+			let result = false;
+			if(ArrayUtils.getObjectLength(this._users) != LC.Config.MaxPlayerCount) return false;
+			
+			for(let key in this._users){
+				if (this._users[key].status != LC.ReadyState.READY) {
+					return false;
+				}
+			}
+			return true;
 		}
 
 		/**

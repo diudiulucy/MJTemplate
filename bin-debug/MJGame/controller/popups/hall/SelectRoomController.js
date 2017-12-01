@@ -45,6 +45,8 @@ var LC;
                 LC.SceneManager.Instance.replaceScene(gameScene);
             }
             else {
+                var errorInfo = JSON.parse(data);
+                LC.Tips.show(errorInfo.info);
             }
         };
         /**创建房间*/

@@ -27,7 +27,14 @@ var LC;
                 LC.SocketEvents.Rev101004,
                 LC.SocketEvents.Rev101005,
                 LC.SocketEvents.Rev101008,
-                LC.SocketEvents.Rev101002
+                LC.SocketEvents.Rev101007,
+                LC.SocketEvents.Rev101002,
+                LC.SocketEvents.Rev101001,
+                LC.SocketEvents.Rev101112,
+                LC.SocketEvents.Send100140,
+                LC.SocketEvents.Send100999,
+                LC.SocketEvents.Rev101006,
+                LC.SocketEvents.Rev101003,
             ];
         };
         /**
@@ -36,8 +43,37 @@ var LC;
         GameLayerController.prototype.onMySelfReady = function () {
             var obj = {};
             obj.user_id = LC.UsersInfo.MySelf.user_id;
-            obj.ready = 1;
+            obj.ready = LC.ReadyState.UNREADY;
             LC.Socket.Instance.sendData(LC.SocketEvents.Send100100, JSON.stringify(obj));
+        };
+        /**
+         *  玩家自己出牌
+         */
+        GameLayerController.prototype.actChuCard = function (cardValue) {
+            var obj = {};
+            obj.user_id = LC.UsersInfo.MySelf.user_id;
+            obj.act = LC.ACT.CHU;
+            //动作参数
+            var actParams = {};
+            actParams.card = cardValue;
+            var actParamsStr = JSON.stringify(actParams);
+            obj.act_params = actParamsStr;
+            LC.Socket.Instance.sendData(LC.SocketEvents.Send100140, JSON.stringify(obj));
+        };
+        /**
+         * 测试接口
+         */
+        GameLayerController.prototype.test_Send = function (test_type, target_card, source_card) {
+            if (source_card === void 0) { source_card = []; }
+            var obj = {};
+            obj.user_id = LC.UsersInfo.MySelf.user_id;
+            obj.test_type = test_type;
+            var test_param = {};
+            test_param.source_card = source_card;
+            test_param.target_card = target_card;
+            var testParamsStr = JSON.stringify(test_param);
+            obj.test_params = testParamsStr;
+            LC.Socket.Instance.sendData(LC.SocketEvents.Send100999, JSON.stringify(obj));
         };
         /**
          *  玩家自己准备回调
@@ -49,6 +85,7 @@ var LC;
             if (obj.code == 200) {
                 console.log("准备成功");
                 LC.UsersInfo.MySelf.status = LC.ReadyState.READY;
+                this._isAllUsersReady();
             }
             else {
             }
@@ -83,8 +120,18 @@ var LC;
                 console.log("\u73A9\u5BB6id\u4E3A" + obj.info.user_id + "\u8FDB\u5165\u51C6\u5907\u72B6\u6001");
                 var user = LC.UsersInfo.Instance.getUserById(obj.info.user_id);
                 user.status = LC.ReadyState.READY;
+                this._isAllUsersReady();
             }
             else {
+            }
+        };
+        /**
+         * 检查是否所有的玩家准备好
+         */
+        GameLayerController.prototype._isAllUsersReady = function () {
+            if (LC.UsersInfo.Instance.isAllUsersReady()) {
+                LC.DeskInfo.diceValue = [-1, -1]; //骰子未定，播放动画
+                LC.EventManager.getInstance().dispatchCustomEvent(CustomEvents.AllUsersReady);
             }
         };
         /**
@@ -105,13 +152,14 @@ var LC;
             }
         };
         /**
-         * 推送发牌消息
+         * 推送发牌消息 游戏开始发牌每人13张
          */
         GameLayerController.prototype.on_101005_event = function (event) {
             console.log(this.TAG + " on_101005_event: " + event.data);
             var data = event.data;
             var obj = JSON.parse(data);
             if (obj.code == 200) {
+                LC.EventManager.getInstance().dispatchCustomEvent(CustomEvents.DealCard, { all_cards: obj.info.all_cards });
             }
             else {
             }
@@ -124,6 +172,7 @@ var LC;
             var data = event.data;
             var obj = JSON.parse(data);
             if (obj.code == 200) {
+                LC.EventManager.getInstance().dispatchCustomEvent(CustomEvents.BuHua_DealCard, { info: obj.info });
             }
             else {
             }
@@ -136,8 +185,109 @@ var LC;
             var data = event.data;
             var obj = JSON.parse(data);
             if (obj.code == 200) {
+                LC.DeskInfo.remain_count = obj.info.remain_count;
+                LC.EventManager.getInstance().dispatchCustomEvent(CustomEvents.DrawCard, { info: obj.info });
             }
             else {
+            }
+        };
+        /**
+         * 推送玩家游戏补花
+         */
+        GameLayerController.prototype.on_101007_event = function (event) {
+            console.log(this.TAG + " on_101007_event: " + event.data);
+            var data = event.data;
+            var obj = JSON.parse(data);
+            if (obj.code == 200) {
+                LC.EventManager.getInstance().dispatchCustomEvent(CustomEvents.BuHua_GameCard, { info: obj.info });
+            }
+            else {
+            }
+        };
+        /**
+         * 推送玩家叫牌(只推送给自己)
+         */
+        GameLayerController.prototype.on_101001_event = function (event) {
+            console.log(this.TAG + " on_101001_event: " + event.data);
+            var data = event.data;
+            var obj = JSON.parse(data);
+            if (obj.code == 200) {
+                LC.EventManager.getInstance().dispatchCustomEvent(CustomEvents.CanAct, { info: obj.info });
+            }
+            else {
+            }
+        };
+        /**
+         * 接收玩家叫牌
+         */
+        GameLayerController.prototype.on_100140_event = function (event) {
+            console.log(this.TAG + " on_101001_event: " + event.data);
+            var data = event.data;
+            //暂时不做处理
+            // // let obj = <Rev101001>JSON.parse(data);
+            // if (obj.code == 200) {//success
+            // } else {//fail
+            // }
+        };
+        /**
+         * 推送玩家动作响应,以及进行了什么操作
+         */
+        GameLayerController.prototype.on_101112_event = function (event) {
+            console.log(this.TAG + " on_101112_event: " + event.data);
+            var data = event.data;
+            var obj = JSON.parse(data);
+            if (obj.code == 200) {
+                LC.EventManager.getInstance().dispatchCustomEvent(CustomEvents.ACT_Aleady, { info: obj.info });
+            }
+            else {
+            }
+        };
+        /**
+         * 推送玩家结算
+         */
+        GameLayerController.prototype.on_101006_event = function (event) {
+            console.log(this.TAG + " on_101006_event: " + event.data);
+            var data = event.data;
+            var obj = JSON.parse(data);
+            if (obj.code == 200) {
+            }
+            else {
+            }
+        };
+        /**
+         * 推送游戏结束
+         */
+        GameLayerController.prototype.on_101003_event = function (event) {
+            console.log(this.TAG + " on_101003_event: " + event.data);
+            var data = event.data;
+            var obj = JSON.parse(data);
+            if (obj.code == 200) {
+                var gameResultLayer = new LC.GameResult();
+                // gameResultLayer.Ctrl = new LC.SelectRoomController();
+                LC.SceneManager.Instance.runningScene.addChild(gameResultLayer);
+            }
+            else {
+            }
+        };
+        /**
+         * 测试接口
+         */
+        GameLayerController.prototype.on_100999_event = function (event) {
+            console.log(this.TAG + " on_100999_event: " + event.data);
+            var data = event.data;
+            var obj = JSON.parse(data);
+            if (obj.code == 200) {
+                switch (obj.info.test_type) {
+                    case LC.TestType.DealCard:
+                        break;
+                    case LC.TestType.ChangeCard:
+                        LC.EventManager.getInstance().dispatchCustomEvent(CustomEvents.ChangeCard, { info: obj.info });
+                        break;
+                }
+            }
+            else {
+                var errorInfo = JSON.parse(data);
+                LC.Tips.show(errorInfo.info);
             }
         };
         return GameLayerController;

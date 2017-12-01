@@ -97,8 +97,14 @@ class Main extends eui.UILayer {
     }
     private createScene() {
         if (this.isThemeLoadEnd && this.isResourceLoadEnd) {
+            LC.Tips.Instance.setLayer(this.stage);
+
             let loginScene = new LC.LoginScene();
             LC.SceneManager.Instance.replaceScene(loginScene);
+
+         
+            // let loginScene = new LC.GameScene();
+            // LC.SceneManager.Instance.replaceScene(loginScene);
         }
     }
     /**
@@ -126,7 +132,7 @@ class Main extends eui.UILayer {
     private onResourceProgress(event: RES.ResourceEvent): void {
         if (event.groupName == "preload") {
             this.loadingScene.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
-            
+
         }
     }
 }

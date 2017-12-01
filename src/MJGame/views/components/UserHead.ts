@@ -24,17 +24,20 @@ module LC {
 		}
 
 		private _userNameChange(value:any){
+			if(!value) return;
 			console.log(`_userNameChange`);
 			this.label_Name.text = value || "";
 			
 		}
 
 		private _userIsBankerChange(value:any){
+			if(!value) return;
 			console.log(`_userIsBankerChange`);
 			this.img_banker.visible  = value;
 		}
 
 		private _userIsReadyChange(value:any){
+			if(!value) return;
 			console.log(`_userIsReadyChange`);
 			this.label_ready.visible = (value == LC.ReadyState.READY)? true : false;
 		}

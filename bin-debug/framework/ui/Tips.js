@@ -50,6 +50,7 @@ var LC;
                 .wait(1500).to({ y: ty - 180, alpha: 0 }, 500, egret.Ease.quadIn).call(function (target) {
                 _this._layer.removeChild(target);
                 _this._pool.push(target);
+                _this._queue.pop();
             }, this, [item]);
         };
         return Tips;
@@ -65,34 +66,32 @@ var LC;
         }
         TipItem.prototype._init = function () {
             this.width = egret.MainContext.instance.stage.width * 0.6;
-            this._txt = new eui.Label();
+            this._txt = new egret.TextField();
             this._txt.size = 26;
             this._txt.bold = true;
             this._txt.textColor = 0xffffff;
             this._txt.multiline = true;
             this._txt.wordWrap = true;
             this._txt.textAlign = egret.HorizontalAlign.CENTER;
-            this._txt.width = egret.MainContext.instance.stage.width * 5;
+            this._txt.width = egret.MainContext.instance.stage.width * 0.5;
             this._txt.y = 10;
             this.addChild(this._txt);
-            this._bg = new egret.Shape();
-            this.addChild(this._bg);
         };
         Object.defineProperty(TipItem.prototype, "text", {
             set: function (v) {
                 this._txt.text = v;
                 this.anchorOffsetX = this.width / 2;
                 this.anchorOffsetY = this.height / 2;
-                this._bg.graphics.clear();
-                this._bg.graphics.beginFill(0x000000, 0.8);
-                this._bg.graphics.drawRoundRect(0, 0, this._txt.width, this.height + 20, 30, 30);
+                this.graphics.clear();
+                this.graphics.beginFill(0x000000, 0.8);
+                this.graphics.drawRoundRect(0, 0, this._txt.width, this.height + 20, 30, 30);
                 this._txt.x = (this.width - this._txt.width) / 2;
             },
             enumerable: true,
             configurable: true
         });
         return TipItem;
-    }(eui.Component));
+    }(egret.Sprite));
     __reflect(TipItem.prototype, "TipItem");
 })(LC || (LC = {}));
 //# sourceMappingURL=Tips.js.map

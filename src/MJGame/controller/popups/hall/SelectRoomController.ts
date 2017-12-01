@@ -39,7 +39,8 @@ module LC {
 				let gameScene = new LC.GameScene();
 				SceneManager.Instance.replaceScene(gameScene);
 			} else {//fail
-
+				let errorInfo = JSON.parse(data);
+				Tips.show(errorInfo.info);
 			}
 		}
 

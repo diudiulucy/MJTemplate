@@ -62,6 +62,8 @@ declare module Skin{
 	class ComboCards extends eui.Skin{
 	}
 }
+declare class text extends eui.Skin{
+}
 declare module Skins{
 	class LCButton extends eui.Skin{
 	}
@@ -72,6 +74,10 @@ declare module Skin{
 }
 declare module Skin{
 	class UserHead extends eui.Skin{
+	}
+}
+declare module Skin{
+	class ActHandler extends eui.Skin{
 	}
 }
 declare module Skin{
@@ -92,6 +98,10 @@ declare module Skin{
 }
 declare module Skin{
 	class LoginLayer extends eui.Skin{
+	}
+}
+declare module Skin{
+	class GameResult extends eui.Skin{
 	}
 }
 declare module Skin{

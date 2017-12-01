@@ -7,7 +7,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * 麻将牌
+ * 麻将牌（只可在CardModLayout和ComboCards类中进行操作）
  * @author lucywang
  * @date 2017/10/19
  */
@@ -29,14 +29,14 @@ var LC;
      */
     var CardSkinState;
     (function (CardSkinState) {
-        CardSkinState[CardSkinState["stand_up"] = 0] = "stand_up";
-        CardSkinState[CardSkinState["stand_down"] = 1] = "stand_down";
-        CardSkinState[CardSkinState["stand_left"] = 2] = "stand_left";
-        CardSkinState[CardSkinState["stand_right"] = 3] = "stand_right";
-        CardSkinState[CardSkinState["fall_up"] = 4] = "fall_up";
-        CardSkinState[CardSkinState["fall_down"] = 5] = "fall_down";
-        CardSkinState[CardSkinState["fall_left"] = 6] = "fall_left";
-        CardSkinState[CardSkinState["fall_right"] = 7] = "fall_right";
+        CardSkinState[CardSkinState["stand_down"] = 0] = "stand_down";
+        CardSkinState[CardSkinState["stand_right"] = 1] = "stand_right";
+        CardSkinState[CardSkinState["stand_up"] = 2] = "stand_up";
+        CardSkinState[CardSkinState["stand_left"] = 3] = "stand_left";
+        CardSkinState[CardSkinState["fall_down"] = 4] = "fall_down";
+        CardSkinState[CardSkinState["fall_right"] = 5] = "fall_right";
+        CardSkinState[CardSkinState["fall_up"] = 6] = "fall_up";
+        CardSkinState[CardSkinState["fall_left"] = 7] = "fall_left";
         CardSkinState[CardSkinState["hide_v"] = 8] = "hide_v";
         CardSkinState[CardSkinState["hide_h"] = 9] = "hide_h";
     })(CardSkinState || (CardSkinState = {}));
@@ -72,7 +72,7 @@ var LC;
             this.value = value;
             this._setCardSkinState(direction, cardState);
             //牌值纹理
-            var source = RES.getRes(this._getValueImageURL(value));
+            var source = RES.getRes(this._getValueImageURL(direction, cardState, value));
             //未找到白鹭动态切换某个状态下的纹理的方法，暂且用多个Image对象的方法来切换其不同状态下的纹理
             this.fallRight.source = source;
             this.fallLeft.source = source;
@@ -84,9 +84,30 @@ var LC;
          * @param value  牌值
          * @returns   string   牌值对应的纹理路径
          */
-        Card.prototype._getValueImageURL = function (value) {
-            return "tpm_card_big_" + value + "_png";
+        Card.prototype._getValueImageURL = function (direction, cardState, value) {
+            if (cardState == LC.CardState.Fall) {
+                return "card_small_" + value + "_png";
+            }
+            else {
+                return "card_big_" + value + "_png";
+            }
         };
+        Object.defineProperty(Card.prototype, "Source", {
+            /**
+             * 仅做展示牌的时候使用 UI编辑器上赋值不会立马在编辑器显现出来，只有运行时候才会显现
+             */
+            set: function (value) {
+                this.value = value;
+                var source = RES.getRes(this._getValueImageURL(this.direction, CardSkinState[this.currentState], value));
+                this.fallRight.source = source;
+                this.fallLeft.source = source;
+                this.fallUp.source = source;
+                this.fallDown.source = source;
+                this.standDown.source = source;
+            },
+            enumerable: true,
+            configurable: true
+        });
         /**
          * 设置牌的内部皮肤状态
          * @param  direction  方向
@@ -96,11 +117,11 @@ var LC;
             var cardSkinState;
             switch (cardState) {
                 case LC.CardState.Stand:
-                    cardSkinState = (CardSkinState.stand_up + direction);
+                    cardSkinState = (CardSkinState.stand_down + direction);
                     this.currentState = CardSkinState[cardSkinState];
                     break;
                 case LC.CardState.Fall:
-                    cardSkinState = (CardSkinState.fall_up + direction);
+                    cardSkinState = (CardSkinState.fall_down + direction);
                     this.currentState = CardSkinState[cardSkinState];
                     break;
                 case LC.CardState.Hide:

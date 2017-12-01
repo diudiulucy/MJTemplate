@@ -22,7 +22,7 @@ module LC {
 			this.horizontalCenter = 0;
 			this.verticalCenter = 0;
 			this.addChild(this._mc);
-			// this.play(3);
+			this.play(-1);
 		}
 
 		public get MC():egret.MovieClip{
@@ -34,6 +34,10 @@ module LC {
 			let data:any = RES.getRes(value + "_mc_json");
 			let texture:any = RES.getRes(value + "_tex_png");
 			this._mcDataFactory = new egret.MovieClipDataFactory(data,texture);
+		}
+
+		public get mcLink(){
+			return this._mcLink;
 		}
 
 		public stop():void{

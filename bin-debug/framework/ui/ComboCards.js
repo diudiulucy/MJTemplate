@@ -7,7 +7,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * 麻将组合
+ * 麻将组合（只可被CardModLayout类调用）
  * @author lucywang
  * @date 2017/10/19
  */
@@ -18,11 +18,11 @@ var LC;
      */
     var CardComboSkinState;
     (function (CardComboSkinState) {
-        CardComboSkinState[CardComboSkinState["Horizontal"] = 0] = "Horizontal";
+        CardComboSkinState[CardComboSkinState["Horizental"] = 0] = "Horizental";
         CardComboSkinState[CardComboSkinState["Vertical"] = 1] = "Vertical";
     })(CardComboSkinState || (CardComboSkinState = {}));
     /**
-     * 组合牌类型
+     * 组合牌类型(这里还是保留此类型，将UI和协议分开，方便后期其他的麻将项目的开发)
      */
     var CardCombType;
     (function (CardCombType) {
@@ -52,6 +52,9 @@ var LC;
          */
         ComboCards.prototype.setCombCardsTexture = function (direction, cardList, type) {
             this._setComboSkinState(direction);
+            if (direction == LC.Directions.Down) {
+                this.scaleX = this.scaleY = 1.47;
+            }
             switch (type) {
                 case CardCombType.Chi:
                 case CardCombType.Peng:
@@ -63,6 +66,26 @@ var LC;
                 case CardCombType.AnGang:
                     this._setAnGang(direction, cardList);
                     break;
+            }
+        };
+        /**
+         * 判断是否是值为cardValue的碰组合
+         * @param cardValue 牌值
+         */
+        ComboCards.prototype._isPengComb = function (cardValue) {
+            var result = false;
+            for (var i = 0; i < 3; i++) {
+                if (this["cardH_" + i].value != cardValue || this["cardV_" + i].value != cardValue)
+                    return false;
+            }
+            return true;
+        };
+        ComboCards.prototype.changBuGang = function (direction, cardValue) {
+            if (this._isPengComb(cardValue)) {
+                this.cardH_3.visible = true;
+                this.cardV_3.visible = true;
+                this.cardH_3.setCardTexture(direction, LC.CardState.Fall, cardValue);
+                this.cardV_3.setCardTexture(direction, LC.CardState.Fall, cardValue);
             }
         };
         /**
@@ -105,6 +128,7 @@ var LC;
          */
         ComboCards.prototype._setList = function (direction, state, cardList) {
             for (var i = 0; i < cardList.length; i++) {
+                //白鹭不同状态没办法切换纹理，所以用了两套
                 this["cardH_" + i].setCardTexture(direction, state, cardList[i]);
                 this["cardV_" + i].setCardTexture(direction, state, cardList[i]);
             }
@@ -115,7 +139,7 @@ var LC;
          */
         ComboCards.prototype._setComboSkinState = function (direction) {
             if (direction == LC.Directions.Up || direction == LC.Directions.Down) {
-                this.currentState = CardComboSkinState[CardComboSkinState.Horizontal];
+                this.currentState = CardComboSkinState[CardComboSkinState.Horizental];
             }
             else if (direction == LC.Directions.Left || direction == LC.Directions.Right) {
                 this.currentState = CardComboSkinState[CardComboSkinState.Vertical];
