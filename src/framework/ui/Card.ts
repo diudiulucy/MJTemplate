@@ -55,7 +55,7 @@ module LC {
         //card的可供访问的类属性
         public value: number;
         public direction: number;
-      
+
         public constructor() {
             super();
             this.skinName = "Skin.Card";
@@ -73,7 +73,6 @@ module LC {
         public setCardTexture(direction: LC.Directions, cardState: LC.CardState, value: number) {
             this.direction = direction;
             this.value = value;
-
 
             this._setCardSkinState(direction, cardState)
             //牌值纹理

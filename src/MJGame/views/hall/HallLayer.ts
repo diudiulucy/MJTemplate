@@ -50,7 +50,6 @@ module LC {
             let selecRoomLayer = new LC.SelectRoom();
             selecRoomLayer.Ctrl = new LC.SelectRoomController();
             SceneManager.Instance.runningScene.addChild(selecRoomLayer);
-
         }
 
     }

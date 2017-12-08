@@ -46,5 +46,11 @@ var ArrayUtils;
         return [].concat(JSON.parse(JSON.stringify(arr)));
     }
     ArrayUtils.DeepCopy = DeepCopy;
+    function isEmptyObject(object) {
+        // return (JSON.stringify(object) == "{}"); //或者用此方法来判定
+        var arr = Object.keys(object);
+        return (arr.length == 0);
+    }
+    ArrayUtils.isEmptyObject = isEmptyObject;
 })(ArrayUtils || (ArrayUtils = {}));
 //# sourceMappingURL=ArrayUtils.js.map

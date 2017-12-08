@@ -44,17 +44,22 @@ module LC {
 	 * 准备
 	 */
 	export interface Send100100 {
-		ready: LC.ReadyState;
+		ready: ReadyState; //1:表示准备, 0:表示未准备
 		user_id: number;
 	}
 
 	export interface Rev100100 {
 		code: number;
-		info: readyInfo;
+		info: ReadyInfo;
 	}
 
-	interface readyInfo {
-		ready: LC.ReadyState;
+	interface ReadyInfo {
+		ready: ReadyState;
+	}
+
+	export enum ReadyState {
+		Cancel = 0,		//0:取消
+		GetReady = 1,	//1:表示准备
 	}
 
 	/**
@@ -91,6 +96,7 @@ module LC {
 		seat_id: number;
 		user_id: number;
 		point: number;
+		is_online: LC.NetState;
 	}
 
 	/**
@@ -104,7 +110,7 @@ module LC {
 	interface ReadyInfo {
 		user_id: number;
 		nick: string;
-		ready: number;
+		ready: ReadyState;
 	}
 
 	/**
@@ -213,7 +219,6 @@ module LC {
 		ZI_MO = 90,		//自摸
 	}
 
-
 	/**
 	* 发送玩家叫牌操作
 	*/
@@ -292,7 +297,6 @@ module LC {
 		hand_card?: Array<number>;//返回当前手牌
 	}
 
-
 	/**
 	 * 结算
 	 */
@@ -303,21 +307,21 @@ module LC {
 
 	}
 
-	interface CheckOutInfo {
-		total_points: Array<number>;//注意可能人数不定  不用[number,number,number,nubmer]的形式
-		detail: Array<checkOut_DetailInfo>;
+	export interface CheckOutInfo {
+		total_points: Array<number>;//注意可能人数不定  不用[number,number,number,nubmer]的形式 坐标对应的是seat_id
+		detail: Array<CheckOut_DetailInfo>;
 	}
 
-	export enum checkOutType {
+	export enum CheckOutType {
 		Hu = 1,				//胡牌结算
 		Gang = 2,			//杠牌
 		FollowBanker = 3,	//跟庄
 	}
 
-	interface checkOut_DetailInfo {
-		params: checkOut_DetailParams;
+	interface CheckOut_DetailInfo {
+		params: Object;//checkOut_HuDetailParams
 		points: Array<number>;
-		type: checkOutType;
+		type: CheckOutType;
 	}
 
 	enum HuType {
@@ -332,15 +336,12 @@ module LC {
 		QING_YI_SE = 9001
 	}
 
-
-	interface checkOut_DetailParams {
+	export interface checkOut_HuDetailParams {
 		source: number;//扣账的人的服务器座位号id
 		seat_id: number;//收账人的服务器座位号id
 		type: Array<HuType>;
 		is_zi_mo: number; //是否自摸 0 点炮，1 自摸
 	}
-
-
 
 	/**
 	 * 游戏结束
@@ -352,8 +353,116 @@ module LC {
 
 	}
 
-	interface GameOverInfo {
-		
+	export interface GameOverInfo {
+		player_info:Array<Array<number>>;
+	}
+
+	/**
+	 * 推送玩家连接状态
+	 */
+	export interface Rev101110 {
+		code: number;
+		need_push: number;
+		info: NetInfo;
+	}
+
+	interface NetInfo {
+		user_id: number;
+		nick: string;
+		is_online?: NetState;
+	}
+
+	/**
+	 * 推送玩家断线重连(其他玩家)
+	 */
+	export interface Rev101109 {
+		code: number;
+		need_push: number;
+		info: NetInfo;
+	}
+
+	/**
+	 * 断线重连（自己）
+	 */
+	export interface Send100010 {
+		user_id: number;
+	}
+
+	export interface Rev100010 {
+		code: number;
+		need_push: number;
+		info: ReConnectInfo;
+	}
+
+	interface ReConnectInfo {
+		game_data: GameDataInfo;
+		desk_info: RoomDeskInfo;
+	}
+
+	export interface GameDataInfo {
+		player_info: Array<CardModInfo>;
+		desk_info: GameDeskInfo;
+		wait_task: Object;
+		out_cards_info: Array<OutCardInfo>;
+	}
+
+	//牌模块的信息
+	export interface CardModInfo {
+		seat_id: number;
+		hand_card: Array<number>;
+		hua_card: Array<number>;
+		last_card: number;			//当前玩家最后一张摸的牌
+		dian_gang_source: Object;
+	}
+
+	//游戏桌子的信息
+	interface GameDeskInfo {
+		status: number;
+		remain_cards: number;
+		game_config: Object;
+		desk_id: number;
+		settle_data: Object;
+		cur_speaker_seat_id: number;
+		bank_seat_id: number;
+	}
+
+	export interface OutCardInfo {
+		seat_id: number;
+		chu: Array<Chu>;
+		against: Array<AgainstInfo>;
+	}
+
+	//出牌的信息
+	interface Chu {
+		is_robbed: boolean;  //是否被抢牌
+		card: number;		//牌值
+	}
+
+	export interface AgainstInfo {
+		cards: Array<number>;	//牌值数组
+		source: number;			//动作触发者，谁出的这张牌
+		type: ACT;				//动作类型
+	}
+
+	// 房间的信息
+	interface RoomDeskInfo {
+		status: DeskStatus;			//房间的状态
+		users: Array<PlayerInfo>;	//所有的用户
+		can_play_num: number;
+		desk_id: number;			//房间号
+		owner_seat: number;
+		max_player_num: number;		//房间的最大玩家数
+		cur_play_num: number;		//当前玩家数
+		desk_type: number;
+		dissolve_agreed_users: Array<any>;
+	}
+
+	// 房间的状态
+	export enum DeskStatus {
+		WAIT_SET = 1,
+		WAIT_AGREE = 2,
+		PLAYING = 3,
+		OVER = 4
 	}
 
 }

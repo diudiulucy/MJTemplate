@@ -22,16 +22,18 @@ module LC {
 				LC.SocketEvents.Send100999,	//发送测试接口
 				LC.SocketEvents.Rev101006,  //推送游戏结算
 				LC.SocketEvents.Rev101003,	//推送游戏结束
+				LC.SocketEvents.Rev101110,  //推送玩家连接状态
+				LC.SocketEvents.Rev101109 	//推送玩家断线重连
 			];
 		}
 
 		/**
 		 *  玩家自己准备
 		 */
-		public onMySelfReady() {
+		public onMySelfReady(readystate: ReadyState) {
 			let obj = <Send100100>{};
 			obj.user_id = UsersInfo.MySelf.user_id;
-			obj.ready = ReadyState.UNREADY;
+			obj.ready = readystate;
 			Socket.Instance.sendData(SocketEvents.Send100100, JSON.stringify(obj));
 		}
 
@@ -76,11 +78,17 @@ module LC {
 			let data = event.data;
 			let obj = <Rev100100>JSON.parse(data);
 			if (obj.code == 200) {//success
-				console.log("准备成功");
-				UsersInfo.MySelf.status = LC.ReadyState.READY;
-				this._isAllUsersReady();
-			} else {//fail
+				if (obj.info.ready == ReadyState.GetReady) {
+					console.log("准备成功");
+					UsersInfo.MySelf.status = LC.UserState.READY;
+					this._isAllUsersReady();
+				} else if (obj.info.ready == ReadyState.Cancel) {
+					UsersInfo.MySelf.status = LC.UserState.UNREADY;
+				}
 
+			} else {//fail
+				let errorInfo = JSON.parse(data);
+				Tips.show(ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
 			}
 		}
 
@@ -94,17 +102,51 @@ module LC {
 			if (obj.code == 200) {//success
 				console.log(`玩家id为${obj.info.user_id}进入房间`);
 				let user = new User();
-
 				for (let key in obj.info) {
 					user[key] = obj.info[key];
 				}
-
 				UsersInfo.Instance.addUser(user);
 				EventManager.getInstance().dispatchCustomEvent(CustomEvents.OtherPlayer_EnterROOM, { user: user });
 			} else {//fail
-
+				let errorInfo = JSON.parse(data);
+				Tips.show(ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
 			}
 		}
+
+		/**
+		 * 推送玩家连接状态
+		 */
+		private on_101110_event(event: egret.Event) {
+			console.log(this.TAG + " on_101110_event: " + event.data);
+			let data = event.data;
+			let obj = <Rev101110>JSON.parse(data);
+			if (obj.code == 200) {//success
+				console.log(`玩家id为${obj.info.user_id}当前状态为${LC.NetState[obj.info.is_online]}`);
+				let user = UsersInfo.Instance.getUserById(obj.info.user_id);
+				user.is_online = obj.info.is_online;
+			} else {//fail
+				let errorInfo = JSON.parse(data);
+				Tips.show(ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
+			}
+		}
+
+		/**
+		 * 推送玩家断线重连
+		 */
+		private on_101109_event(event: egret.Event) {
+			console.log(this.TAG + " on_101109_event: " + event.data);
+			let data = event.data;
+			let obj = <Rev101109>JSON.parse(data);
+			if (obj.code == 200) {//success
+				console.log(`玩家id为${obj.info.user_id}断线重连成功`);
+				let user = UsersInfo.Instance.getUserById(obj.info.user_id);
+				user.is_online = LC.NetState.ONLINE;
+			} else {//fail
+				let errorInfo = JSON.parse(data);
+				Tips.show(ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
+			}
+		}
+
 
 		/**
 		 * 推送玩家进入准备
@@ -114,12 +156,19 @@ module LC {
 			let data = event.data;
 			let obj = <Rev101106>JSON.parse(data);
 			if (obj.code == 200) {//success
-				console.log(`玩家id为${obj.info.user_id}进入准备状态`);
 				let user = UsersInfo.Instance.getUserById(obj.info.user_id);
-				user.status = LC.ReadyState.READY;
-				this._isAllUsersReady();
-			} else {//fail
+				if (obj.info.ready == ReadyState.GetReady) {
+					console.log(`玩家id为${obj.info.user_id}进入准备状态`);
+					user.status = LC.UserState.READY;
+					this._isAllUsersReady();
+				} else if (obj.info.ready == ReadyState.Cancel) {
+					console.log(`玩家id为${obj.info.user_id}取消准备`);
+					user.status = LC.UserState.UNREADY;
+				}
 
+			} else {//fail
+				let errorInfo = JSON.parse(data);
+				Tips.show(ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
 			}
 		}
 
@@ -148,10 +197,10 @@ module LC {
 				user.isBanker = true;
 				DeskInfo.diceValue = obj.info.dice;
 			} else {//fail
-
+				let errorInfo = JSON.parse(data);
+				Tips.show(ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
 			}
 		}
-
 
 		/**
 		 * 推送发牌消息 游戏开始发牌每人13张
@@ -163,7 +212,8 @@ module LC {
 			if (obj.code == 200) {//success
 				EventManager.getInstance().dispatchCustomEvent(CustomEvents.DealCard, { all_cards: obj.info.all_cards });
 			} else {//fail
-
+				let errorInfo = JSON.parse(data);
+				Tips.show(ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
 			}
 		}
 
@@ -177,7 +227,8 @@ module LC {
 			if (obj.code == 200) {//success
 				EventManager.getInstance().dispatchCustomEvent(CustomEvents.BuHua_DealCard, { info: obj.info });
 			} else {//fail
-
+				let errorInfo = JSON.parse(data);
+				Tips.show(ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
 			}
 		}
 
@@ -192,7 +243,8 @@ module LC {
 				DeskInfo.remain_count = obj.info.remain_count;
 				EventManager.getInstance().dispatchCustomEvent(CustomEvents.DrawCard, { info: obj.info });
 			} else {//fail
-
+				let errorInfo = JSON.parse(data);
+				Tips.show(ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
 			}
 		}
 
@@ -206,7 +258,8 @@ module LC {
 			if (obj.code == 200) {//success
 				EventManager.getInstance().dispatchCustomEvent(CustomEvents.BuHua_GameCard, { info: obj.info });
 			} else {//fail
-
+				let errorInfo = JSON.parse(data);
+				Tips.show(ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
 			}
 		}
 
@@ -221,7 +274,8 @@ module LC {
 			if (obj.code == 200) {//success
 				EventManager.getInstance().dispatchCustomEvent(CustomEvents.CanAct, { info: obj.info });
 			} else {//fail
-
+				let errorInfo = JSON.parse(data);
+				Tips.show(ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
 			}
 		}
 
@@ -240,8 +294,6 @@ module LC {
 			// }
 		}
 
-
-
 		/**
 		 * 推送玩家动作响应,以及进行了什么操作
 		 */
@@ -251,12 +303,11 @@ module LC {
 			let obj = <Rev101112>JSON.parse(data);
 			if (obj.code == 200) {//success
 				EventManager.getInstance().dispatchCustomEvent(CustomEvents.ACT_Aleady, { info: obj.info });
-
 			} else {//fail
-
+				let errorInfo = JSON.parse(data);
+				Tips.show(ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
 			}
 		}
-
 
 		/**
 		 * 推送玩家结算
@@ -266,11 +317,10 @@ module LC {
 			let data = event.data;
 			let obj = <Rev101006>JSON.parse(data);
 			if (obj.code == 200) {//success
-				// if(obj.info.detail.ty){
-
-				// }
+				EventManager.getInstance().dispatchCustomEvent(CustomEvents.CheckOut, { info: obj.info });
 			} else {//fail
-
+				let errorInfo = JSON.parse(data);
+				Tips.show(ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
 			}
 		}
 
@@ -282,18 +332,12 @@ module LC {
 			let data = event.data;
 			let obj = <Rev101003>JSON.parse(data);
 			if (obj.code == 200) {//success
-				let gameResultLayer = new LC.GameResult();
-				// gameResultLayer.Ctrl = new LC.SelectRoomController();
-				SceneManager.Instance.runningScene.addChild(gameResultLayer);
-				// }
+				EventManager.getInstance().dispatchCustomEvent(CustomEvents.GameOver, { info: obj.info });
 			} else {//fail
-
+				let errorInfo = JSON.parse(data);
+				Tips.show(ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
 			}
 		}
-
-
-
-
 
 		/**
 		 * 测试接口
@@ -304,20 +348,17 @@ module LC {
 			let obj = <Rev100999>JSON.parse(data);
 			if (obj.code == 200) {//success
 				switch (obj.info.test_type) {
-
 					case TestType.DealCard://发牌不做处理
 						break;
 					case TestType.ChangeCard:
 						EventManager.getInstance().dispatchCustomEvent(CustomEvents.ChangeCard, { info: obj.info });
 						break;
-
 				}
 			} else {//fail
 				let errorInfo = JSON.parse(data);
-				Tips.show(errorInfo.info);
+				Tips.show(ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
 			}
 		}
-
 
 	}
 }

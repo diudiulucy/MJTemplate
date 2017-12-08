@@ -2,8 +2,8 @@
 <e:Skin class="Skin.Card" width="58" height="81" currentState="fall_right" xmlns:e="http://ns.egret.com/eui"
         xmlns:w="http://ns.egret.com/wing"
         states="stand_down,stand_up,stand_left,stand_right,fall_down,fall_up,fall_left,fall_right,hide_v,hide_h"
-        width.stand_down="85" height.stand_down="122" width.stand_up="47" height.stand_up="66" width.stand_left="46"
-        height.stand_left="93" width.stand_right="46" height.stand_right="93" width.fall_left="56" height.fall_left="47"
+        width.stand_down="85" height.stand_down="122" width.stand_up="47" height.stand_up="66" width.stand_left="36.8"
+        height.stand_left="74.4" width.stand_right="36.8" height.stand_right="74.4" width.fall_left="56" height.fall_left="47"
         width.fall_right="56" height.fall_right="47" width.hide_v="86" height.hide_v="120" width.hide_h="64"
         height.hide_h="53" width.fall_down="47" height.fall_down="67" width.fall_up="47" height.fall_up="67">
 	<e:Image x="0" y="0" scaleX="1" scaleY="1"
@@ -13,7 +13,7 @@
 	         scaleX.stand_right="-1" x.stand_right="46" width.fall_down="100%"
 	         height.fall_down="100%" width="100%" height="100%"
 	        
-	          x.fall_left="0" y.fall_left="0" source.fall_left="fallbg_H_png" source.fall_down="fallbg_V_png" source.fall_right="fallbg_H_png" source.stand_down="standbg_down_png" source.stand_up="standbg_up_png" source.stand_left="standbg_left_png" source.stand_right="standbg_left_png" source.hide_v="hidebg_V_png" source.hide_h="hidebg_H_png" source="" scaleX.stand_left="1" scaleY.stand_left="1" source.fall_up="fallbg_V_png"/>
+	          x.fall_left="0" y.fall_left="0" source.fall_left="fallbg_H_png" source.fall_down="fallbg_V_png" source.fall_right="fallbg_H_png" source.stand_down="standbg_down_png" source.stand_up="standbg_up_png" source.stand_left="standbg_left_png" source.stand_right="standbg_left_png" source.hide_v="hidebg_V_png" source.hide_h="hidebg_H_png" source="" scaleX.stand_left="1" scaleY.stand_left="1" source.fall_up="fallbg_V_png" anchorOffsetY.stand_left="0"/>
 	<e:Image id="fallRight" scaleX="1" scaleY="1"
 	         includeIn="fall_right"  horizontalCenter="0" top="0" rotation="270" source="card_small_25_png"/>
 	<e:Image id="fallLeft" scaleX="1" scaleY="1" includeIn="fall_left"

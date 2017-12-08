@@ -10,7 +10,7 @@ module LC {
 		private label_ready:eui.Label;
 		private _userModel: User;
 		private img_banker:eui.Image;
-
+		private off_line:eui.Image;
 
 		public constructor() {
 			super();
@@ -21,26 +21,35 @@ module LC {
 			eui.Binding.bindHandler(this._userModel, ["user_id"], this._userNameChange, this);
 			eui.Binding.bindHandler(this._userModel, ["isBanker"], this._userIsBankerChange, this);
 			eui.Binding.bindHandler(this._userModel, ["status"], this._userIsReadyChange, this);
+			eui.Binding.bindHandler(this._userModel, ["is_online"], this._isOnlineChange, this);
+
 		}
 
 		private _userNameChange(value:any){
-			if(!value) return;
+			if(value == null) return;
 			console.log(`_userNameChange`);
 			this.label_Name.text = value || "";
 			
 		}
 
 		private _userIsBankerChange(value:any){
-			if(!value) return;
+			if(value == null) return;
 			console.log(`_userIsBankerChange`);
 			this.img_banker.visible  = value;
 		}
 
 		private _userIsReadyChange(value:any){
-			if(!value) return;
+			if(value == null) return;
 			console.log(`_userIsReadyChange`);
-			this.label_ready.visible = (value == LC.ReadyState.READY)? true : false;
+			this.label_ready.visible = (value == LC.UserState.READY)? true : false;
 		}
+
+		private _isOnlineChange(value:any){
+			if(value == null) return;
+			console.log(`_isOnlineChange`);
+			this.off_line.visible = (value == LC.NetState.OFFLINE)? true : false;
+		}
+		
 
 		/**
 		 * 设置其数据模型

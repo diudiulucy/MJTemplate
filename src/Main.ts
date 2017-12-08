@@ -98,11 +98,96 @@ class Main extends eui.UILayer {
     private createScene() {
         if (this.isThemeLoadEnd && this.isResourceLoadEnd) {
             LC.Tips.Instance.setLayer(this.stage);
+            LC.ErrorCodeManager.Instance.init("error_txt");
 
             let loginScene = new LC.LoginScene();
             LC.SceneManager.Instance.replaceScene(loginScene);
 
-         
+            // interface StringArray{
+            //     [index:number]:string;
+            // }
+
+            // let myArray:Array<string>;
+            // myArray = ["Bob","lucy"];
+            // let myStr:string = myArray[0];
+            // console.log(myStr);
+            
+            // class Animal {
+            //     name:string;
+            // }
+
+            // class Dog extends Animal {
+            //     breed:string;
+            // }
+
+            // interface NotOkay {
+            //     readonly [x:number]:Animal;
+            //     // [x:string]:Dog;
+            // }
+
+            // let dog = new Dog();
+            // dog.breed = "sdfd";
+            // dog.name = "dslk";
+
+            // let ani = new Animal();
+            // ani.name = "ani";
+
+            // let a:NotOkay = [ani,dog];
+            // a = [dog,ani];
+            
+            // console.log(egret.getQualifiedClassName(a[1]));
+
+            // interface NumberDictionary {
+            //     [index:string]:number;
+            //     length:number;
+            //     // name:string;
+            //     // num:number;
+            // }
+
+            // let map:NumberDictionary = {length:0};
+            // map['a'] = 65;
+            // map.length = Object.keys(map).length;
+
+            // console.log(  map.length);
+
+            // interface Map<T> {
+            //     [key:number]:T;
+            //     length:T;
+            //     name:T;
+            // }
+
+            // let map:Map<number> = {length:10,name:52};
+            // map.length = 20;
+            // console.log(map.length);
+
+            interface ClockConstructor {
+                 new (hour:number,minute:number);
+            }
+
+            interface ClockInterface {
+                // new (hour:number,minute:number);
+               tick();
+            }
+
+            let createClock = function (ctor: ClockConstructor, hour: number, minute: number):ClockInterface{
+                return new ctor(hour, minute);
+            }
+
+            class Clock implements ClockInterface {
+                currentTime:Date;
+                setTime(d:Date){
+
+                }
+                constructor(h:number,m:number){
+
+                };
+                tick(){
+
+                };
+            }
+
+
+
             // let loginScene = new LC.GameScene();
             // LC.SceneManager.Instance.replaceScene(loginScene);
         }

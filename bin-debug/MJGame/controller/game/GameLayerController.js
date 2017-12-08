@@ -35,15 +35,17 @@ var LC;
                 LC.SocketEvents.Send100999,
                 LC.SocketEvents.Rev101006,
                 LC.SocketEvents.Rev101003,
+                LC.SocketEvents.Rev101110,
+                LC.SocketEvents.Rev101109 //推送玩家断线重连
             ];
         };
         /**
          *  玩家自己准备
          */
-        GameLayerController.prototype.onMySelfReady = function () {
+        GameLayerController.prototype.onMySelfReady = function (readystate) {
             var obj = {};
             obj.user_id = LC.UsersInfo.MySelf.user_id;
-            obj.ready = LC.ReadyState.UNREADY;
+            obj.ready = readystate;
             LC.Socket.Instance.sendData(LC.SocketEvents.Send100100, JSON.stringify(obj));
         };
         /**
@@ -83,11 +85,18 @@ var LC;
             var data = event.data;
             var obj = JSON.parse(data);
             if (obj.code == 200) {
-                console.log("准备成功");
-                LC.UsersInfo.MySelf.status = LC.ReadyState.READY;
-                this._isAllUsersReady();
+                if (obj.info.ready == LC.ReadyState.GetReady) {
+                    console.log("准备成功");
+                    LC.UsersInfo.MySelf.status = LC.UserState.READY;
+                    this._isAllUsersReady();
+                }
+                else if (obj.info.ready == LC.ReadyState.Cancel) {
+                    LC.UsersInfo.MySelf.status = LC.UserState.UNREADY;
+                }
             }
             else {
+                var errorInfo = JSON.parse(data);
+                LC.Tips.show(LC.ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
             }
         };
         /**
@@ -107,6 +116,42 @@ var LC;
                 LC.EventManager.getInstance().dispatchCustomEvent(CustomEvents.OtherPlayer_EnterROOM, { user: user });
             }
             else {
+                var errorInfo = JSON.parse(data);
+                LC.Tips.show(LC.ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
+            }
+        };
+        /**
+         * 推送玩家连接状态
+         */
+        GameLayerController.prototype.on_101110_event = function (event) {
+            console.log(this.TAG + " on_101110_event: " + event.data);
+            var data = event.data;
+            var obj = JSON.parse(data);
+            if (obj.code == 200) {
+                console.log("\u73A9\u5BB6id\u4E3A" + obj.info.user_id + "\u5F53\u524D\u72B6\u6001\u4E3A" + LC.NetState[obj.info.is_online]);
+                var user = LC.UsersInfo.Instance.getUserById(obj.info.user_id);
+                user.is_online = obj.info.is_online;
+            }
+            else {
+                var errorInfo = JSON.parse(data);
+                LC.Tips.show(LC.ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
+            }
+        };
+        /**
+         * 推送玩家断线重连
+         */
+        GameLayerController.prototype.on_101109_event = function (event) {
+            console.log(this.TAG + " on_101109_event: " + event.data);
+            var data = event.data;
+            var obj = JSON.parse(data);
+            if (obj.code == 200) {
+                console.log("\u73A9\u5BB6id\u4E3A" + obj.info.user_id + "\u65AD\u7EBF\u91CD\u8FDE\u6210\u529F");
+                var user = LC.UsersInfo.Instance.getUserById(obj.info.user_id);
+                user.is_online = LC.NetState.ONLINE;
+            }
+            else {
+                var errorInfo = JSON.parse(data);
+                LC.Tips.show(LC.ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
             }
         };
         /**
@@ -117,12 +162,20 @@ var LC;
             var data = event.data;
             var obj = JSON.parse(data);
             if (obj.code == 200) {
-                console.log("\u73A9\u5BB6id\u4E3A" + obj.info.user_id + "\u8FDB\u5165\u51C6\u5907\u72B6\u6001");
                 var user = LC.UsersInfo.Instance.getUserById(obj.info.user_id);
-                user.status = LC.ReadyState.READY;
-                this._isAllUsersReady();
+                if (obj.info.ready == LC.ReadyState.GetReady) {
+                    console.log("\u73A9\u5BB6id\u4E3A" + obj.info.user_id + "\u8FDB\u5165\u51C6\u5907\u72B6\u6001");
+                    user.status = LC.UserState.READY;
+                    this._isAllUsersReady();
+                }
+                else if (obj.info.ready == LC.ReadyState.Cancel) {
+                    console.log("\u73A9\u5BB6id\u4E3A" + obj.info.user_id + "\u53D6\u6D88\u51C6\u5907");
+                    user.status = LC.UserState.UNREADY;
+                }
             }
             else {
+                var errorInfo = JSON.parse(data);
+                LC.Tips.show(LC.ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
             }
         };
         /**
@@ -149,6 +202,8 @@ var LC;
                 LC.DeskInfo.diceValue = obj.info.dice;
             }
             else {
+                var errorInfo = JSON.parse(data);
+                LC.Tips.show(LC.ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
             }
         };
         /**
@@ -162,6 +217,8 @@ var LC;
                 LC.EventManager.getInstance().dispatchCustomEvent(CustomEvents.DealCard, { all_cards: obj.info.all_cards });
             }
             else {
+                var errorInfo = JSON.parse(data);
+                LC.Tips.show(LC.ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
             }
         };
         /**
@@ -175,6 +232,8 @@ var LC;
                 LC.EventManager.getInstance().dispatchCustomEvent(CustomEvents.BuHua_DealCard, { info: obj.info });
             }
             else {
+                var errorInfo = JSON.parse(data);
+                LC.Tips.show(LC.ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
             }
         };
         /**
@@ -189,6 +248,8 @@ var LC;
                 LC.EventManager.getInstance().dispatchCustomEvent(CustomEvents.DrawCard, { info: obj.info });
             }
             else {
+                var errorInfo = JSON.parse(data);
+                LC.Tips.show(LC.ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
             }
         };
         /**
@@ -202,6 +263,8 @@ var LC;
                 LC.EventManager.getInstance().dispatchCustomEvent(CustomEvents.BuHua_GameCard, { info: obj.info });
             }
             else {
+                var errorInfo = JSON.parse(data);
+                LC.Tips.show(LC.ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
             }
         };
         /**
@@ -215,6 +278,8 @@ var LC;
                 LC.EventManager.getInstance().dispatchCustomEvent(CustomEvents.CanAct, { info: obj.info });
             }
             else {
+                var errorInfo = JSON.parse(data);
+                LC.Tips.show(LC.ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
             }
         };
         /**
@@ -240,6 +305,8 @@ var LC;
                 LC.EventManager.getInstance().dispatchCustomEvent(CustomEvents.ACT_Aleady, { info: obj.info });
             }
             else {
+                var errorInfo = JSON.parse(data);
+                LC.Tips.show(LC.ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
             }
         };
         /**
@@ -250,8 +317,11 @@ var LC;
             var data = event.data;
             var obj = JSON.parse(data);
             if (obj.code == 200) {
+                LC.EventManager.getInstance().dispatchCustomEvent(CustomEvents.CheckOut, { info: obj.info });
             }
             else {
+                var errorInfo = JSON.parse(data);
+                LC.Tips.show(LC.ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
             }
         };
         /**
@@ -262,11 +332,11 @@ var LC;
             var data = event.data;
             var obj = JSON.parse(data);
             if (obj.code == 200) {
-                var gameResultLayer = new LC.GameResult();
-                // gameResultLayer.Ctrl = new LC.SelectRoomController();
-                LC.SceneManager.Instance.runningScene.addChild(gameResultLayer);
+                LC.EventManager.getInstance().dispatchCustomEvent(CustomEvents.GameOver, { info: obj.info });
             }
             else {
+                var errorInfo = JSON.parse(data);
+                LC.Tips.show(LC.ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
             }
         };
         /**
@@ -287,7 +357,7 @@ var LC;
             }
             else {
                 var errorInfo = JSON.parse(data);
-                LC.Tips.show(errorInfo.info);
+                LC.Tips.show(LC.ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
             }
         };
         return GameLayerController;

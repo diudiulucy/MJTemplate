@@ -5,6 +5,11 @@
  */
 var LC;
 (function (LC) {
+    var ReadyState;
+    (function (ReadyState) {
+        ReadyState[ReadyState["Cancel"] = 0] = "Cancel";
+        ReadyState[ReadyState["GetReady"] = 1] = "GetReady";
+    })(ReadyState = LC.ReadyState || (LC.ReadyState = {}));
     /**
     * 动作类型
     */
@@ -28,12 +33,12 @@ var LC;
         TestType[TestType["checkLastCard"] = 3] = "checkLastCard";
         TestType[TestType["DealCard"] = 4] = "DealCard";
     })(TestType = LC.TestType || (LC.TestType = {}));
-    var checkOutType;
-    (function (checkOutType) {
-        checkOutType[checkOutType["Hu"] = 1] = "Hu";
-        checkOutType[checkOutType["Gang"] = 2] = "Gang";
-        checkOutType[checkOutType["FollowBanker"] = 3] = "FollowBanker";
-    })(checkOutType = LC.checkOutType || (LC.checkOutType = {}));
+    var CheckOutType;
+    (function (CheckOutType) {
+        CheckOutType[CheckOutType["Hu"] = 1] = "Hu";
+        CheckOutType[CheckOutType["Gang"] = 2] = "Gang";
+        CheckOutType[CheckOutType["FollowBanker"] = 3] = "FollowBanker";
+    })(CheckOutType = LC.CheckOutType || (LC.CheckOutType = {}));
     var HuType;
     (function (HuType) {
         //  4×3+2 类
@@ -46,5 +51,13 @@ var LC;
         //  公用类, 可能出现在以上各类胡法中
         HuType[HuType["QING_YI_SE"] = 9001] = "QING_YI_SE";
     })(HuType || (HuType = {}));
+    // 房间的状态
+    var DeskStatus;
+    (function (DeskStatus) {
+        DeskStatus[DeskStatus["WAIT_SET"] = 1] = "WAIT_SET";
+        DeskStatus[DeskStatus["WAIT_AGREE"] = 2] = "WAIT_AGREE";
+        DeskStatus[DeskStatus["PLAYING"] = 3] = "PLAYING";
+        DeskStatus[DeskStatus["OVER"] = 4] = "OVER";
+    })(DeskStatus = LC.DeskStatus || (LC.DeskStatus = {}));
 })(LC || (LC = {}));
 //# sourceMappingURL=SocketInterface.js.map

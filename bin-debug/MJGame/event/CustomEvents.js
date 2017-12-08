@@ -5,7 +5,6 @@
  */
 var CustomEvents;
 (function (CustomEvents) {
-    CustomEvents.UPDATE_VIEW = "updateView";
     CustomEvents.OtherPlayer_EnterROOM = "otherPlayerEnterRoom"; //其他玩家进入房间
     CustomEvents.DealCard = "dealCard"; //发牌
     CustomEvents.DrawCard = "drawCard"; //摸牌
@@ -15,5 +14,7 @@ var CustomEvents;
     CustomEvents.CanAct = "canAct"; //可以进行什么操作
     CustomEvents.ACT_Aleady = "actAleady"; //服务器通知操作完成，UI进行更新
     CustomEvents.ChangeCard = "changeCard"; //测试的时候换牌操作
+    CustomEvents.CheckOut = "checkOut"; //结算
+    CustomEvents.GameOver = "gameOver"; //游戏结束
 })(CustomEvents || (CustomEvents = {}));
 //# sourceMappingURL=CustomEvents.js.map

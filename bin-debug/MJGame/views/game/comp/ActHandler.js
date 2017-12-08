@@ -115,6 +115,7 @@ var LC;
             var combCards = event.currentTarget;
             var index = this.chiComb_Group.getChildIndex(combCards);
             var info = this._actList[LC.ACT.CHI].info;
+            this.hide();
             this.chiComb_Group.visible = false;
             this.chiComb_Group.removeChildren();
             this._ctrl.actChi(info[index]);
@@ -165,6 +166,8 @@ var LC;
         };
         ActHandler.prototype.hide = function () {
             this.visible = false;
+            this.chiComb_Group.visible = false;
+            this.chiComb_Group.removeChildren();
             this._clearLayout();
         };
         return ActHandler;

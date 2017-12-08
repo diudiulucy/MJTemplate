@@ -85,12 +85,10 @@ module LC {
 
         protected registerCustomEvents() {
             this.UIEventList = [
-                CustomEvents.UPDATE_VIEW
+                
             ];
         }
 
-        private ui_updateView() {
-            console.log(this.TAG + "updateView");
-        }
+      
     }
 }

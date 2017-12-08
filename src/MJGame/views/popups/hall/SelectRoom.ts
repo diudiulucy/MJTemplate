@@ -34,7 +34,7 @@ module LC {
 
 		protected registerCustomEvents() {
 			this.UIEventList = [
-				// CustomEvents.UPDATE_VIEW
+				
 			];
 		}
 
@@ -59,9 +59,5 @@ module LC {
 		private _onCloseClick() {
 			this.parent.removeChild(this);
 		}
-
-		// private ui_updateView() {
-		// 	console.log(this.TAG + "updateView");
-		// }
 	}
 }

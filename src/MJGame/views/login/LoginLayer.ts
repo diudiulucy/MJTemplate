@@ -30,7 +30,7 @@ module LC {
 
         protected registerCustomEvents() {
             this.UIEventList = [
-                // CustomEvents.UPDATE_VIEW
+                
             ];
         }
 
@@ -39,8 +39,6 @@ module LC {
             this._ctrl.sendDebugLoginReq(this.edit_name.text,this.edit_psw.text);
         }
 
-        // private ui_updateView() {
-        //     console.log(this.TAG + "updateView");
-        // }
+        
     }
 }

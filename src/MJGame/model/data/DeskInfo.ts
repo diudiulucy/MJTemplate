@@ -8,5 +8,7 @@ module LC {
 		public static deskID:number;//房间号
 		public static diceValue:[number,number];//骰子值
 		public static remain_count:number;//剩余牌值
+		public static status:DeskStatus;
+		public static gameData:Object;
 	}
 }

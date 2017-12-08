@@ -28,38 +28,13 @@ module LC {
 				console.log("加入好友房间成功");
 				//记录桌子信息
 				DeskInfo.deskID = obj.info.desk_id;
-
-				this._findAndSetMyself(obj.info.seat_info);
-
-				//加入User
-				for (let value of obj.info.seat_info) {
-					let user = new User();
-
-					for (let key in value) {
-						user[key] = value[key];
-					}
-
-					UsersInfo.Instance.addUser(user);
-				}
-
+				UsersInfo.Instance.addManyUsers(obj.info.seat_info);
 				let gameScene = new LC.GameScene();
 				SceneManager.Instance.replaceScene(gameScene);
 
 			} else {//fail
-
-			}
-		}
-
-		/**
-		 * 找出自己并赋值
-		 */
-		private _findAndSetMyself(seat_info: Array<PlayerInfo>) {
-			for (let value of seat_info) {
-				let user = new User();
-				for (let key in value) {
-					user[key] = value[key];
-				}
-				(user.user_id == UsersInfo.MySelf.user_id) && (UsersInfo.MySelf = user);
+				let errorInfo = JSON.parse(data);
+				Tips.show(ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
 			}
 		}
 

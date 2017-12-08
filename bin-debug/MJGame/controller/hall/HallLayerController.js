@@ -23,17 +23,48 @@ var LC;
             _super.prototype.init.call(this);
             this.SocketEventList = [
                 LC.SocketEvents.Send100002,
+                LC.SocketEvents.Send100010,
             ];
         };
-        /**登录消息返回 */
+        /**
+         * 登录消息返回
+         */
         HallLayerController.prototype.on_100002_event = function (event) {
             console.log(this.TAG + " on_100002_event: ");
             var data = event.data;
             var obj = JSON.parse(data);
             if (obj.code == 200) {
                 console.log("登录游戏服务器成功");
+                if (obj.info.room != "") {
+                    console.log("需要断线重连");
+                    var obj_1 = {};
+                    obj_1.user_id = LC.UsersInfo.MySelf.user_id;
+                    LC.Socket.Instance.sendData(LC.SocketEvents.Send100010, JSON.stringify(obj_1));
+                }
             }
             else {
+                var errorInfo = JSON.parse(data);
+                LC.Tips.show(LC.ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
+            }
+        };
+        /**断线重连 */
+        HallLayerController.prototype.on_100010_event = function (event) {
+            console.log(this.TAG + " on_100010_event: ");
+            var data = event.data;
+            var obj = JSON.parse(data);
+            if (obj.code == 200) {
+                console.log("断线重连成功");
+                LC.Config.MaxPlayerCount = obj.info.desk_info.max_player_num;
+                LC.DeskInfo.deskID = obj.info.desk_info.desk_id;
+                LC.DeskInfo.gameData = obj.info.game_data;
+                LC.DeskInfo.status = obj.info.desk_info.status;
+                LC.UsersInfo.Instance.addManyUsers(obj.info.desk_info.users);
+                var gameScene = new LC.GameScene();
+                LC.SceneManager.Instance.replaceScene(gameScene);
+            }
+            else {
+                var errorInfo = JSON.parse(data);
+                LC.Tips.show(LC.ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
             }
         };
         /**连接socket */

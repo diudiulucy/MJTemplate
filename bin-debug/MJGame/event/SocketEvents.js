@@ -26,7 +26,7 @@ var LC;
         SocketEvents[SocketEvents["Send100999"] = 100999] = "Send100999";
         SocketEvents[SocketEvents["Rev100000"] = 100000] = "Rev100000";
         //  Rev100002 = 100002,             //接收登录    
-        SocketEvents[SocketEvents["Rev100010"] = 100010] = "Rev100010";
+        //  Rev100010 = 100010,             //接收断线重连     
         //  Rev100100 = 100100,             //接收玩家准备，取消准备   
         //  Rev100101 = 100101,             //接收创建好友桌     
         //  Rev100102 = 100102,             //接收加入好友桌     

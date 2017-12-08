@@ -51,12 +51,37 @@ var LC;
             console.log(user.user_id + "\u7684\u5BA2\u6237\u7AEF\u5EA7\u4F4D\u53F7\u4E3A" + user.client_seatID);
         };
         /**
-         * 添加用户
+         * 添加用户（单个）
          * @param user 用户对象
         */
         UsersInfo.prototype.addUser = function (user) {
             this._users[user.user_id] = user;
             this._setClientSeatID(user);
+        };
+        /**
+         * 添加多个用户
+         * @param users 用户对象数组
+        */
+        UsersInfo.prototype.addManyUsers = function (users) {
+            this._findAndSetMyself(users); //需要先找到自己的把客户端座位号赋值
+            for (var _i = 0, users_1 = users; _i < users_1.length; _i++) {
+                var value = users_1[_i];
+                var user = new LC.User();
+                for (var key in value) {
+                    user[key] = value[key];
+                }
+                UsersInfo.Instance.addUser(user);
+            }
+        };
+        UsersInfo.prototype._findAndSetMyself = function (users) {
+            for (var _i = 0, users_2 = users; _i < users_2.length; _i++) {
+                var value = users_2[_i];
+                var user = new LC.User();
+                for (var key in value) {
+                    user[key] = value[key];
+                }
+                (user.user_id == UsersInfo.MySelf.user_id) && (UsersInfo.MySelf = user);
+            }
         };
         /**
          * 根据userID获取用户信息
@@ -86,7 +111,7 @@ var LC;
             if (ArrayUtils.getObjectLength(this._users) != LC.Config.MaxPlayerCount)
                 return false;
             for (var key in this._users) {
-                if (this._users[key].status != LC.ReadyState.READY) {
+                if (this._users[key].status != LC.UserState.READY) {
                     return false;
                 }
             }
@@ -98,6 +123,22 @@ var LC;
          */
         UsersInfo.prototype.deleteUser = function (userID) {
             delete this._users[userID];
+        };
+        /**
+         * 重置所有用户的信息
+         */
+        UsersInfo.prototype.reSetAllUsersStatus = function () {
+            for (var key in this._users) {
+                this._users[key].status = LC.UserState.UNREADY;
+            }
+        };
+        /**
+         * 重置庄家信息
+         */
+        UsersInfo.prototype.reSetAllUsersBanker = function () {
+            for (var key in this._users) {
+                this._users[key].isBanker = false;
+            }
         };
         return UsersInfo;
     }(LC.Single));

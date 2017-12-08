@@ -18,9 +18,9 @@ module LC {
     export class CardModLayout extends eui.Component {
         //UI
         private AllCards: eui.Group;
-        public HandCards: eui.Group;
+        private HandCards: eui.Group;
         private OutCards: eui.Group;
-
+        private FallHandCards: eui.Group;
         //逻辑
         private _handCardList: Array<number> = [];//当前的手牌数组
         private _upDist = 40;//弹起的距离
@@ -41,19 +41,18 @@ module LC {
         }
 
 
-
         /**
          * 初始化手牌（未排序，这里对其排序）
          * @param direction    方向
          * @param handCardList 手牌列表
          */
         public initHandCards(direction: LC.Directions, handCardList: Array<number>) {
-            this.currentState = LC.Directions[direction];
+            this.currentState = LC.Directions[direction];//选择模块的状态
             ArrayUtils.sortByAsc(handCardList);//升序排列
             this._handCardList = handCardList;//记录当前模块的手牌
             this.HandCards.removeChildren();//先移除手牌上的节点，再添加
             for (let i = 0; i < handCardList.length; i++) {
-                let cardContainer = this._createHandCard(direction, handCardList[i]);
+                let cardContainer = this._createHandCard(direction, handCardList[i], LC.CardState.Stand);
                 this.HandCards.addChild(cardContainer);
             }
         }
@@ -77,6 +76,39 @@ module LC {
             }
 
             this.initHandCards(direction, this._handCardList);
+        }
+
+        /**
+         * 将已碰的牌 变成杠牌显示 即显示四张
+         * @param direction   方向
+         * @param cardValue   牌值
+         */
+        public buGang(direction: LC.Directions, cardValue: number) {
+            for (let i = 0; i < this.AllCards.numChildren; i++) {
+                let element = this.AllCards.getChildAt(i);
+                if (element instanceof LC.ComboCards) {
+                    (<LC.ComboCards>element).changBuGang(direction, cardValue);
+                }
+            }
+
+        }
+
+        /**
+         * 手牌到下
+         */
+        public fallDownAllHandCards(direction: LC.Directions, handCardList: Array<number>) {
+            ArrayUtils.sortByAsc(handCardList);//升序排列
+            this._handCardList = handCardList;//记录当前模块的手牌
+            this.HandCards.removeChildren();//先移除手牌上的节点，再添加
+            for (let i = 0; i < handCardList.length; i++) {
+                let cardContainer = this._createHandCard(direction, handCardList[i], LC.CardState.Fall);
+                this.FallHandCards.addChild(cardContainer);
+            }
+
+            if (this._drawCardContainer) {
+                let drawCardValue = (<LC.Card>this._drawCardContainer.getChildAt(0)).value;
+                this.addDrawCard(direction, drawCardValue, LC.CardState.Fall);
+            }
         }
 
         /**
@@ -105,6 +137,7 @@ module LC {
             return outCardContainer;
         }
 
+
         /**
          * 根据值来删除所有的手牌 包括摸的牌
          */
@@ -115,7 +148,7 @@ module LC {
                     let drawCardValue = (<LC.Card>this._drawCardContainer.getChildAt(0)).value;
                     //如果是打出的牌就是摸的牌，则移除摸的牌即可
                     if (drawCardValue == cardValue) {
-                        this._removeDrawCard();
+                        this.removeDrawCard();
                     } else {
                         this._deleteHandCardByValue(direction, cardValue);
                         this._moveDrawCardToHandList(drawCardValue);
@@ -125,7 +158,7 @@ module LC {
                 }
             } else {
                 if (this._drawCardContainer) {
-                    this._removeDrawCard();
+                    this.removeDrawCard();
                 } else {
                     this._deleteHandCardByValue(direction, cardValue);
                 }
@@ -177,6 +210,7 @@ module LC {
             this._drawCardContainer = null;
         }
 
+
         /**
         * 将手牌移除到drawCard,如吃碰杠操作后，弹一个将要出的牌，换牌（服务器返回了所有的card）成功的时候，如果是换的摸的牌，则将手牌移动过来
         * @param drawCardValue 牌值
@@ -184,8 +218,9 @@ module LC {
         public moveCardToDrawCard(direction: LC.Directions, drawCardValue: number) {
             if (this._drawCardContainer) return;//如果有摸的牌  则不移动
             this._deleteHandCardByValue(direction, drawCardValue);
-            this.addDrawCard(direction, drawCardValue);
+            this.addDrawCard(direction, drawCardValue, CardState.Stand);
         }
+
 
         /**
         * 摸牌(摸的牌只有一张)
@@ -193,27 +228,29 @@ module LC {
         * @param value       牌值
         *
         */
-        public addDrawCard(direction: LC.Directions, value: number) {
+        public addDrawCard(direction: LC.Directions, value: number, state: LC.CardState) {
             this._upCardContainer && this._upOrDown(this._upCardContainer, UpDownState.Down);//将点击的牌落下
             this._drawCardContainer && this._drawCardContainer.parent.removeChild(this._drawCardContainer);//如果有摸到的牌则移除掉，如游戏的补花
-            this._drawCardContainer = this._createHandCard(direction, value);
+            this._drawCardContainer = this._createHandCard(direction, value, state);
             this.AllCards.addChild(this._drawCardContainer);
         }
+
 
         /**
          * 移除摸牌
          */
-        public _removeDrawCard() {
+        public removeDrawCard() {
             this._drawCardContainer.parent.removeChild(this._drawCardContainer);
             this._drawCardContainer = null;
         }
 
+
         /**
-        * 添加牌到出牌列表
+        * 添加牌到出牌列表 (断线重连需要用到)
         * @param direction   方向
         * @param value       牌值
         */
-        public _addOutCard(direction: LC.Directions, value: number, cardPointer: LC.CardPointer) {
+        public _addOutCard(direction: LC.Directions, value: number, cardPointer?: LC.CardPointer) {
             let cardContainer = new eui.Group();//注意不要设置其大小，group才会根据子节点的大小来自适应 为了加入指针进来，所以添加了一个group
             this.OutCards.addChild(cardContainer);
 
@@ -226,10 +263,11 @@ module LC {
             cardContainer.addChild(card);
 
             this._adjustOutDir(direction, card);
-            this._moveCardPointer(cardContainer, cardPointer)
+            cardPointer && this._moveCardPointer(cardContainer, cardPointer)
 
             return cardContainer;
         }
+
 
         /**
          * 移动指针
@@ -240,6 +278,7 @@ module LC {
             cardPointer.visible = true;
             cardContainer.addChild(cardPointer);
         }
+
 
         /**
         * 调整出牌的布局(为了使用tilemap的自动布局，且节点的添加顺序和麻将的习惯一致，做此调整)
@@ -259,8 +298,10 @@ module LC {
                     // card.scaleY = -1;
                     break;
                 case LC.Directions.Up:
-                    card.scaleX = -1;
-                    card.scaleY = -1;
+                    card.scaleX = card.scaleY = -0.9;
+                    break;
+                case LC.Directions.Down:
+                    card.scaleX =  card.scaleY = 0.9;
                     break;
             }
         }
@@ -286,15 +327,21 @@ module LC {
         * @param direction   方向
         * @param value       牌值
         */
-        private _createHandCard(direction, value) {
+        private _createHandCard(direction: LC.Directions, value: number, state: LC.CardState) {
             //白鹭的group加了布局后不允许改动其位置，没法实现弹起的效果，真是讨厌，这里加个group
             let cardContainer = new eui.Group();//注意不要设置其大小，group才会根据子节点的大小来自适应
             cardContainer.y = 0;
-            (direction == LC.Directions.Down) && cardContainer.addEventListener(egret.TouchEvent.TOUCH_TAP, this._handCardHandler, this);
+            (direction == LC.Directions.Down && state == LC.CardState.Stand) && cardContainer.addEventListener(egret.TouchEvent.TOUCH_TAP, this._handCardHandler, this);
 
             let card = new LC.Card;
-            card.setCardTexture(direction, LC.CardState.Stand, value);
+            card.setCardTexture(direction, state, value);
             cardContainer.addChild(card);
+
+            if (direction == LC.Directions.Down && state == LC.CardState.Fall) {//自己倒下的手牌需要放大
+                card.scaleX = card.scaleY = 1.28;
+            }else if(direction == LC.Directions.Down && state == LC.CardState.Stand){
+                card.scaleX = card.scaleY = 0.85;
+            }
 
             return cardContainer;
         }
@@ -348,18 +395,35 @@ module LC {
 
 
         /**
-         * 将已碰的牌 变成杠牌显示 即显示四张
-         * @param direction   方向
-         * @param cardValue   牌值
-         */
-        public buGang(direction: LC.Directions, cardValue: number) {
+        * 重置模块
+        */
+        public reSetMod() {
+            this._handCardList = [];
+            this._upCardContainer = null;
+            this._drawCardContainer = null;
+            this.canOutACard = false;
+            //    this.removeDrawCard();
+
+            // this.FallHandCards.includeInLayout = false;
+            // this.HandCards.includeInLayout = true;
+
+            let deleteChilds = [];
+
             for (let i = 0; i < this.AllCards.numChildren; i++) {
                 let element = this.AllCards.getChildAt(i);
-                if (element instanceof LC.ComboCards) {
-                    (<LC.ComboCards>element).changBuGang(direction, cardValue);
+                if (element != this.HandCards && element != this.FallHandCards) {
+                    deleteChilds.push(element);
+                    //    this.AllCards.removeChild(element);//根据深度取的child，这里直接删除后，下一次取不到
                 }
             }
 
+            for (let element of deleteChilds) {
+                (<eui.Component>element).parent.removeChild(element);
+            }
+
+            this.FallHandCards.removeChildren();
+            this.HandCards.removeChildren();
+            this.OutCards.removeChildren();
         }
     }
 }

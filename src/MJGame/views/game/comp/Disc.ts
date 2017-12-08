@@ -19,7 +19,6 @@ module LC {
 		}
 
 		protected init() {
-			super.init();
 			//初始化
 			this.anim_dice.MC.stop();
 			this.anim_dice.visible = false;
@@ -27,6 +26,8 @@ module LC {
 			this.remain_count.visible = false;
 			//灯全不显示
 			this._setLightsVisible(false);
+			super.init();
+			
 		}
 
 		/**
@@ -53,7 +54,7 @@ module LC {
 
 				let timeoutId = egret.setTimeout(() => {
 					this.anim_dice.MC.stop();
-					this.anim_dice.MC.visible = false;
+					this.anim_dice.visible = false;
 					this.dice.visible = true;
 					clearTimeout(timeoutId);
 				}, this, 1000);
@@ -100,12 +101,23 @@ module LC {
 		 * 轮到出牌的一方的亮灯  后期加入倒计时在这里加
 		 * @param direction 方向
 		 */
-		public lightBright(direction: LC.Directions,coolTime?:number) {
+		public lightBright(direction: LC.Directions, coolTime?: number) {
 			this._setLightsVisible(false);
 			let element = this.lights.getChildAt(direction);
 			element.visible = true;
 			egret.Tween.get(element, { loop: true }).to({ alpha: 0 }, 200, egret.Ease.quadIn).to({ alpha: 1 }, 200, egret.Ease.quadIn);
 		}
 
+		/**
+        * 重置方向盘
+        */
+		public reSetDisc() {
+			this._setLightsVisible(false);
+			//初始化
+			this.anim_dice.MC.stop();
+			this.anim_dice.visible = false;
+			this.dice.visible = false;
+			this.remain_count.visible = false;
+		}
 	}
 }

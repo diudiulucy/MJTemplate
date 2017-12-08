@@ -20,8 +20,7 @@ module LC {
 			this.addChild(this.gameLayer);
 
 			
-			// ErrorCodeManager.Instance.init("error_txt");
-			// console.log(ErrorCodeManager.Instance.getErrorCode(1001));
+			// Tips.show(ErrorCodeManager.Instance.getErrorCode(902));
 		}
 	}
 }

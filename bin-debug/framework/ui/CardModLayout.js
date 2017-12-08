@@ -44,12 +44,12 @@ var LC;
          * @param handCardList 手牌列表
          */
         CardModLayout.prototype.initHandCards = function (direction, handCardList) {
-            this.currentState = LC.Directions[direction];
+            this.currentState = LC.Directions[direction]; //选择模块的状态
             ArrayUtils.sortByAsc(handCardList); //升序排列
             this._handCardList = handCardList; //记录当前模块的手牌
             this.HandCards.removeChildren(); //先移除手牌上的节点，再添加
             for (var i = 0; i < handCardList.length; i++) {
-                var cardContainer = this._createHandCard(direction, handCardList[i]);
+                var cardContainer = this._createHandCard(direction, handCardList[i], LC.CardState.Stand);
                 this.HandCards.addChild(cardContainer);
             }
         };
@@ -69,6 +69,35 @@ var LC;
                 this._handCardList.push(bu_cards[key]);
             }
             this.initHandCards(direction, this._handCardList);
+        };
+        /**
+         * 将已碰的牌 变成杠牌显示 即显示四张
+         * @param direction   方向
+         * @param cardValue   牌值
+         */
+        CardModLayout.prototype.buGang = function (direction, cardValue) {
+            for (var i = 0; i < this.AllCards.numChildren; i++) {
+                var element = this.AllCards.getChildAt(i);
+                if (element instanceof LC.ComboCards) {
+                    element.changBuGang(direction, cardValue);
+                }
+            }
+        };
+        /**
+         * 手牌到下
+         */
+        CardModLayout.prototype.fallDownAllHandCards = function (direction, handCardList) {
+            ArrayUtils.sortByAsc(handCardList); //升序排列
+            this._handCardList = handCardList; //记录当前模块的手牌
+            this.HandCards.removeChildren(); //先移除手牌上的节点，再添加
+            for (var i = 0; i < handCardList.length; i++) {
+                var cardContainer = this._createHandCard(direction, handCardList[i], LC.CardState.Fall);
+                this.FallHandCards.addChild(cardContainer);
+            }
+            if (this._drawCardContainer) {
+                var drawCardValue = this._drawCardContainer.getChildAt(0).value;
+                this.addDrawCard(direction, drawCardValue, LC.CardState.Fall);
+            }
         };
         /**
          * 剔除花牌
@@ -101,7 +130,7 @@ var LC;
                     var drawCardValue = this._drawCardContainer.getChildAt(0).value;
                     //如果是打出的牌就是摸的牌，则移除摸的牌即可
                     if (drawCardValue == cardValue) {
-                        this._removeDrawCard();
+                        this.removeDrawCard();
                     }
                     else {
                         this._deleteHandCardByValue(direction, cardValue);
@@ -114,7 +143,7 @@ var LC;
             }
             else {
                 if (this._drawCardContainer) {
-                    this._removeDrawCard();
+                    this.removeDrawCard();
                 }
                 else {
                     this._deleteHandCardByValue(direction, cardValue);
@@ -170,7 +199,7 @@ var LC;
             if (this._drawCardContainer)
                 return; //如果有摸的牌  则不移动
             this._deleteHandCardByValue(direction, drawCardValue);
-            this.addDrawCard(direction, drawCardValue);
+            this.addDrawCard(direction, drawCardValue, LC.CardState.Stand);
         };
         /**
         * 摸牌(摸的牌只有一张)
@@ -178,21 +207,21 @@ var LC;
         * @param value       牌值
         *
         */
-        CardModLayout.prototype.addDrawCard = function (direction, value) {
+        CardModLayout.prototype.addDrawCard = function (direction, value, state) {
             this._upCardContainer && this._upOrDown(this._upCardContainer, UpDownState.Down); //将点击的牌落下
             this._drawCardContainer && this._drawCardContainer.parent.removeChild(this._drawCardContainer); //如果有摸到的牌则移除掉，如游戏的补花
-            this._drawCardContainer = this._createHandCard(direction, value);
+            this._drawCardContainer = this._createHandCard(direction, value, state);
             this.AllCards.addChild(this._drawCardContainer);
         };
         /**
          * 移除摸牌
          */
-        CardModLayout.prototype._removeDrawCard = function () {
+        CardModLayout.prototype.removeDrawCard = function () {
             this._drawCardContainer.parent.removeChild(this._drawCardContainer);
             this._drawCardContainer = null;
         };
         /**
-        * 添加牌到出牌列表
+        * 添加牌到出牌列表 (断线重连需要用到)
         * @param direction   方向
         * @param value       牌值
         */
@@ -207,7 +236,7 @@ var LC;
             card.verticalCenter = 0;
             cardContainer.addChild(card);
             this._adjustOutDir(direction, card);
-            this._moveCardPointer(cardContainer, cardPointer);
+            cardPointer && this._moveCardPointer(cardContainer, cardPointer);
             return cardContainer;
         };
         /**
@@ -237,8 +266,10 @@ var LC;
                     // card.scaleY = -1;
                     break;
                 case LC.Directions.Up:
-                    card.scaleX = -1;
-                    card.scaleY = -1;
+                    card.scaleX = card.scaleY = -0.9;
+                    break;
+                case LC.Directions.Down:
+                    card.scaleX = card.scaleY = 0.9;
                     break;
             }
         };
@@ -261,14 +292,20 @@ var LC;
         * @param direction   方向
         * @param value       牌值
         */
-        CardModLayout.prototype._createHandCard = function (direction, value) {
+        CardModLayout.prototype._createHandCard = function (direction, value, state) {
             //白鹭的group加了布局后不允许改动其位置，没法实现弹起的效果，真是讨厌，这里加个group
             var cardContainer = new eui.Group(); //注意不要设置其大小，group才会根据子节点的大小来自适应
             cardContainer.y = 0;
-            (direction == LC.Directions.Down) && cardContainer.addEventListener(egret.TouchEvent.TOUCH_TAP, this._handCardHandler, this);
+            (direction == LC.Directions.Down && state == LC.CardState.Stand) && cardContainer.addEventListener(egret.TouchEvent.TOUCH_TAP, this._handCardHandler, this);
             var card = new LC.Card;
-            card.setCardTexture(direction, LC.CardState.Stand, value);
+            card.setCardTexture(direction, state, value);
             cardContainer.addChild(card);
+            if (direction == LC.Directions.Down && state == LC.CardState.Fall) {
+                card.scaleX = card.scaleY = 1.28;
+            }
+            else if (direction == LC.Directions.Down && state == LC.CardState.Stand) {
+                card.scaleX = card.scaleY = 0.85;
+            }
             return cardContainer;
         };
         /**
@@ -316,17 +353,30 @@ var LC;
             this.AllCards.addChildAt(combCards, 0);
         };
         /**
-         * 将已碰的牌 变成杠牌显示 即显示四张
-         * @param direction   方向
-         * @param cardValue   牌值
-         */
-        CardModLayout.prototype.buGang = function (direction, cardValue) {
+        * 重置模块
+        */
+        CardModLayout.prototype.reSetMod = function () {
+            this._handCardList = [];
+            this._upCardContainer = null;
+            this._drawCardContainer = null;
+            this.canOutACard = false;
+            //    this.removeDrawCard();
+            // this.FallHandCards.includeInLayout = false;
+            // this.HandCards.includeInLayout = true;
+            var deleteChilds = [];
             for (var i = 0; i < this.AllCards.numChildren; i++) {
                 var element = this.AllCards.getChildAt(i);
-                if (element instanceof LC.ComboCards) {
-                    element.changBuGang(direction, cardValue);
+                if (element != this.HandCards && element != this.FallHandCards) {
+                    deleteChilds.push(element);
                 }
             }
+            for (var _i = 0, deleteChilds_1 = deleteChilds; _i < deleteChilds_1.length; _i++) {
+                var element = deleteChilds_1[_i];
+                element.parent.removeChild(element);
+            }
+            this.FallHandCards.removeChildren();
+            this.HandCards.removeChildren();
+            this.OutCards.removeChildren();
         };
         return CardModLayout;
     }(eui.Component));

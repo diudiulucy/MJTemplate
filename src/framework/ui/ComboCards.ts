@@ -59,7 +59,7 @@ module LC {
             this._setComboSkinState(direction);
 
             if (direction == LC.Directions.Down) {
-                this.scaleX = this.scaleY = 1.47;
+                this.scaleX = this.scaleY = 1.28;
             }
 
             switch (type) {

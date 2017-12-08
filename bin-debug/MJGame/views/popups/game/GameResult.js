@@ -15,26 +15,32 @@ var LC;
 (function (LC) {
     var GameResult = (function (_super) {
         __extends(GameResult, _super);
-        function GameResult() {
+        function GameResult(data) {
             var _this = _super.call(this) || this;
-            // private group_label_number: eui.Group;
-            // private group_number_btn: eui.Group;
-            // private label_roomNo:eui.BitmapLabel;
             /**按钮列表 */
             _this._numberBtns = [];
             _this.skinName = "Skin.GameResult";
+            _this._data = data;
             return _this;
         }
         GameResult.prototype.init = function () {
             _super.prototype.init.call(this);
+            this._setTotalResult();
+        };
+        GameResult.prototype._setTotalResult = function () {
+            var totalPoints = this._data.total_points;
+            for (var key in this._data.total_points) {
+                var user = LC.UsersInfo.Instance.getUserBySeatID(Number(key)); //找到座位号对应的用户，需要其客户端对应的座位号
+                var totalLabel = new eui.Label();
+                this.total_Group.addChild(totalLabel);
+                totalLabel.text = "\u73A9\u5BB6" + user.user_id + "\u7684\u603B\u5206\uFF1A" + totalPoints[key];
+            }
         };
         GameResult.prototype.setOnTouchListener = function () {
             this.closeButton.addEventListener(egret.TouchEvent.TOUCH_TAP, this._onCloseClick, this);
-            // this.group_number_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this._onNumberBtnClick, this);
         };
         GameResult.prototype.removeOnTouchListener = function () {
             this.closeButton.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onCloseClick, this);
-            // this.group_number_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onNumberBtnClick, this);
         };
         GameResult.prototype.registerCustomEvents = function () {
             this.UIEventList = [];

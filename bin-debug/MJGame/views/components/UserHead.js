@@ -25,24 +25,31 @@ var LC;
             eui.Binding.bindHandler(this._userModel, ["user_id"], this._userNameChange, this);
             eui.Binding.bindHandler(this._userModel, ["isBanker"], this._userIsBankerChange, this);
             eui.Binding.bindHandler(this._userModel, ["status"], this._userIsReadyChange, this);
+            eui.Binding.bindHandler(this._userModel, ["is_online"], this._isOnlineChange, this);
         };
         UserHead.prototype._userNameChange = function (value) {
-            if (!value)
+            if (value == null)
                 return;
             console.log("_userNameChange");
             this.label_Name.text = value || "";
         };
         UserHead.prototype._userIsBankerChange = function (value) {
-            if (!value)
+            if (value == null)
                 return;
             console.log("_userIsBankerChange");
             this.img_banker.visible = value;
         };
         UserHead.prototype._userIsReadyChange = function (value) {
-            if (!value)
+            if (value == null)
                 return;
             console.log("_userIsReadyChange");
-            this.label_ready.visible = (value == LC.ReadyState.READY) ? true : false;
+            this.label_ready.visible = (value == LC.UserState.READY) ? true : false;
+        };
+        UserHead.prototype._isOnlineChange = function (value) {
+            if (value == null)
+                return;
+            console.log("_isOnlineChange");
+            this.off_line.visible = (value == LC.NetState.OFFLINE) ? true : false;
         };
         Object.defineProperty(UserHead.prototype, "UserModel", {
             /**

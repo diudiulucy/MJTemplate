@@ -34,33 +34,13 @@ var LC;
                 console.log("加入好友房间成功");
                 //记录桌子信息
                 LC.DeskInfo.deskID = obj.info.desk_id;
-                this._findAndSetMyself(obj.info.seat_info);
-                //加入User
-                for (var _i = 0, _a = obj.info.seat_info; _i < _a.length; _i++) {
-                    var value = _a[_i];
-                    var user = new LC.User();
-                    for (var key in value) {
-                        user[key] = value[key];
-                    }
-                    LC.UsersInfo.Instance.addUser(user);
-                }
+                LC.UsersInfo.Instance.addManyUsers(obj.info.seat_info);
                 var gameScene = new LC.GameScene();
                 LC.SceneManager.Instance.replaceScene(gameScene);
             }
             else {
-            }
-        };
-        /**
-         * 找出自己并赋值
-         */
-        JoinRoomController.prototype._findAndSetMyself = function (seat_info) {
-            for (var _i = 0, seat_info_1 = seat_info; _i < seat_info_1.length; _i++) {
-                var value = seat_info_1[_i];
-                var user = new LC.User();
-                for (var key in value) {
-                    user[key] = value[key];
-                }
-                (user.user_id == LC.UsersInfo.MySelf.user_id) && (LC.UsersInfo.MySelf = user);
+                var errorInfo = JSON.parse(data);
+                LC.Tips.show(LC.ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
             }
         };
         /**

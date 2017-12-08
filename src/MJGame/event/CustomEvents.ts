@@ -4,7 +4,6 @@
  * @date 2017/10/19
  */
 module CustomEvents {
-	export const UPDATE_VIEW:string = "updateView";
 	export const OtherPlayer_EnterROOM:string = "otherPlayerEnterRoom";//其他玩家进入房间
 	export const DealCard:string = "dealCard";//发牌
 	export const DrawCard:string = "drawCard";//摸牌
@@ -14,5 +13,6 @@ module CustomEvents {
 	export const CanAct:string = "canAct";//可以进行什么操作
 	export const ACT_Aleady:string = "actAleady";//服务器通知操作完成，UI进行更新
 	export const ChangeCard:string = "changeCard";//测试的时候换牌操作
-	
+	export const CheckOut:string = "checkOut";//结算
+	export const GameOver:string = "gameOver";//游戏结束
 }

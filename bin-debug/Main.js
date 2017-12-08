@@ -104,8 +104,23 @@ var Main = (function (_super) {
     Main.prototype.createScene = function () {
         if (this.isThemeLoadEnd && this.isResourceLoadEnd) {
             LC.Tips.Instance.setLayer(this.stage);
+            LC.ErrorCodeManager.Instance.init("error_txt");
             var loginScene = new LC.LoginScene();
             LC.SceneManager.Instance.replaceScene(loginScene);
+            var createClock = function (ctor, hour, minute) {
+                return new ctor(hour, minute);
+            };
+            var Clock = (function () {
+                function Clock(h, m) {
+                }
+                Clock.prototype.setTime = function (d) {
+                };
+                ;
+                Clock.prototype.tick = function () {
+                };
+                ;
+                return Clock;
+            }());
         }
     };
     /**

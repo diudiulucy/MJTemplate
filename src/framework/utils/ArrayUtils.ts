@@ -4,6 +4,12 @@
  * @date 2016/7/19
  */
 module ArrayUtils {
+	/**
+	 * 定义一个Map,索引值为number;
+	 */
+	export interface Map<T> {
+		[key:number]:T;
+	}
 
 	/**
 	 * 数组升序排列
@@ -47,5 +53,9 @@ module ArrayUtils {
 		return [].concat(JSON.parse(JSON.stringify(arr)));
 	}
 
-
+	export function isEmptyObject(object){
+		// return (JSON.stringify(object) == "{}"); //或者用此方法来判定
+		let arr = Object.keys(object);
+		return (arr.length == 0);
+	}
 }

@@ -124,8 +124,8 @@ module LC {
 			let combCards = <LC.ComboCards>event.currentTarget;
 			let index = this.chiComb_Group.getChildIndex(combCards);
 			let info = this._actList[LC.ACT.CHI].info;
-			this.chiComb_Group.visible = false;
 			this.hide();
+			this.chiComb_Group.visible = false;
 			this.chiComb_Group.removeChildren();
 			this._ctrl.actChi(info[index]);
 
@@ -141,23 +141,23 @@ module LC {
 
 		private _actHuClick() {
 			console.log("_actHuClick");
-			if(this._actList[LC.ACT.DIAN_HU].info){
+			if (this._actList[LC.ACT.DIAN_HU].info) {
 				this._ctrl.actHu(LC.ACT.DIAN_HU);
-			}else if(this._actList[LC.ACT.ZI_MO].info){
+			} else if (this._actList[LC.ACT.ZI_MO].info) {
 				this._ctrl.actHu(LC.ACT.ZI_MO);
 			}
 		}
 
 		private _actGangClick() {
 			console.log("_actGangClick");
-			if(this._actList[LC.ACT.DIAN_GANG].info){//是某种杠的类型info才有值，注意在clearLayout时 delete此属性
+			if (this._actList[LC.ACT.DIAN_GANG].info) {//是某种杠的类型info才有值，注意在clearLayout时 delete此属性
 				this._ctrl.actGang(LC.ACT.DIAN_GANG);
-			}else if(this._actList[LC.ACT.BU_GANG].info){
-				this._ctrl.actGang(LC.ACT.BU_GANG,this._actList[LC.ACT.BU_GANG].info[0]);
-			}else if (this._actList[LC.ACT.AN_GANG].info){
-				this._ctrl.actGang(LC.ACT.AN_GANG,this._actList[LC.ACT.AN_GANG].info[0]);
+			} else if (this._actList[LC.ACT.BU_GANG].info) {
+				this._ctrl.actGang(LC.ACT.BU_GANG, this._actList[LC.ACT.BU_GANG].info[0]);
+			} else if (this._actList[LC.ACT.AN_GANG].info) {
+				this._ctrl.actGang(LC.ACT.AN_GANG, this._actList[LC.ACT.AN_GANG].info[0]);
 			}
-			
+
 		}
 
 		/**
@@ -180,6 +180,8 @@ module LC {
 
 		public hide() {
 			this.visible = false;
+			this.chiComb_Group.visible = false;
+			this.chiComb_Group.removeChildren();
 			this._clearLayout();
 		}
 	}

@@ -42,7 +42,7 @@ module LC {
 
 		protected registerCustomEvents() {
 			this.UIEventList = [
-				// CustomEvents.UPDATE_VIEW
+				
 			];
 		}
 

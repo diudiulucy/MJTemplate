@@ -24,24 +24,29 @@ var LC;
             return _this;
         }
         GameLayer.prototype.init = function () {
-            _super.prototype.init.call(this);
-            console.log("进入游戏层");
-            this._initTestPanel();
-            this._initCardPointer();
             this._initCardModDirection(); //初始化牌布局的方向
-            // test
-            // this.mod_down.initHandCards(this.mod_down.direction, [18, 17, 19, 97, 23, 24, 22, 21, 102, 20, 33, 35, 101]);
-            // // this.mod_down.addDrawCard(this.mod_down.direction, 18);
-            // this.mod_up.initHandCards(this.mod_up.direction, [18, 17, 19, 97, 23, 24, 22, 21, 102, 20, 33, 35, 101]);
-            // this.mod_left.initHandCards(this.mod_left.direction, [18, 17, 19, 97, 23, 24, 22, 21, 102, 20, 33, 35, 101]);
-            // this.mod_right.initHandCards(this.mod_right.direction, [18, 17, 19, 97, 23, 24, 22, 21, 102, 20, 33, 35, 101]);
-            // this.mod_down.addCombToAllCardList(this.mod_down.direction, [], [22, 22, 22], LC.CardCombType.Peng);
-            // this.mod_up.addCombToAllCardList(this.mod_up.direction, [], [22, 22, 22], LC.CardCombType.Peng);
-            // this.mod_left.addCombToAllCardList(this.mod_left.direction, [0, 1], [22, 22, 22], LC.CardCombType.Peng);
-            // this.mod_right.addCombToAllCardList(this.mod_right.direction, [0, 1], [22, 22, 22], LC.CardCombType.Peng);
-            // this.mod_down.appliqueCards(this.mod_down.direction,[97,102,101],[49,50,51]);
             this._initLayoutSeats(); //布置座位
+            _super.prototype.init.call(this); // watchdata得在上面初始化之后才能执行 所以后执行父类
+            this._initTestPanel(); //初始化测试面板
+            this._initCardPointer(); //初始化出牌指针
             this._initUsersSeats(); //玩家就座
+            // this.mod_up.initHandCards(this.mod_up.direction, [25, 25, 34, 38, 38, 51, 52, 35, 36, 37, 41, 41, 57]);
+            // this.mod_down.initHandCards(this.mod_down.direction, [25, 25, 34, 38, 38, 51, 52, 35, 36, 37, 41, 41, 57]);
+            // this.mod_right.initHandCards(this.mod_right.direction, [25, 25, 34, 38, 38, 51, 52, 35, 36, 37, 41, 41, 57]);
+            // this.mod_left.initHandCards(this.mod_left.direction, [25, 25, 34, 38, 38, 51, 52, 35, 36, 37, 41, 41, 57]);
+            // this.mod_up.addCombToAllCardList(this.mod_up.direction, [25, 25, 34], [25, 25, 25, 25], CardCombType.MGang);
+            // this.mod_down.addCombToAllCardList(this.mod_down.direction, [25, 25, 34], [25, 25, 25, 25], CardCombType.MGang);
+            // this.mod_right.addCombToAllCardList(this.mod_right.direction, [25, 25, 34], [25, 25, 25, 25], CardCombType.MGang);
+            // this.mod_left.addCombToAllCardList(this.mod_left.direction, [25, 25, 34], [25, 25, 25, 25], CardCombType.MGang);
+            // this.mod_up.addDrawCard(this.mod_up.direction, 33,LC.CardState.Stand);
+            // this.mod_down.addDrawCard(this.mod_down.direction, 33,LC.CardState.Stand);
+            // this.mod_right.addDrawCard(this.mod_right.direction, 33,LC.CardState.Stand);
+            // this.mod_left.addDrawCard(this.mod_left.direction, 33,LC.CardState.Stand);
+            // this.mod_up.fallDownAllHandCards(this.mod_up.direction, [38, 38, 51, 52, 35, 36, 37, 41, 41, 57]);
+            // this.mod_down.fallDownAllHandCards(this.mod_down.direction, [38, 38, 51, 52, 35, 36, 37, 41, 41, 57]);
+            // this.mod_right.fallDownAllHandCards(this.mod_right.direction, [38, 38, 51, 52, 35, 36, 37, 41, 41, 57]);
+            // this.mod_left.fallDownAllHandCards(this.mod_left.direction, [38, 38, 51, 52, 35, 36, 37, 41, 41, 57]);
+            console.log("进入游戏层");
         };
         /**
          * 初始化出牌指针
@@ -179,12 +184,14 @@ var LC;
                 CustomEvents.AllUsersReady,
                 CustomEvents.ACT_Aleady,
                 LC.SelectCardComplete,
-                CustomEvents.ChangeCard
+                CustomEvents.ChangeCard,
+                CustomEvents.CheckOut,
+                CustomEvents.GameOver
             ];
         };
         GameLayer.prototype.setOnTouchListener = function () {
-            var _this = this;
             this.btn_ready.addEventListener(egret.TouchEvent.TOUCH_TAP, this._onReadyBtnClick, this);
+            this.btn_cancel.addEventListener(egret.TouchEvent.TOUCH_TAP, this._onReadyBtnClick, this);
             //测试相关
             this.dealCard.addEventListener(egret.TouchEvent.TOUCH_TAP, this._onTestBtnClick, this);
             this.changeCard.addEventListener(egret.TouchEvent.TOUCH_TAP, this._onTestBtnClick, this);
@@ -192,37 +199,10 @@ var LC;
             this.selectTargetCard.addEventListener(egret.TouchEvent.TOUCH_TAP, this._onTestBtnClick, this);
             this.selectSourceCard.addEventListener(egret.TouchEvent.TOUCH_TAP, this._onTestBtnClick, this);
             this.sure.addEventListener(egret.TouchEvent.TOUCH_TAP, this._onTestBtnClick, this);
-            this.move.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
-                _this.mod_down.buGang(_this.mod_down.direction, 22);
-                _this.mod_up.buGang(_this.mod_up.direction, 22);
-                _this.mod_left.buGang(_this.mod_left.direction, 22);
-                _this.mod_right.buGang(_this.mod_right.direction, 22);
-                // this.mod_left.addCombToAllCardList(this.mod_left.direction, [0, 1], [22, 23, 24], LC.CardCombType.Chi);
-                // this.mod_right.addCombToAllCardList(this.mod_right.direction, [0, 1], [22, 23, 24], LC.CardCombType.Chi);
-                // this.mod_down.addCombToAllCardList(this.mod_down.direction, [], [22, 23, 24], LC.CardCombType.Chi);
-                // this.mod_up.addCombToAllCardList(this.mod_up.direction, [], [22, 23, 24], LC.CardCombType.Chi);
-                // // this.mod_left.addCombToAllCardList(this.mod_left.direction, [0, 1], [22, 23, 24], LC.CardCombType.Chi);
-                // // this.mod_right.addCombToAllCardList(this.mod_right.direction, [0, 1], [22, 23, 24], LC.CardCombType.Chi);
-                // this.mod_up.addCombToAllCardList(this.mod_up.direction, [0, 1, 2], [22, 22, 22, 22], LC.CardCombType.MGang);
-                // this.mod_down.addCombToAllCardList(this.mod_down.direction, [0, 1, 2], [22, 22, 22, 22], LC.CardCombType.AnGang);
-                // this.mod_down.moveDrawCardToHandList(8);		// this.mod_down.addDrawCard(this.mod_down.direction, 17);
-                // if (GameLayer.count < 33) {
-                // 	// this.mod_down._addOutCard(this.mod_down.direction, GameLayer.count,this._cardPointer);
-                // 	this.mod_up._addOutCard(this.mod_up.direction, GameLayer.count, this._cardPointer);
-                // 	// this.mod_left._addOutCard(this.mod_left.direction, GameLayer.count,this._cardPointer);
-                // } else if (GameLayer.count >= 33) {
-                // 	this.mod_up._addOutCard(this.mod_up.direction, GameLayer.count, this._cardPointer);
-                // 	// this.mod_right._addOutCard(this.mod_right.direction, GameLayer.count,this._cardPointer);
-                // }
-                // this.mod_up._addOutCard(this.mod_up.direction, GameLayer.count, this._cardPointer);
-                // // this.mod_up._addOutCard(this.mod_up.direction, GameLayer.count,this._cardPointer);
-                // GameLayer.count++;
-                // if (GameLayer.count == 26) GameLayer.count = 33;
-                // if (GameLayer.count == 42) GameLayer.count = 49;
-            }, this);
         };
         GameLayer.prototype.removeOnTouchListener = function () {
             this.btn_ready.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onReadyBtnClick, this);
+            this.btn_cancel.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onReadyBtnClick, this);
             //测试相关
             this.dealCard.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onTestBtnClick, this);
             this.changeCard.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onTestBtnClick, this);
@@ -233,12 +213,122 @@ var LC;
         };
         GameLayer.prototype.watchData = function () {
             eui.Binding.bindHandler(LC.DeskInfo, ["deskID"], this._roomNoChange, this);
+            eui.Binding.bindHandler(LC.DeskInfo, ["gameData"], this._gameDataChange, this);
+            eui.Binding.bindHandler(LC.UsersInfo.MySelf, ["status"], this._MySelfStatusChange, this);
         };
         /**
          * 房间号有变化时调用
          */
         GameLayer.prototype._roomNoChange = function (value) {
             value && (this.roomNo.text = "\u623F\u95F4\u53F7\uFF1A" + value.toString());
+        };
+        GameLayer.prototype._MySelfStatusChange = function (value) {
+            value && (value == LC.UserState.UNREADY) ? this.btn_ready.visible = true : this.btn_ready.visible = false;
+            value && (value == LC.UserState.READY) ? this.btn_cancel.visible = true : this.btn_cancel.visible = false;
+        };
+        //断线重连的数据恢复
+        GameLayer.prototype._gameDataChange = function (value) {
+            var _this = this;
+            if (!value)
+                return;
+            if (ArrayUtils.isEmptyObject(value))
+                return;
+            LC.DeskInfo.status = value.desk_info.status;
+            this._recoverHandCards(value);
+            this._recoverCombAndOutCards(value);
+            //风向
+            this._setDiscFeng();
+            //剩余牌数
+            LC.DeskInfo.remain_count = value.desk_info.remain_cards;
+            this._recoverBanker(value.desk_info.bank_seat_id);
+            var timeoutId = egret.setTimeout(function () {
+                _this._recoverLightBright(value); //延点时间 不知道为啥被哪里隐藏了
+                clearTimeout(timeoutId);
+            }, this, 300);
+            this._recoverDrawCard(value);
+        };
+        GameLayer.prototype._recoverLightBright = function (value) {
+            var seatID = value.desk_info.cur_speaker_seat_id;
+            var user = LC.UsersInfo.Instance.getUserBySeatID(seatID);
+            var cardMod = this.seatsUI[user.client_seatID].getChildAt(1); //座位的牌布局对象
+            this.disc.lightBright(cardMod.direction); //倒计时在此接口加入
+        };
+        GameLayer.prototype._recoverDrawCard = function (value) {
+            var seatID = value.desk_info.cur_speaker_seat_id;
+            var user = LC.UsersInfo.Instance.getUserBySeatID(seatID);
+            var cardMod = this.seatsUI[user.client_seatID].getChildAt(1); //座位的牌布局对象
+            value.player_info[seatID].last_card != 0 && cardMod.moveCardToDrawCard(cardMod.direction, value.player_info[seatID].last_card);
+        };
+        GameLayer.prototype._recoverCombAndOutCards = function (value) {
+            //打出去的牌和吃碰杠的牌
+            for (var _i = 0, _a = value.out_cards_info; _i < _a.length; _i++) {
+                var out_card = _a[_i];
+                //找到座位号
+                var user = LC.UsersInfo.Instance.getUserBySeatID(out_card.seat_id); //找到座位号对应的用户，需要其客户端对应的座位号
+                var cardMod = this.seatsUI[user.client_seatID].getChildAt(1); //座位的牌布局对象
+                //出牌
+                for (var key in out_card.chu) {
+                    var chuCard = out_card.chu[key];
+                    if (!chuCard.is_robbed) {
+                        if (value.desk_info.cur_speaker_seat_id == out_card.seat_id && Number(key) == out_card.chu.length - 1) {
+                            this._currentOutCardContainer = cardMod._addOutCard(cardMod.direction, chuCard.card, this._cardPointer);
+                        }
+                        else {
+                            cardMod._addOutCard(cardMod.direction, chuCard.card);
+                        }
+                    }
+                }
+                this._recoverCombCards(cardMod, out_card.against);
+            }
+        };
+        /**
+         * 断线恢复手牌
+         */
+        GameLayer.prototype._recoverHandCards = function (value) {
+            for (var _i = 0, _a = value.player_info; _i < _a.length; _i++) {
+                var cardInfo = _a[_i];
+                var user = LC.UsersInfo.Instance.getUserBySeatID(cardInfo.seat_id); //找到座位号对应的用户，需要其客户端对应的座位号
+                var cardMod = this.seatsUI[user.client_seatID].getChildAt(1); //座位的牌布局对象
+                cardMod.initHandCards(cardMod.direction, cardInfo.hand_card);
+            }
+        };
+        /**
+         * 断线恢复庄家
+         */
+        GameLayer.prototype._recoverBanker = function (seatID) {
+            var user = LC.UsersInfo.Instance.getUserBySeatID(seatID);
+            console.log("\u5BA2\u6237\u7AEF\u5EA7\u4F4D\u4E3A" + user.client_seatID + "\u662F\u5E84\u5BB6");
+            user.isBanker = true;
+        };
+        /**
+         * 断线恢复组合牌
+         */
+        GameLayer.prototype._recoverCombCards = function (cardMod, against) {
+            //组合牌
+            for (var _i = 0, against_1 = against; _i < against_1.length; _i++) {
+                var combo = against_1[_i];
+                var deleteList = [];
+                var combList = [];
+                switch (combo.type) {
+                    case LC.ACT.PENG:
+                        this._addCombArray(3, combList, combo.cards[0]);
+                        cardMod.addCombToAllCardList(cardMod.direction, deleteList, combList, LC.CardCombType.Peng);
+                        break;
+                    case LC.ACT.CHI:
+                        combList = combo.cards;
+                        cardMod.addCombToAllCardList(cardMod.direction, deleteList, combList, LC.CardCombType.Chi);
+                        break;
+                    case LC.ACT.DIAN_GANG:
+                    case LC.ACT.BU_GANG:
+                        this._addCombArray(4, combList, combo.cards[0]); //添加组合牌
+                        cardMod.addCombToAllCardList(cardMod.direction, deleteList, combList, LC.CardCombType.MGang);
+                        break;
+                    case LC.ACT.AN_GANG:
+                        this._addCombArray(4, combList, combo.cards[0]); //添加组合牌
+                        cardMod.addCombToAllCardList(cardMod.direction, deleteList, combList, LC.CardCombType.AnGang);
+                        break;
+                }
+            }
         };
         GameLayer.prototype._initCardModDirection = function () {
             this.mod_down.direction = LC.Directions.Down;
@@ -250,6 +340,9 @@ var LC;
          * 所有玩家准备好
          */
         GameLayer.prototype.ui_allUsersReady = function (event) {
+            this._setDiscFeng();
+        };
+        GameLayer.prototype._setDiscFeng = function () {
             var user = LC.UsersInfo.Instance.getUserBySeatID(0); //找到服务器座位号为0的用户,0为东风
             var cardMod = this.seatsUI[user.client_seatID].getChildAt(1); //为0的用户座位的牌布局对象
             this.disc.setDongFengDirection(cardMod.direction);
@@ -263,6 +356,7 @@ var LC;
             for (var key in all_cards) {
                 var data = all_cards[key];
                 var user = LC.UsersInfo.Instance.getUserBySeatID(data.seat_id); //找到座位号对应的用户，需要其客户端对应的座位号
+                user.status = LC.UserState.PLAYING;
                 var cardMod = this.seatsUI[user.client_seatID].getChildAt(1); //座位的牌布局对象
                 cardMod.initHandCards(cardMod.direction, data.card_list);
             }
@@ -277,7 +371,7 @@ var LC;
             var cardMod = this.seatsUI[user.client_seatID].getChildAt(1); //座位的牌布局对象
             cardMod.initHandCards(cardMod.direction, data.hand_card);
             if (data.hand_card.length == 14) {
-                cardMod._removeDrawCard();
+                cardMod.removeDrawCard();
                 cardMod.moveCardToDrawCard(cardMod.direction, data.hand_card[0]); //如果换来了14张牌，一张牌放到旁边
             }
         };
@@ -301,7 +395,7 @@ var LC;
             var user = LC.UsersInfo.Instance.getUserBySeatID(info.seat_id); //找到座位号对应的用户，需要其客户端对应的座位号
             console.log("\u5BA2\u6237\u7AEF\u5EA7\u4F4D\u53F7\u4E3A" + user.client_seatID + "\u6E38\u620F\u8865\u82B1");
             var cardMod = this.seatsUI[user.client_seatID].getChildAt(1); //座位的牌布局对象
-            cardMod.addDrawCard(cardMod.direction, info.hua_card_list[0]);
+            cardMod.addDrawCard(cardMod.direction, info.hua_card_list[0], LC.CardState.Stand);
         };
         /**
          * 绑定用户模型在userHead上
@@ -313,6 +407,31 @@ var LC;
             userHead.UserModel = user;
         };
         /**
+         * 结算
+         */
+        GameLayer.prototype.ui_checkOut = function (event) {
+            console.log(this.TAG + " ui_checkOut: " + JSON.stringify(event.data.info));
+            var info = event.data.info;
+            this.actHandler.hide();
+            var gameResultLayer = new LC.GameResult(info);
+            LC.SceneManager.Instance.runningScene.addChild(gameResultLayer);
+        };
+        /**
+         * 游戏结束
+         */
+        GameLayer.prototype.ui_gameOver = function (event) {
+            console.log(this.TAG + " ui_gameOver: " + JSON.stringify(event.data.info));
+            var info = event.data.info;
+            LC.DeskInfo.status = LC.DeskStatus.OVER;
+            for (var key in info.player_info) {
+                var user = LC.UsersInfo.Instance.getUserBySeatID(Number(key)); //找到座位号对应的用户，需要其客户端对应的座位号
+                var cardMod = this.seatsUI[user.client_seatID].getChildAt(1); //座位的牌布局对象
+                cardMod.fallDownAllHandCards(cardMod.direction, info.player_info[key]);
+            }
+            //重置用户的状态和庄家的信息
+            LC.UsersInfo.Instance.reSetAllUsersStatus();
+        };
+        /**
          * 摸牌，轮到谁，谁的灯亮，并且开启倒计时
          */
         GameLayer.prototype.ui_drawCard = function (event) {
@@ -321,7 +440,7 @@ var LC;
             var user = LC.UsersInfo.Instance.getUserBySeatID(info.seat_id);
             var cardMod = this.seatsUI[user.client_seatID].getChildAt(1); //座位的牌布局对象
             this.disc.lightBright(cardMod.direction); //倒计时在此接口加入
-            cardMod.addDrawCard(cardMod.direction, info.card_list[0]); //添加摸牌对象
+            cardMod.addDrawCard(cardMod.direction, info.card_list[0], LC.CardState.Stand); //添加摸牌对象
         };
         /**
          * 服务器告诉玩家可以进行什么操作
@@ -387,7 +506,7 @@ var LC;
             this.actHandler.hide(); //做了操作后 此可以隐藏
             var deleteList = [];
             var combList = [];
-            console.log("_parseActResponse" + LC.ACT[info.act_type]);
+            console.log("_parseActResponse " + LC.ACT[info.act_type]);
             switch (info.act_type) {
                 case LC.ACT.CHU:
                     this._currentOutCardContainer = cardMod.outACard(cardMod.direction, info.card_list[0], this._cardPointer);
@@ -434,6 +553,9 @@ var LC;
                     break;
             }
         };
+        /**
+         * 添加comb数据到数组，为了和UI一致
+         */
         GameLayer.prototype._addCombArray = function (repeatCount, arr, value) {
             for (var i = 0; i < repeatCount; i++) {
                 arr.push(value);
@@ -442,9 +564,26 @@ var LC;
         /**
          * 准备按钮点击
          */
-        GameLayer.prototype._onReadyBtnClick = function () {
-            this.btn_ready.visible = false;
-            this._ctrl.onMySelfReady();
+        GameLayer.prototype._onReadyBtnClick = function (event) {
+            var btn = event.currentTarget;
+            if (btn == this.btn_ready) {
+                LC.DeskInfo.status == LC.DeskStatus.OVER && this._reSetRoom();
+                this._ctrl.onMySelfReady(LC.ReadyState.GetReady);
+            }
+            else if (btn == this.btn_cancel) {
+                this._ctrl.onMySelfReady(LC.ReadyState.Cancel);
+            }
+        };
+        GameLayer.prototype._reSetRoom = function () {
+            //重置风向盘
+            this.disc.reSetDisc();
+            LC.UsersInfo.Instance.reSetAllUsersBanker();
+            //重置每个模块
+            for (var _i = 0, _a = this.seatsUI; _i < _a.length; _i++) {
+                var element = _a[_i];
+                var cardMod = element.getChildAt(1);
+                cardMod.reSetMod();
+            }
         };
         /**
          * 测试按钮点击
@@ -481,7 +620,6 @@ var LC;
         };
         return GameLayer;
     }(LC.Layer));
-    GameLayer.count = 17;
     LC.GameLayer = GameLayer;
     __reflect(GameLayer.prototype, "LC.GameLayer");
 })(LC || (LC = {}));

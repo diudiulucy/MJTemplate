@@ -22,7 +22,6 @@ var LC;
             return _this;
         }
         Disc.prototype.init = function () {
-            _super.prototype.init.call(this);
             //初始化
             this.anim_dice.MC.stop();
             this.anim_dice.visible = false;
@@ -30,6 +29,7 @@ var LC;
             this.remain_count.visible = false;
             //灯全不显示
             this._setLightsVisible(false);
+            _super.prototype.init.call(this);
         };
         /**
          * 设置所有灯的可见性
@@ -55,7 +55,7 @@ var LC;
                 this.dice.getChildAt(1).source = RES.getRes("s" + dice[1] + "_png");
                 var timeoutId_1 = egret.setTimeout(function () {
                     _this.anim_dice.MC.stop();
-                    _this.anim_dice.MC.visible = false;
+                    _this.anim_dice.visible = false;
                     _this.dice.visible = true;
                     clearTimeout(timeoutId_1);
                 }, this, 1000);
@@ -98,6 +98,17 @@ var LC;
             var element = this.lights.getChildAt(direction);
             element.visible = true;
             egret.Tween.get(element, { loop: true }).to({ alpha: 0 }, 200, egret.Ease.quadIn).to({ alpha: 1 }, 200, egret.Ease.quadIn);
+        };
+        /**
+        * 重置方向盘
+        */
+        Disc.prototype.reSetDisc = function () {
+            this._setLightsVisible(false);
+            //初始化
+            this.anim_dice.MC.stop();
+            this.anim_dice.visible = false;
+            this.dice.visible = false;
+            this.remain_count.visible = false;
         };
         return Disc;
     }(LC.Layer));
