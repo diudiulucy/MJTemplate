@@ -13,11 +13,8 @@ module LC {
 		protected TAG: string = "";
 		protected _ctrl: Controller;
 		protected UIEventList: Array<any> = null;//对此数组赋值，可以快速绑定 不需要重复操作，注意对每个id添加对应的函数
-		public constructor(width?: number, height?: number) {
+		public constructor() {
 			super();
-			this.width = width || egret.MainContext.instance.stage.stageWidth;
-			this.height = width || egret.MainContext.instance.stage.stageHeight;
-
 			this.TAG = egret.getQualifiedClassName(this);
 			this.addEventListener(egret.Event.ADDED_TO_STAGE, this.init, this);
 			this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onDestroy, this);
@@ -27,8 +24,8 @@ module LC {
 		 * 组件创建完毕
 		 * 此方法仅在组件第一次添加到舞台时回调一次
 		*/
-		protected createChildren(): void {
-			super.createChildren();
+		protected childrenCreated(): void {
+			super.childrenCreated();
 		}
 
 		public get Ctrl() {
@@ -37,6 +34,10 @@ module LC {
 
 		public set Ctrl(ctrl: Controller) {
 			this._ctrl = ctrl;
+		}
+
+		public set Size(size:[number,number]){
+
 		}
 
 		/**
@@ -64,7 +65,7 @@ module LC {
 		 * @param isRegister true 表示注册  false表示注销
 		 */
 		private _registerManyUIEvents(isRegister: boolean) {
-			if(!this.UIEventList) return;
+			if (!this.UIEventList) return;
 			for (let value of this.UIEventList) {
 				let eventName: string = value.toString();
 				let funcName: string = "ui_" + eventName;
@@ -118,7 +119,9 @@ module LC {
 			this.unRegisterCustomEvents();
 			this._registerManyUIEvents(false);
 			this.UIEventList = null;
+
 			this.Ctrl && this.Ctrl.onDestroy();
+			this.Ctrl = null;
 		}
 	}
 }

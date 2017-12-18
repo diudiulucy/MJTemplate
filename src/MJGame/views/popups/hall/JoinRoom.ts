@@ -17,6 +17,8 @@ module LC {
 		public constructor() {
 			super();
 			this.skinName = "Skin.JoinRoom";
+			this.percentWidth = 100;
+            this.percentHeight = 100;
 		}
 
 		protected init(): void {

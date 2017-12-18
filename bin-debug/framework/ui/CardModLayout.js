@@ -1,11 +1,16 @@
 var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 /**
  * 麻将布局（每个模块对麻将的视图上的操作全部在此进行）
  * @author lucywang
@@ -293,7 +298,7 @@ var LC;
         * @param value       牌值
         */
         CardModLayout.prototype._createHandCard = function (direction, value, state) {
-            //白鹭的group加了布局后不允许改动其位置，没法实现弹起的效果，真是讨厌，这里加个group
+            //白鹭的group加了布局后不允许改动其位置，没法实现弹起的效果，这里加个group
             var cardContainer = new eui.Group(); //注意不要设置其大小，group才会根据子节点的大小来自适应
             cardContainer.y = 0;
             (direction == LC.Directions.Down && state == LC.CardState.Stand) && cardContainer.addEventListener(egret.TouchEvent.TOUCH_TAP, this._handCardHandler, this);
@@ -368,6 +373,7 @@ var LC;
                 var element = this.AllCards.getChildAt(i);
                 if (element != this.HandCards && element != this.FallHandCards) {
                     deleteChilds.push(element);
+                    //    this.AllCards.removeChild(element);//根据深度取的child，这里直接删除后，下一次取不到
                 }
             }
             for (var _i = 0, deleteChilds_1 = deleteChilds; _i < deleteChilds_1.length; _i++) {

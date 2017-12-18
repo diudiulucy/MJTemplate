@@ -30,7 +30,7 @@ var LC;
         //  Rev100100 = 100100,             //接收玩家准备，取消准备   
         //  Rev100101 = 100101,             //接收创建好友桌     
         //  Rev100102 = 100102,             //接收加入好友桌     
-        SocketEvents[SocketEvents["Rev100103"] = 100103] = "Rev100103";
+        //  Rev100103 = 100103,             //接收玩家退出桌子    
         SocketEvents[SocketEvents["Rev100104"] = 100104] = "Rev100104";
         SocketEvents[SocketEvents["Rev100110"] = 100110] = "Rev100110";
         SocketEvents[SocketEvents["Rev100111"] = 100111] = "Rev100111";

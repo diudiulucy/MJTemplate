@@ -1,11 +1,16 @@
 var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 /**
  * 游戏层
  * @author lucywang
@@ -21,6 +26,8 @@ var LC;
             _this._targetCardList = [];
             _this._isSourceCard = true;
             _this.skinName = "Skin.GameLayer";
+            _this.percentWidth = 100;
+            _this.percentHeight = 100;
             return _this;
         }
         GameLayer.prototype.init = function () {
@@ -190,8 +197,20 @@ var LC;
             ];
         };
         GameLayer.prototype.setOnTouchListener = function () {
+            var _this = this;
             this.btn_ready.addEventListener(egret.TouchEvent.TOUCH_TAP, this._onReadyBtnClick, this);
             this.btn_cancel.addEventListener(egret.TouchEvent.TOUCH_TAP, this._onReadyBtnClick, this);
+            this.back.addEventListener(egret.TouchEvent.TOUCH_TAP, this._backBtnClick, this);
+            this.move.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
+                _this.mod_up._addOutCard(_this.mod_up.direction, 35);
+                _this.mod_left._addOutCard(_this.mod_left.direction, 35);
+                _this.mod_right._addOutCard(_this.mod_right.direction, 35);
+                _this.mod_down._addOutCard(_this.mod_down.direction, 35);
+                _this.mod_down.addCombToAllCardList(_this.mod_down.direction, [], [33, 34, 35, 36], LC.CardCombType.MGang);
+                _this.mod_up.addCombToAllCardList(_this.mod_up.direction, [], [33, 34, 35, 36], LC.CardCombType.MGang);
+                _this.mod_left.addCombToAllCardList(_this.mod_left.direction, [], [33, 34, 35, 36], LC.CardCombType.MGang);
+                _this.mod_right.addCombToAllCardList(_this.mod_right.direction, [], [33, 34, 35, 36], LC.CardCombType.MGang);
+            }, this);
             //测试相关
             this.dealCard.addEventListener(egret.TouchEvent.TOUCH_TAP, this._onTestBtnClick, this);
             this.changeCard.addEventListener(egret.TouchEvent.TOUCH_TAP, this._onTestBtnClick, this);
@@ -203,6 +222,7 @@ var LC;
         GameLayer.prototype.removeOnTouchListener = function () {
             this.btn_ready.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onReadyBtnClick, this);
             this.btn_cancel.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onReadyBtnClick, this);
+            this.back.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._backBtnClick, this);
             //测试相关
             this.dealCard.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onTestBtnClick, this);
             this.changeCard.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onTestBtnClick, this);
@@ -547,9 +567,9 @@ var LC;
                     this._addCombArray(4, combList, info.card_list[0]);
                     cardMod.addCombToAllCardList(cardMod.direction, deleteList, combList, LC.CardCombType.AnGang);
                     break;
-                case LC.ACT.DIAN_HU:
+                case LC.ACT.DIAN_HU:// 不用等了，消息从101006 回来了（结算消息时从服务器主动推过来的，如没牌的情况）
                     break;
-                case LC.ACT.ZI_MO:
+                case LC.ACT.ZI_MO:// 不用等了，消息从101006 回来了
                     break;
             }
         };
@@ -573,6 +593,9 @@ var LC;
             else if (btn == this.btn_cancel) {
                 this._ctrl.onMySelfReady(LC.ReadyState.Cancel);
             }
+        };
+        GameLayer.prototype._backBtnClick = function (event) {
+            this._ctrl.exitRoom();
         };
         GameLayer.prototype._reSetRoom = function () {
             //重置风向盘

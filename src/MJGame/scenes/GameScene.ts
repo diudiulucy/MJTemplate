@@ -19,7 +19,7 @@ module LC {
 			this.gameLayer.Ctrl = new GameLayerController();
 			this.addChild(this.gameLayer);
 
-			
+			 
 			// Tips.show(ErrorCodeManager.Instance.getErrorCode(902));
 		}
 	}

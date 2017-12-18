@@ -1,11 +1,16 @@
 var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 /**
  * 层级类,只处理UI上的逻辑(一个layer对应一个controller,处理和后端的交互)，其子类不用关心销毁的操作 全在此类进行，销毁时移除监听事件和触摸事件以及调用Ctrl的销毁
  * 所有的组件都继承自Layer
@@ -20,12 +25,10 @@ var LC;
 (function (LC) {
     var Layer = (function (_super) {
         __extends(Layer, _super);
-        function Layer(width, height) {
+        function Layer() {
             var _this = _super.call(this) || this;
             _this.TAG = "";
             _this.UIEventList = null; //对此数组赋值，可以快速绑定 不需要重复操作，注意对每个id添加对应的函数
-            _this.width = width || egret.MainContext.instance.stage.stageWidth;
-            _this.height = width || egret.MainContext.instance.stage.stageHeight;
             _this.TAG = egret.getQualifiedClassName(_this);
             _this.addEventListener(egret.Event.ADDED_TO_STAGE, _this.init, _this);
             _this.addEventListener(egret.Event.REMOVED_FROM_STAGE, _this.onDestroy, _this);
@@ -35,8 +38,8 @@ var LC;
          * 组件创建完毕
          * 此方法仅在组件第一次添加到舞台时回调一次
         */
-        Layer.prototype.createChildren = function () {
-            _super.prototype.createChildren.call(this);
+        Layer.prototype.childrenCreated = function () {
+            _super.prototype.childrenCreated.call(this);
         };
         Object.defineProperty(Layer.prototype, "Ctrl", {
             get: function () {
@@ -44,6 +47,12 @@ var LC;
             },
             set: function (ctrl) {
                 this._ctrl = ctrl;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Layer.prototype, "Size", {
+            set: function (size) {
             },
             enumerable: true,
             configurable: true
@@ -120,6 +129,7 @@ var LC;
             this._registerManyUIEvents(false);
             this.UIEventList = null;
             this.Ctrl && this.Ctrl.onDestroy();
+            this.Ctrl = null;
         };
         return Layer;
     }(eui.Component));

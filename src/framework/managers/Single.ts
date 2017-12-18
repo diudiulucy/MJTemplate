@@ -8,7 +8,7 @@ module LC {
 		//实例必须私有
 		private static instance: any;
 
-		//构造函数必须保护型才算真正的单例
+		//构造函数必须保护型才算真正的单例,这里子类要访问所以是保护类型，严格的得用私有
 		protected constructor() {
 
 		}

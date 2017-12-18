@@ -1,11 +1,16 @@
 var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 /**
  * 大厅层
  * @author lucywang
@@ -18,6 +23,8 @@ var LC;
         function HallLayer() {
             var _this = _super.call(this) || this;
             _this.skinName = "Skin.HallLayer";
+            _this.percentWidth = 100;
+            _this.percentHeight = 100;
             return _this;
         }
         HallLayer.prototype.init = function () {
@@ -27,10 +34,12 @@ var LC;
         HallLayer.prototype.setOnTouchListener = function () {
             this.btn_playGround.addEventListener(egret.TouchEvent.TOUCH_TAP, this._onPlayGroundBtnClick, this);
             this.btn_friendRoom.addEventListener(egret.TouchEvent.TOUCH_TAP, this._onFriendRoomBtnClick, this);
+            this.back_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this._onBackBtnClick, this);
         };
         HallLayer.prototype.removeOnTouchListener = function () {
             this.btn_playGround.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onPlayGroundBtnClick, this);
             this.btn_friendRoom.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onFriendRoomBtnClick, this);
+            this.back_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onBackBtnClick, this);
         };
         HallLayer.prototype.registerCustomEvents = function () {
             this.UIEventList = [];
@@ -49,6 +58,10 @@ var LC;
             var selecRoomLayer = new LC.SelectRoom();
             selecRoomLayer.Ctrl = new LC.SelectRoomController();
             LC.SceneManager.Instance.runningScene.addChild(selecRoomLayer);
+        };
+        HallLayer.prototype._onBackBtnClick = function () {
+            var loginScene = new LC.LoginScene();
+            LC.SceneManager.Instance.replaceScene(loginScene);
         };
         return HallLayer;
     }(LC.Layer));

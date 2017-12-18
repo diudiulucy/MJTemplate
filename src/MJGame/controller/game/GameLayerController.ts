@@ -23,7 +23,8 @@ module LC {
 				LC.SocketEvents.Rev101006,  //推送游戏结算
 				LC.SocketEvents.Rev101003,	//推送游戏结束
 				LC.SocketEvents.Rev101110,  //推送玩家连接状态
-				LC.SocketEvents.Rev101109 	//推送玩家断线重连
+				LC.SocketEvents.Rev101109, 	//推送玩家断线重连
+				LC.SocketEvents.Send100103 	//发送玩家退出桌子  
 			];
 		}
 
@@ -51,6 +52,12 @@ module LC {
 			let actParamsStr = JSON.stringify(actParams)
 			obj.act_params = actParamsStr;
 			Socket.Instance.sendData(SocketEvents.Send100140, JSON.stringify(obj));
+		}
+
+		public exitRoom(){
+			let obj = <Send100103>{};
+			obj.user_id = UsersInfo.MySelf.user_id;
+			Socket.Instance.sendData(SocketEvents.Send100103, JSON.stringify(obj));
 		}
 
 		/**
@@ -112,6 +119,29 @@ module LC {
 				Tips.show(ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
 			}
 		}
+
+		
+		/**
+		 * 推送玩家退出房间
+		 */
+		private on_100103_event(event: egret.Event) {
+			console.log(this.TAG + " on_101107_event: " + event.data);
+			let data = event.data;
+			let obj = <Rev100103>JSON.parse(data);
+			if (obj.code == 200) {//success
+				console.log(`玩家id为${obj.info.user_id}进入房间`);
+				// let user = new User();
+				// for (let key in obj.info) {
+				// 	user[key] = obj.info[key];
+				// }
+				// UsersInfo.Instance.addUser(user);
+				// EventManager.getInstance().dispatchCustomEvent(CustomEvents.OtherPlayer_EnterROOM, { user: user });
+			} else {//fail
+				let errorInfo = JSON.parse(data);
+				Tips.show(ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
+			}
+		}
+
 
 		/**
 		 * 推送玩家连接状态

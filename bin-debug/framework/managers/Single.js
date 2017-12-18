@@ -9,7 +9,7 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
 var LC;
 (function (LC) {
     var Single = (function () {
-        //构造函数必须保护型才算真正的单例
+        //构造函数必须保护型才算真正的单例,这里子类要访问所以是保护类型，严格的得用私有
         function Single() {
         }
         /** 为方便提示，子类最好加入此接口

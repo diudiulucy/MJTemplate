@@ -20,6 +20,8 @@ module LC {
 		private mod_up: LC.CardModLayout;
 		private mod_left: LC.CardModLayout;
 
+		private back:eui.Button;
+
 		//房间号
 		private roomNo: eui.Label;
 		//中间的风向盘
@@ -71,6 +73,8 @@ module LC {
 		public constructor() {
 			super();
 			this.skinName = "Skin.GameLayer";
+			this.percentWidth = 100;
+			this.percentHeight = 100;
 		}
 
 		protected init() {
@@ -264,9 +268,21 @@ module LC {
 			];
 		}
 
+		private move:eui.Button;
 		protected setOnTouchListener() {
 			this.btn_ready.addEventListener(egret.TouchEvent.TOUCH_TAP, this._onReadyBtnClick, this);
 			this.btn_cancel.addEventListener(egret.TouchEvent.TOUCH_TAP, this._onReadyBtnClick, this);
+			this.back.addEventListener(egret.TouchEvent.TOUCH_TAP,this._backBtnClick,this);
+			this.move.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
+				this.mod_up._addOutCard(this.mod_up.direction, 35);
+				this.mod_left._addOutCard(this.mod_left.direction, 35);
+				this.mod_right._addOutCard(this.mod_right.direction, 35);
+				this.mod_down._addOutCard(this.mod_down.direction, 35);
+				this.mod_down.addCombToAllCardList(this.mod_down.direction,[],[33,34,35,36],CardCombType.MGang);
+				this.mod_up.addCombToAllCardList(this.mod_up.direction,[],[33,34,35,36],CardCombType.MGang);
+				this.mod_left.addCombToAllCardList(this.mod_left.direction,[],[33,34,35,36],CardCombType.MGang);
+				this.mod_right.addCombToAllCardList(this.mod_right.direction,[],[33,34,35,36],CardCombType.MGang);
+			},this);
 
 			//测试相关
 			this.dealCard.addEventListener(egret.TouchEvent.TOUCH_TAP, this._onTestBtnClick, this);
@@ -280,6 +296,7 @@ module LC {
 		protected removeOnTouchListener() {
 			this.btn_ready.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onReadyBtnClick, this);
 			this.btn_cancel.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onReadyBtnClick, this);
+			this.back.removeEventListener(egret.TouchEvent.TOUCH_TAP,this._backBtnClick,this);
 
 			//测试相关
 			this.dealCard.removeEventListener(egret.TouchEvent.TOUCH_TAP, this._onTestBtnClick, this);
@@ -687,6 +704,10 @@ module LC {
 			} else if (btn == this.btn_cancel) {
 				this._ctrl.onMySelfReady(ReadyState.Cancel);
 			}
+		}
+
+		private _backBtnClick(event: egret.Event){
+			this._ctrl.exitRoom();
 		}
 
 		private _reSetRoom() {

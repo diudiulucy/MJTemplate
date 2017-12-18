@@ -29,11 +29,16 @@
 var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
@@ -44,17 +49,29 @@ var Main = (function (_super) {
     }
     Main.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);
+        egret.lifecycle.addLifecycleListener(function (context) {
+            // custom lifecycle plugin
+        });
+        egret.lifecycle.onPause = function () {
+            egret.ticker.pause();
+            console.log("app 进入后台");
+        };
+        egret.lifecycle.onResume = function () {
+            egret.ticker.resume();
+            console.log("app 进入前台");
+        };
         //inject the custom material parser
         //注入自定义的素材解析器
         var assetAdapter = new AssetAdapter();
         egret.registerImplementation("eui.IAssetAdapter", assetAdapter);
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
-        //Config loading process interface
-        //设置加载进度界面
         // initialize the Resource loading library
         //初始化Resource资源加载库
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         RES.loadConfig(LC.Config.default_res_json, LC.Config.default_resource);
+        //和配置等同步加载，可以提高效率，等主题加载完再显示，不要等主题加载完再开始加载，主题加载很慢
+        LC.ResUtil.Instance.loadGroup("loading", this, this._onResourceLoadingComplete, null, 1); //先加载loading，尽快的显示UI,注意loading界面最好不用exml来布局，exml必须等主题加载完毕才能正常显示
+        LC.ResUtil.Instance.loadGroup("preload", this, this._onResourcePreLoadComplete, this._onPreloadResourceProgress);
     };
     /**
      * 配置文件加载完成,开始预加载皮肤主题资源和preload资源组。
@@ -66,12 +83,6 @@ var Main = (function (_super) {
         //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
         var theme = new eui.Theme(LC.Config.default_thm_json, this.stage);
         theme.addEventListener(eui.UIEvent.COMPLETE, this.onThemeLoadComplete, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
-        RES.addEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
-        RES.loadGroup("loading", 1);
-        RES.loadGroup("preload");
     };
     /**
      * 主题文件加载完成,开始预加载
@@ -81,74 +92,37 @@ var Main = (function (_super) {
         this.isThemeLoadEnd = true;
         this.createScene();
     };
+    Main.prototype._onResourceLoadingComplete = function (event) {
+        this.parent.removeChild(this);
+        //设置加载进度界面
+        this.loadingScene = new LC.LoadingScene();
+        LC.SceneManager.Instance.runWithScene(this.loadingScene);
+    };
     /**
      * preload资源组加载完成
      * preload resource group is loaded
      */
-    Main.prototype.onResourceLoadComplete = function (event) {
-        if (event.groupName == "loading") {
-            //设置加载进度界面
-            this.loadingScene = new LC.LoadingScene();
-            LC.SceneManager.Instance.runWithScene(this.loadingScene);
-        }
-        else if (event.groupName == "preload") {
-            // this.removeChild(this.loadingScene);
-            RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
-            RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
-            RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
-            RES.removeEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
-            this.isResourceLoadEnd = true;
-            this.createScene();
-        }
+    Main.prototype._onResourcePreLoadComplete = function (event) {
+        this.isResourceLoadEnd = true;
+        this.createScene();
     };
     Main.prototype.createScene = function () {
         if (this.isThemeLoadEnd && this.isResourceLoadEnd) {
-            LC.Tips.Instance.setLayer(this.stage);
             LC.ErrorCodeManager.Instance.init("error_txt");
+            // this.stage.dirtyRegionPolicy = egret.DirtyRegionPolicy.OFF;
             var loginScene = new LC.LoginScene();
             LC.SceneManager.Instance.replaceScene(loginScene);
-            var createClock = function (ctor, hour, minute) {
-                return new ctor(hour, minute);
-            };
-            var Clock = (function () {
-                function Clock(h, m) {
-                }
-                Clock.prototype.setTime = function (d) {
-                };
-                ;
-                Clock.prototype.tick = function () {
-                };
-                ;
-                return Clock;
-            }());
+            LC.Tips.Instance.setLayer(egret.MainContext.instance.stage);
+            // let gameScene = new LC.GameScene();
+            // LC.SceneManager.Instance.replaceScene(gameScene);
         }
-    };
-    /**
-     * 资源组加载出错
-     *  The resource group loading failed
-     */
-    Main.prototype.onItemLoadError = function (event) {
-        console.warn("Url:" + event.resItem.url + " has failed to load");
-    };
-    /**
-     * 资源组加载出错
-     * Resource group loading failed
-     */
-    Main.prototype.onResourceLoadError = function (event) {
-        //TODO
-        console.warn("Group:" + event.groupName + " has failed to load");
-        //忽略加载失败的项目
-        //ignore loading failed projects
-        this.onResourceLoadComplete(event);
     };
     /**
      * preload资源组加载进度
      * loading process of preload resource
      */
-    Main.prototype.onResourceProgress = function (event) {
-        if (event.groupName == "preload") {
-            this.loadingScene.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
-        }
+    Main.prototype._onPreloadResourceProgress = function (event) {
+        this.loadingScene.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
     };
     return Main;
 }(eui.UILayer));

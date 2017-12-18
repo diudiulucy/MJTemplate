@@ -99,6 +99,21 @@ module LC {
 		is_online: LC.NetState;
 	}
 
+
+	/**
+	 * 推送玩家退出房间
+	 */
+	export interface Send100103 {
+		user_id: number;
+	}
+
+	export interface Rev100103 {
+		code: number;
+		info: PlayerInfo;
+		need_push: number;
+	}
+
+
 	/**
 	 * 推送玩家准备
 	 */

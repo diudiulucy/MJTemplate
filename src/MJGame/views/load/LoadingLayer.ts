@@ -5,90 +5,63 @@
  */
 module LC {
     export class LoadingLayer extends Layer {
-        private pgBg: egret.Bitmap;
-        private pgBar: egret.Bitmap;
-        private textField: egret.TextField;
-        private bg: egret.Bitmap;
-        private w: number = 0;
-        private h: number = 0;
-
+        private pgBar: eui.Image;
+        private proLabel: eui.Label;
+        private pgBarWidth: number;
         public constructor() {
             super();
         }
 
-        protected init(): void {
+        protected init(): void {//此类手写UI，加速首屏加载速度，exml加载得等主题加载完加载才有效
             super.init();
 
-            // this.width = this.width/2;
-            this.w = this.width;
-            this.h = this.height;
+            this.percentWidth = 100;
+            this.percentHeight = 100;
 
-            this.anchorOffsetX = this.w / 2;
-            this.horizontalCenter = 0;
-            this.bg = new egret.Bitmap;
-            this.bg.texture = RES.getRes("PreLoadingBg_png");
-            this.bg.width = this.w;
-            this.bg.height = this.h;
-            this.addChild(this.bg);
+            let bg = new eui.Image();
+            bg.source = RES.getRes("PreLoadingBg_png");
+            bg.percentWidth = 100;
+            bg.percentHeight = 100;
+            this.addChild(bg);
 
-            this.pgBg = new egret.Bitmap;
-            this.pgBg.texture = RES.getRes("PreLoadingBarBg_png");
-            this.pgBg.x = this.w / 2 - this.pgBg.width / 2;
-            this.pgBg.y = this.h - this.pgBg.height - 50;
-            this.addChild(this.pgBg);
+            let group = new eui.Group();
+            group.horizontalCenter = 0;
+            group.bottom = 20;
+            this.addChild(group);
 
-            this.pgBar = new egret.Bitmap;
-            this.pgBar.texture = RES.getRes("PreLoadingBar_png");
-            this.pgBar.x = this.w / 2 - this.pgBar.width / 2;
-            this.pgBar.y = this.pgBg.y + 20;
-            this.addChild(this.pgBar);
+            let pgBg = new eui.Image();
+            pgBg.source = RES.getRes("PreLoadingBarBg_png");
+            group.addChild(pgBg);
 
-            this.textField = new egret.TextField();
-            this.textField.size = 24;
-            this.textField.textColor = 0xFFFFFF;
-            this.textField.bold = true;
-            this.textField.stroke = 1;
-            this.textField.strokeColor = 0x000000;
-            this.addChild(this.textField);
-            this.textField.width = 100;
-            this.textField.x = this.w / 2 - this.textField.width / 2;
-            this.textField.y = this.pgBg.y + 20;
-            this.textField.textAlign = "center";
-            this.textField.text = "0%";
+            this.pgBar = new eui.Image();
+            this.pgBar.source = RES.getRes("PreLoadingBar_png");
+            this.pgBar.left = 30;
+            this.pgBar.verticalCenter = -5;
+            group.addChild(this.pgBar);
+            this.pgBarWidth = this.pgBar.width;
 
+            this.proLabel = new eui.Label();
+            this.proLabel.horizontalCenter = 0;
+            this.proLabel.verticalCenter = -5;
+            this.proLabel.textAlign = "center";
+            this.proLabel.size = 24;
+            this.proLabel.textColor = 0xFFFFFF;
+            this.proLabel.bold = true;
+            this.proLabel.stroke = 1;
+            this.proLabel.strokeColor = 0x000000;
+            group.addChild(this.proLabel);
+
+            this.proLabel.text = "0%";
             this.pgBar.width = 0;
         }
 
         /**
          * 进度条
          */
-        // public progressBar:egret.gui.ProgressBar;
-
         public setProgress(current: number, total: number): void {
-            // if(this.progressBar)
-            // {
-            //     this.progressBar.maximum = total;
-            //     this.progressBar.value = current;
-            // }
             var rate: number = Math.round((current / total) * 100);
-            this.textField.text = rate + "%";
-            this.pgBar.width = 641 * (current / total);
+            this.proLabel.text = rate + "%";
+            this.pgBar.width = this.pgBarWidth * (current / total);
         }
-
-        protected setOnTouchListener() {
-            
-        }
-
-        protected removeOnTouchListener() {
-
-        }
-
-        protected registerCustomEvents() {
-            this.UIEventList = [
-                
-            ];
-        }
-
-      
     }
 }

@@ -1,11 +1,16 @@
 var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 /**
  * 游戏层的控制器
  * @author lucywang
@@ -36,7 +41,8 @@ var LC;
                 LC.SocketEvents.Rev101006,
                 LC.SocketEvents.Rev101003,
                 LC.SocketEvents.Rev101110,
-                LC.SocketEvents.Rev101109 //推送玩家断线重连
+                LC.SocketEvents.Rev101109,
+                LC.SocketEvents.Send100103 //发送玩家退出桌子  
             ];
         };
         /**
@@ -61,6 +67,11 @@ var LC;
             var actParamsStr = JSON.stringify(actParams);
             obj.act_params = actParamsStr;
             LC.Socket.Instance.sendData(LC.SocketEvents.Send100140, JSON.stringify(obj));
+        };
+        GameLayerController.prototype.exitRoom = function () {
+            var obj = {};
+            obj.user_id = LC.UsersInfo.MySelf.user_id;
+            LC.Socket.Instance.sendData(LC.SocketEvents.Send100103, JSON.stringify(obj));
         };
         /**
          * 测试接口
@@ -114,6 +125,27 @@ var LC;
                 }
                 LC.UsersInfo.Instance.addUser(user);
                 LC.EventManager.getInstance().dispatchCustomEvent(CustomEvents.OtherPlayer_EnterROOM, { user: user });
+            }
+            else {
+                var errorInfo = JSON.parse(data);
+                LC.Tips.show(LC.ErrorCodeManager.Instance.getErrorCode(errorInfo.code));
+            }
+        };
+        /**
+         * 推送玩家退出房间
+         */
+        GameLayerController.prototype.on_100103_event = function (event) {
+            console.log(this.TAG + " on_101107_event: " + event.data);
+            var data = event.data;
+            var obj = JSON.parse(data);
+            if (obj.code == 200) {
+                console.log("\u73A9\u5BB6id\u4E3A" + obj.info.user_id + "\u8FDB\u5165\u623F\u95F4");
+                // let user = new User();
+                // for (let key in obj.info) {
+                // 	user[key] = obj.info[key];
+                // }
+                // UsersInfo.Instance.addUser(user);
+                // EventManager.getInstance().dispatchCustomEvent(CustomEvents.OtherPlayer_EnterROOM, { user: user });
             }
             else {
                 var errorInfo = JSON.parse(data);
@@ -348,7 +380,7 @@ var LC;
             var obj = JSON.parse(data);
             if (obj.code == 200) {
                 switch (obj.info.test_type) {
-                    case LC.TestType.DealCard:
+                    case LC.TestType.DealCard://发牌不做处理
                         break;
                     case LC.TestType.ChangeCard:
                         LC.EventManager.getInstance().dispatchCustomEvent(CustomEvents.ChangeCard, { info: obj.info });

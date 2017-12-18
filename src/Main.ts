@@ -33,21 +33,40 @@ class Main extends eui.UILayer {
      * loading process interface
      */
     private loadingScene: LC.LoadingScene;
+
     protected createChildren(): void {
         super.createChildren();
+
+        egret.lifecycle.addLifecycleListener((context) => {
+            // custom lifecycle plugin
+        })
+
+        egret.lifecycle.onPause = () => {
+            egret.ticker.pause();
+            console.log("app 进入后台");
+        }
+
+        egret.lifecycle.onResume = () => {
+            egret.ticker.resume();
+            console.log("app 进入前台");
+        }
+
         //inject the custom material parser
         //注入自定义的素材解析器
         let assetAdapter = new AssetAdapter();
         egret.registerImplementation("eui.IAssetAdapter", assetAdapter);
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
-        //Config loading process interface
-        //设置加载进度界面
 
         // initialize the Resource loading library
         //初始化Resource资源加载库
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         RES.loadConfig(LC.Config.default_res_json, LC.Config.default_resource);
+
+        //和配置等同步加载，可以提高效率，等主题加载完再显示，不要等主题加载完再开始加载，主题加载很慢
+        LC.ResUtil.Instance.loadGroup("loading", this, this._onResourceLoadingComplete, null, 1);//先加载loading，尽快的显示UI,注意loading界面最好不用exml来布局，exml必须等主题加载完毕才能正常显示
+        LC.ResUtil.Instance.loadGroup("preload", this, this._onResourcePreLoadComplete, this._onPreloadResourceProgress);
     }
+
     /**
      * 配置文件加载完成,开始预加载皮肤主题资源和preload资源组。
      * Loading of configuration file is complete, start to pre-load the theme configuration file and the preload resource group
@@ -58,14 +77,8 @@ class Main extends eui.UILayer {
         //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
         let theme = new eui.Theme(LC.Config.default_thm_json, this.stage);
         theme.addEventListener(eui.UIEvent.COMPLETE, this.onThemeLoadComplete, this);
-
-        RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
-        RES.addEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
-        RES.loadGroup("loading", 1);
-        RES.loadGroup("preload");
     }
+
     private isThemeLoadEnd: boolean = false;
     /**
      * 主题文件加载完成,开始预加载
@@ -76,148 +89,43 @@ class Main extends eui.UILayer {
         this.createScene();
     }
     private isResourceLoadEnd: boolean = false;
+
+    private _onResourceLoadingComplete(event: RES.ResourceEvent) {
+        this.parent.removeChild(this);
+
+        //设置加载进度界面
+        this.loadingScene = new LC.LoadingScene();
+        LC.SceneManager.Instance.runWithScene(this.loadingScene);
+    }
+
     /**
      * preload资源组加载完成
      * preload resource group is loaded
      */
-    private onResourceLoadComplete(event: RES.ResourceEvent): void {
-        if (event.groupName == "loading") {
-            //设置加载进度界面
-            this.loadingScene = new LC.LoadingScene();
-            LC.SceneManager.Instance.runWithScene(this.loadingScene);
-        } else if (event.groupName == "preload") {
-            // this.removeChild(this.loadingScene);
-            RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
-            RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
-            RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
-            RES.removeEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
-            this.isResourceLoadEnd = true;
-            this.createScene();
-        }
+    private _onResourcePreLoadComplete(event: RES.ResourceEvent): void {
+        this.isResourceLoadEnd = true;
+        this.createScene();
     }
+
     private createScene() {
         if (this.isThemeLoadEnd && this.isResourceLoadEnd) {
-            LC.Tips.Instance.setLayer(this.stage);
             LC.ErrorCodeManager.Instance.init("error_txt");
-
+            // this.stage.dirtyRegionPolicy = egret.DirtyRegionPolicy.OFF;
             let loginScene = new LC.LoginScene();
             LC.SceneManager.Instance.replaceScene(loginScene);
-
-            // interface StringArray{
-            //     [index:number]:string;
-            // }
-
-            // let myArray:Array<string>;
-            // myArray = ["Bob","lucy"];
-            // let myStr:string = myArray[0];
-            // console.log(myStr);
+            LC.Tips.Instance.setLayer(egret.MainContext.instance.stage);
             
-            // class Animal {
-            //     name:string;
-            // }
+            // let gameScene = new LC.GameScene();
+            // LC.SceneManager.Instance.replaceScene(gameScene);
 
-            // class Dog extends Animal {
-            //     breed:string;
-            // }
-
-            // interface NotOkay {
-            //     readonly [x:number]:Animal;
-            //     // [x:string]:Dog;
-            // }
-
-            // let dog = new Dog();
-            // dog.breed = "sdfd";
-            // dog.name = "dslk";
-
-            // let ani = new Animal();
-            // ani.name = "ani";
-
-            // let a:NotOkay = [ani,dog];
-            // a = [dog,ani];
-            
-            // console.log(egret.getQualifiedClassName(a[1]));
-
-            // interface NumberDictionary {
-            //     [index:string]:number;
-            //     length:number;
-            //     // name:string;
-            //     // num:number;
-            // }
-
-            // let map:NumberDictionary = {length:0};
-            // map['a'] = 65;
-            // map.length = Object.keys(map).length;
-
-            // console.log(  map.length);
-
-            // interface Map<T> {
-            //     [key:number]:T;
-            //     length:T;
-            //     name:T;
-            // }
-
-            // let map:Map<number> = {length:10,name:52};
-            // map.length = 20;
-            // console.log(map.length);
-
-            interface ClockConstructor {
-                 new (hour:number,minute:number);
-            }
-
-            interface ClockInterface {
-                // new (hour:number,minute:number);
-               tick();
-            }
-
-            let createClock = function (ctor: ClockConstructor, hour: number, minute: number):ClockInterface{
-                return new ctor(hour, minute);
-            }
-
-            class Clock implements ClockInterface {
-                currentTime:Date;
-                setTime(d:Date){
-
-                }
-                constructor(h:number,m:number){
-
-                };
-                tick(){
-
-                };
-            }
-
-
-
-            // let loginScene = new LC.GameScene();
-            // LC.SceneManager.Instance.replaceScene(loginScene);
         }
     }
-    /**
-     * 资源组加载出错
-     *  The resource group loading failed
-     */
-    private onItemLoadError(event: RES.ResourceEvent): void {
-        console.warn("Url:" + event.resItem.url + " has failed to load");
-    }
-    /**
-     * 资源组加载出错
-     * Resource group loading failed
-     */
-    private onResourceLoadError(event: RES.ResourceEvent): void {
-        //TODO
-        console.warn("Group:" + event.groupName + " has failed to load");
-        //忽略加载失败的项目
-        //ignore loading failed projects
-        this.onResourceLoadComplete(event);
-    }
+
     /**
      * preload资源组加载进度
      * loading process of preload resource
      */
-    private onResourceProgress(event: RES.ResourceEvent): void {
-        if (event.groupName == "preload") {
-            this.loadingScene.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
-
-        }
+    private _onPreloadResourceProgress(event: RES.ResourceEvent): void {
+        this.loadingScene.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
     }
 }

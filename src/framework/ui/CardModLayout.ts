@@ -328,7 +328,7 @@ module LC {
         * @param value       牌值
         */
         private _createHandCard(direction: LC.Directions, value: number, state: LC.CardState) {
-            //白鹭的group加了布局后不允许改动其位置，没法实现弹起的效果，真是讨厌，这里加个group
+            //白鹭的group加了布局后不允许改动其位置，没法实现弹起的效果，这里加个group
             let cardContainer = new eui.Group();//注意不要设置其大小，group才会根据子节点的大小来自适应
             cardContainer.y = 0;
             (direction == LC.Directions.Down && state == LC.CardState.Stand) && cardContainer.addEventListener(egret.TouchEvent.TOUCH_TAP, this._handCardHandler, this);

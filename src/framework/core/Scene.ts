@@ -23,8 +23,8 @@ module LC {
 		 * 组件创建完毕
 		 * 此方法仅在组件第一次添加到舞台时回调一次
 		*/
-		protected createChildren(): void {
-			super.createChildren();
+		protected childrenCreated(): void {
+			super.childrenCreated();
 			this._isRunning = true;
 		}
 
@@ -50,10 +50,15 @@ module LC {
 			// egret.Tween.get(this).to({x:this.stage.width*1.5 }, 0, egret.Ease.backInOut).to({x:0 }, 600, egret.Ease.sineInOut);
 		}
 
-		// 退出层而且开始过渡动画时调用       
+
+		// 退出层而且开始过渡动画完成时调用       
 		public onExitTransitionDidStart() {
 			// console.log(this.TAG + " onExitTransitionDidStart");
 			// egret.Tween.get(this).to({x:-this.stage.width}, 0, egret.Ease.backInOut);
+		}
+
+		protected unLoadAsset(){
+			console.log(this.TAG + " unLoadAsset");
 		}
 
 		/**
@@ -63,6 +68,7 @@ module LC {
 		private onDestroy() {
 			// console.log(this.TAG + " onDestroy");
 			this.removeChildren();
+			this.unLoadAsset();
 		}
 	}
 }

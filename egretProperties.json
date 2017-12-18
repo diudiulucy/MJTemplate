@@ -1,34 +1,49 @@
 {
-  "native": {
-    "path_ignore": []
-  },
-  "publish": {
-    "web": 0,
-    "native": 1,
-    "path": "bin-release"
-  },
-  "egret_version": "4.0.3",
-  "modules": [
-    {
-      "name": "egret"
-    },
-    {
-      "name": "eui"
-    },
-    {
-      "name": "res"
-    },
-    {
-      "name": "tween"
-    },
-    {
-      "name": "game"
-    },
-    {
+	"native": {
+		"path_ignore": []
+	},
+	"publish": {
+		"web": 0,
+		"native": 1,
+		"path": "bin-release"
+	},
+	"egret_version": "5.0.14",
+	"eui": {
+		"exmlRoot": [
+			"resource/eui_skins",
+			"resource/views"
+		],
+		"themes": [
+			"resource/default.thm.json"
+		],
+		"exmlPublishPolicy": "content"
+	},
+	"modules": [
+		{
+			"name": "egret"
+		},
+		{
+			"name": "eui"
+		},
+		{
+			"name": "res"
+		},
+		{
+			"name": "tween"
+		},
+		{
+			"name": "game"
+		},
+		{
 			"name": "socket"
-		},{
+		},
+		{
 			"name": "cryptoJS",
-			"path": "modules/cryptoJS"
+			"path": "../lib_src/cryptoJS"
+		},
+		{
+			"name": "promise",
+			"path": "./promise"
 		}
-  ]
+	]
 }

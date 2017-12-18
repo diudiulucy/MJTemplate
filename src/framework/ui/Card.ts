@@ -52,6 +52,8 @@ module LC {
         private fallDown: eui.Image;
         private standDown: eui.Image;
 
+        private bg:eui.Image;
+
         //card的可供访问的类属性
         public value: number;
         public direction: number;
@@ -92,9 +94,9 @@ module LC {
          */
         private _getValueImageURL(direction: LC.Directions, cardState: LC.CardState, value: number): string {
             if (cardState == LC.CardState.Fall) {
-                return "card_small_" + value + "_png";
+                return "cards_json.card_small_" + value ;
             } else {
-                return "card_big_" + value + "_png";
+                return "cards_json.card_big_" + value ;
             }
 
         }
