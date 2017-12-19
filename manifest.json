@@ -39,7 +39,7 @@
 		"bin-debug/framework/utils/CryptoUtils.js",
 		"bin-debug/framework/utils/EffectUtils.js",
 		"bin-debug/framework/utils/ResUtil.js",
-		"bin-debug/MJGame/views/popups/hall/SelectRoom.js",
+		"bin-debug/framework/adapter/AssetAdapter.js",
 		"bin-debug/MJGame/controller/game/GameLayerController.js",
 		"bin-debug/MJGame/controller/game/comp/ActHandlerController.js",
 		"bin-debug/MJGame/controller/hall/HallLayerController.js",
@@ -67,6 +67,6 @@
 		"bin-debug/MJGame/views/login/LoginLayer.js",
 		"bin-debug/MJGame/views/popups/game/GameResult.js",
 		"bin-debug/MJGame/views/popups/hall/JoinRoom.js",
-		"bin-debug/framework/adapter/AssetAdapter.js"
+		"bin-debug/MJGame/views/popups/hall/SelectRoom.js"
 	]
 }

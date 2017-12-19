@@ -94,6 +94,12 @@ var Main = (function (_super) {
     };
     Main.prototype._onResourceLoadingComplete = function (event) {
         this.parent.removeChild(this);
+        function identi(arg) {
+            console.log(arg.length);
+            return arg;
+        }
+        var output = identi([1, 2, 3]);
+        console.log(output);
         //设置加载进度界面
         this.loadingScene = new LC.LoadingScene();
         LC.SceneManager.Instance.runWithScene(this.loadingScene);

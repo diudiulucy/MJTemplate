@@ -38,8 +38,8 @@ module LC {
 
         private onLoginClick() {
             //   LC.Tips.show("\u7528\u6237\u5728\u5176\u4ed6\u684c\u5b50\u4e2d");
-            // this._ctrl.sendDebugLoginReq(this.edit_name.text, this.edit_psw.text);
-            LC.Tips.show(LC.ErrorCodeManager.Instance.getErrorCode(1001));
+            this._ctrl.sendDebugLoginReq(this.edit_name.text, this.edit_psw.text);
+            // LC.Tips.show(LC.ErrorCodeManager.Instance.getErrorCode(1001));
         }
 
 
