@@ -6,8 +6,7 @@
 module LC {
 	export class Tips extends Single{
 		private _pool:Array<TipItem> = [];
-		private _queue:Array<number> = [];
-		
+	
 		//为方便提示，加入此接口
         public static get Instance(): Tips {
             return this.getInstance();
@@ -22,18 +21,17 @@ module LC {
 			let item:TipItem = this._pool.length > 0 ? this._pool.pop() : new TipItem;
 			item.text = msg;
 			item.alpha = 0;
-			var ty:number = stage.stageHeight/2 - 200;
-			item.verticalCenter = ty;
-			item.scaleX = item.scaleY = 1.2;
+			var ty:number = stage.stageHeight/2 -200;
+			
 			egret.MainContext.instance.stage.addChild(item);
 
-			let time:number = this._pool.length > 0 ? 1500:0;
-			this._queue.push(1);
+			let time:number = this._pool.length > 0 ? 1000:0;
+		
 			egret.Tween.get(item).wait(time).to({y:ty-100,alpha:1,scaleX:1,scaleY:1},500,egret.Ease.quadOut)
-								 .wait(1500).to({y:ty-180,alpha:0},500,egret.Ease.quadIn).call((target)=>{
+								 .wait(1000).to({y:ty-180,alpha:0},500,egret.Ease.quadIn).call((target)=>{
 									 stage.removeChild(target);
 									 this._pool.push(target);
-									 this._queue.pop();
+								
 								 },this,[item])
 		}
 	}
@@ -50,7 +48,6 @@ module LC {
 		private _init(){
 			this.width = egret.MainContext.instance.stage.stageWidth;
 			this._group = new eui.Group();
-			this._group.horizontalCenter = 0;
 			this.addChild(this._group);
 
 			this._txt = new eui.Label();
@@ -76,6 +73,10 @@ module LC {
 			this._group.height = this._bg.height; 
 			this._txt.horizontalCenter = 0;
 			this._txt.y = (this._group.height - this._txt.height);
+
+			this._group.anchorOffsetX = this._group.width /2;
+			this._group.horizontalCenter = 0;
+			this.validateNow();
 				
 		}
 	}

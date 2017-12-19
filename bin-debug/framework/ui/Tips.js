@@ -23,7 +23,6 @@ var LC;
         function Tips() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this._pool = [];
-            _this._queue = [];
             return _this;
         }
         Object.defineProperty(Tips, "Instance", {
@@ -44,16 +43,12 @@ var LC;
             item.text = msg;
             item.alpha = 0;
             var ty = stage.stageHeight / 2 - 200;
-            item.verticalCenter = ty;
-            item.scaleX = item.scaleY = 1.2;
             egret.MainContext.instance.stage.addChild(item);
-            var time = this._pool.length > 0 ? 1500 : 0;
-            this._queue.push(1);
+            var time = this._pool.length > 0 ? 1000 : 0;
             egret.Tween.get(item).wait(time).to({ y: ty - 100, alpha: 1, scaleX: 1, scaleY: 1 }, 500, egret.Ease.quadOut)
-                .wait(1500).to({ y: ty - 180, alpha: 0 }, 500, egret.Ease.quadIn).call(function (target) {
+                .wait(1000).to({ y: ty - 180, alpha: 0 }, 500, egret.Ease.quadIn).call(function (target) {
                 stage.removeChild(target);
                 _this._pool.push(target);
-                _this._queue.pop();
             }, this, [item]);
         };
         return Tips;
@@ -71,7 +66,6 @@ var LC;
         TipItem.prototype._init = function () {
             this.width = egret.MainContext.instance.stage.stageWidth;
             this._group = new eui.Group();
-            this._group.horizontalCenter = 0;
             this.addChild(this._group);
             this._txt = new eui.Label();
             this._txt.size = 26;
@@ -93,6 +87,9 @@ var LC;
                 this._group.height = this._bg.height;
                 this._txt.horizontalCenter = 0;
                 this._txt.y = (this._group.height - this._txt.height);
+                this._group.anchorOffsetX = this._group.width / 2;
+                this._group.horizontalCenter = 0;
+                this.validateNow();
             },
             enumerable: true,
             configurable: true
