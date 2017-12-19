@@ -21,7 +21,10 @@ var LC;
     var Tips = (function (_super) {
         __extends(Tips, _super);
         function Tips() {
-            return _super !== null && _super.apply(this, arguments) || this;
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this._pool = [];
+            _this._queue = [];
+            return _this;
         }
         Object.defineProperty(Tips, "Instance", {
             //为方便提示，加入此接口
@@ -31,32 +34,27 @@ var LC;
             enumerable: true,
             configurable: true
         });
-        Tips.prototype.setLayer = function (layer) {
-            this._layer = layer;
-            this._pool = [];
-            this._queue = [];
-        };
         Tips.show = function (msg) {
             Tips.Instance._initView(msg);
         };
         Tips.prototype._initView = function (msg) {
+            var _this = this;
+            var stage = egret.MainContext.instance.stage;
             var item = this._pool.length > 0 ? this._pool.pop() : new TipItem;
             item.text = msg;
-            item.horizontalCenter = 0;
-            // item.alpha = 0;
-            item.x = (this._layer.stage.stageHeight) / 2;
-            // var ty:number = this._layer.stage.stageHeight/2 - 200;
-            // item.y = ty;
-            // item.scaleX = item.scaleY = 1.2;
-            this._layer.addChild(item);
-            // let time:number = this._pool.length > 0 ? 1500:0;
-            // this._queue.push(1);
-            // egret.Tween.get(item).wait(time).to({y:ty-100,alpha:1,scaleX:1,scaleY:1},500,egret.Ease.quadOut)
-            // 					 .wait(1500).to({y:ty-180,alpha:0},500,egret.Ease.quadIn).call((target)=>{
-            // 						 this._layer.removeChild(target);
-            // 						 this._pool.push(target);
-            // 						 this._queue.pop();
-            // 					 },this,[item])
+            item.alpha = 0;
+            var ty = stage.stageHeight / 2 - 200;
+            item.verticalCenter = ty;
+            item.scaleX = item.scaleY = 1.2;
+            egret.MainContext.instance.stage.addChild(item);
+            var time = this._pool.length > 0 ? 1500 : 0;
+            this._queue.push(1);
+            egret.Tween.get(item).wait(time).to({ y: ty - 100, alpha: 1, scaleX: 1, scaleY: 1 }, 500, egret.Ease.quadOut)
+                .wait(1500).to({ y: ty - 180, alpha: 0 }, 500, egret.Ease.quadIn).call(function (target) {
+                stage.removeChild(target);
+                _this._pool.push(target);
+                _this._queue.pop();
+            }, this, [item]);
         };
         return Tips;
     }(LC.Single));
@@ -71,7 +69,9 @@ var LC;
             return _this;
         }
         TipItem.prototype._init = function () {
+            this.width = egret.MainContext.instance.stage.stageWidth;
             this._group = new eui.Group();
+            this._group.horizontalCenter = 0;
             this.addChild(this._group);
             this._txt = new eui.Label();
             this._txt.size = 26;

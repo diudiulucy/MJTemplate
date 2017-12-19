@@ -113,7 +113,7 @@ class Main extends eui.UILayer {
             // this.stage.dirtyRegionPolicy = egret.DirtyRegionPolicy.OFF;
             let loginScene = new LC.LoginScene();
             LC.SceneManager.Instance.replaceScene(loginScene);
-            LC.Tips.Instance.setLayer(egret.MainContext.instance.stage);
+            // LC.Tips.Instance.setLayer(egret.MainContext.instance.stage);
             
             // let gameScene = new LC.GameScene();
             // LC.SceneManager.Instance.replaceScene(gameScene);

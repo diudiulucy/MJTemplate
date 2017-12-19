@@ -112,7 +112,7 @@ var Main = (function (_super) {
             // this.stage.dirtyRegionPolicy = egret.DirtyRegionPolicy.OFF;
             var loginScene = new LC.LoginScene();
             LC.SceneManager.Instance.replaceScene(loginScene);
-            LC.Tips.Instance.setLayer(egret.MainContext.instance.stage);
+            // LC.Tips.Instance.setLayer(egret.MainContext.instance.stage);
             // let gameScene = new LC.GameScene();
             // LC.SceneManager.Instance.replaceScene(gameScene);
         }
