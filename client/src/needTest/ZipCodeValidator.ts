@@ -7,6 +7,6 @@ class ZipCodeValidator implements StringValidator {
 }
 
 
-// export { ZipCodeValidator };
-// export { ZipCodeValidator as mainValidator };
-export = ZipCodeValidator;
+export { ZipCodeValidator };
+export { ZipCodeValidator as mainValidator };
+// export = ZipCodeValidator;

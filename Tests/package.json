@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -r ./node_modules/ts-node/register src/*.ts"
+    "test": "mocha  -r ./node_modules/ts-node/register --reporter mochawesome src/*.ts"
   },
   "author": "lucywang",
   "license": "MIT",
@@ -13,8 +13,14 @@
     "@types/mocha": "^2.2.44",
     "chai": "^4.1.2",
     "mocha": "^4.0.1",
+    "reporter": "^0.1.0",
     "ts-node": "^4.0.2",
     "typescript": "^2.6.2",
     "typings": "^2.1.1"
+  },
+  "devDependencies": {
+    "@types/mockjs": "^1.0.0",
+    "mochawesome": "^3.0.1",
+    "mockjs": "^1.0.1-beta3"
   }
 }
