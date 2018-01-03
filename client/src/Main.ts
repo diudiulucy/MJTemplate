@@ -93,16 +93,18 @@ class Main extends eui.UILayer {
     private _onResourceLoadingComplete(event: RES.ResourceEvent) {
         this.parent.removeChild(this);
 
-        interface Lengthwise {
-            length: number;
-        }
-        function identi<A extends Lengthwise>(arg: A): A {
-            console.log(arg.length);
-            return arg;
-        }
+        // interface Lengthwise {
+        //     length: number;
+        // }
+        // function identi<A extends Lengthwise>(arg: A): A {
+        //     console.log(arg.length);
+        //     return arg;
+        // }
 
-        let output = identi([1,2,3]);
-        console.log(output);
+        // let output = identi([1,2,3]);
+        // console.log(output);
+
+        
 
         //设置加载进度界面
         this.loadingScene = new LC.LoadingScene();
